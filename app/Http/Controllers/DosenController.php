@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dosen;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class DosenController extends Controller
@@ -21,7 +22,7 @@ class DosenController extends Controller
      */
     public function create()
     {
-        //
+        return view("dosen.create");
     }
 
     /**
@@ -29,7 +30,15 @@ class DosenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            // tambahkan validasi lainnya sesuai kebutuhan
+        ]);
+
+        Mahasiswa::create($data);
+
+        return redirect('dosen.create');
     }
 
     /**
