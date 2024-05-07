@@ -17,7 +17,7 @@ class MahasiswaFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => UserFactory::new()->create()->id,
+            'user_id' => UserFactory::new()->create(['role' => 'mahasiswa'])->id,
             'dosen_id' => DosenFactory::new()->create()->id,
             'name' => fake()->name(),
             'nim' => fake()->unique()->randomNumber(9),

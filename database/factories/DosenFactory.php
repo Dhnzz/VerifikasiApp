@@ -19,7 +19,7 @@ class DosenFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' =>  UserFactory::new()->create()->id,
+            'user_id' =>  UserFactory::new()->create(['role' => 'dosen'])->id,
             'name' => fake()->name(),
             'nidn' => fake()->unique()->randomNumber(9),
         ];
