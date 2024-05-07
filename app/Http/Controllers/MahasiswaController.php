@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller`
+class MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class MahasiswaController extends Controller`
     public function index()
     {
         $data = Mahasiswa::get();
-        return view("mahasiswa.index", compact("data"));
+        return view('mahasiswa.index', compact('data'));
     }
 
     /**

@@ -19,8 +19,8 @@ class Mahasiswa extends Model
         "batch"
     ];
 
-    function User() : HasOne {
-        return $this->hasOne(User::class);
+    function User() : BelongsTo {
+        return $this->belongsTo(User::class);
     }
 
     function Dosen(): BelongsTo {

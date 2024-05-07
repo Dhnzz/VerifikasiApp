@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,7 +18,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -47,12 +45,12 @@ class User extends Authenticatable
         ];
     }
 
-    function Mahasiswa(): BelongsTo {
-        return $this->belongsTo(Mahasiswa::class);
+    function Mahasiswa(): HasOne {
+        return $this->hasOne(Mahasiswa::class);
     }
 
-    function Dosen(): BelongsTo {
-        return $this->belongsTo(Dosen::class);
+    function Dosen(): HasOne {
+        return $this->hasOne(Dosen::class);
     }
 
     function Role(): HasOne {
