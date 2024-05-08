@@ -12,7 +12,8 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        //
+        $data = Periode::all();
+        return view('periode.index', compact('data'));
     }
 
     /**
@@ -20,7 +21,7 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-        //
+        return view('periode.create');
     }
 
     /**
@@ -28,7 +29,14 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dummy = [
+            'Mei 2024',
+            '2024-05-08',
+            '2024-05-31',
+            1
+        ];
+        Periode::create($dummy);
+        return redirect()->route('periode.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**

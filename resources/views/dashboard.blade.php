@@ -1,7 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            {{-- {{ __('Dashboard Admin') }}  --}}
+            @switch(Auth::user()->role)
+                @case('admin')
+                    {{ __('Dashboard Admin') }}
+                @break
+
+                @case('dosen')
+                    {{ __('Dashboard Dosen') }}
+                @break
+
+                @case('mahasiswa')
+                    {{ __('Dashboard Mahasiswa') }}
+                @break
+
+                @default
+                    {{ __('Dashboard') }}
+            @endswitch
         </h2>
     </x-slot>
 
