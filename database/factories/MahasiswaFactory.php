@@ -21,7 +21,7 @@ class MahasiswaFactory extends Factory
             'dosen_id' => DosenFactory::new()->create()->id,
             'name' => fake()->name(),
             'nim' => fake()->unique()->randomNumber(9),
-            'batch' => fake()->randomNumber(4),
+            'angkatan' => fake()->randomNumber(4),
         ];
     }
 }

@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('berkas', function (Blueprint $table) {
+        Schema::create('template_berkas', function (Blueprint $table) {
             $table->id();
-            $table->string("mahasiswa_id");
-            $table->integer("item_berkas_id");
-            $table->string("name");
-            $table->string("status");
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('berkas');
+        Schema::dropIfExists('template_berkas');
     }
 };

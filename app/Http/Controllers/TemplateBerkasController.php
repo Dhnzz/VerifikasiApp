@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use App\Models\TemplateBerkas;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class TemplateBerkasController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return 'jjj';
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Role $role)
+    public function show(TemplateBerkas $templateBerkas)
     {
         //
     }
@@ -42,7 +42,7 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Role $role)
+    public function edit(TemplateBerkas $templateBerkas)
     {
         //
     }
@@ -50,7 +50,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, TemplateBerkas $templateBerkas)
     {
         //
     }
@@ -58,7 +58,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Role $role)
+    public function destroy(TemplateBerkas $templateBerkas)
     {
         //
     }
