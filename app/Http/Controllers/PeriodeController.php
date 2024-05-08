@@ -47,8 +47,8 @@ class PeriodeController extends Controller
      */
     public function edit(Periode $id)
     {
-       $periode = Periode::findOrFail($id);
-       return view('periode.edit', compact('periode'));
+        $periode = Periode::findOrFail($id);
+        return view('periode.edit', compact('periode'));
     }
 
     /**
@@ -57,7 +57,7 @@ class PeriodeController extends Controller
     public function update(Request $request, Periode $id)
     {
         $periode = Periode::findOrFail($id);
-        $priode->update($request->all()) ;
+        $periode->update($request->all());
         return redirect()->route('periode.edit')->with('success', 'Data periode berhasil diubah!');
     }
 

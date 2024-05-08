@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Berkas;
 use Illuminate\Http\Request;
 
+
 class BerkasController extends Controller
 {
     /**
@@ -12,7 +13,8 @@ class BerkasController extends Controller
      */
     public function index()
     {
-        //
+        $data = Berkas::all();
+        return view('berkas.index', compact('data'));
     }
 
     /**
@@ -20,7 +22,7 @@ class BerkasController extends Controller
      */
     public function create()
     {
-        //
+        return  view('berkas.create');
     }
 
     /**
@@ -28,38 +30,45 @@ class BerkasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Berkas::create($request->all());
+        return redirect()->route('berkas.index')->with('success', 'Data berkas berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Berkas $berkas)
+    public function show(Berkas $id)
     {
-        //
+        $berka = Berkas::findOrFail($id);
+        return view('berkas.show', compact("berka"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Berkas $berkas)
+    public function edit(Berkas $id)
     {
-        //
+        $berka = Berkas::findOrFail($id);
+        return view('berkas.edit', compact("berka"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Berkas $berkas)
+    public function update(Request $request, Berkas $id)
     {
-        //
+        $berka = Berkas::findOrFail($id);
+        $berka->update($request->all());
+        return redirect()->route('berkas.index')->with('success', 'Data berkas berhasil diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Berkas $berkas)
+    public function destroy(Berkas $id)
     {
-        //
+        $berka = Berkas::findOrFail($id);
+        $berka->delete();
+        return redirect()->route('berkas.index')->with('success', 'Data berkas berhasil dihapus!');
     }
 }

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TemplateBerkas extends Model
 {
@@ -12,11 +14,13 @@ class TemplateBerkas extends Model
         'nama',
     ];
 
-    function Periode() : BelongsTo {
+    function Periode(): BelongsTo
+    {
         return $this->belongsTo(Periode::class);
     }
 
-    function ItemBerkas() : HasMany {
+    function ItemBerkas(): HasMany
+    {
         return $this->hasMany(ItemBerkas::class);
     }
 }

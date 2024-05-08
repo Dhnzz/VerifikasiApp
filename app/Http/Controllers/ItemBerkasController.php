@@ -12,7 +12,8 @@ class ItemBerkasController extends Controller
      */
     public function index()
     {
-        //
+        $data = ItemBerkas::all();
+        return view('itmberkas.index', compact('data'));
     }
 
     /**
@@ -20,7 +21,7 @@ class ItemBerkasController extends Controller
      */
     public function create()
     {
-        //
+        return  view('itmberkas.create');
     }
 
     /**
@@ -28,38 +29,46 @@ class ItemBerkasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        ItemBerkas::create($request->all());
+        return redirect()->route('itmberkas.index')->with('success', 'Data item berkas berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ItemBerkas $itemBerkas)
+    // public function show(ItemBerkas $itemBerkas)
+    public function show(ItemBerkas $id)
     {
-        //
+        $itmberka = ItemBerkas::findOrFail($id);
+        return view('itmberkas.show', compact("itmberka"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ItemBerkas $itemBerkas)
+    public function edit(ItemBerkas $id)
     {
-        //
+        $itmberka = ItemBerkas::findOrFail($id);
+        return view('itmberkas.edit', compact("itmberka"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ItemBerkas $itemBerkas)
+    public function update(Request $request, ItemBerkas $id)
     {
-        //
+        $itmberka = ItemBerkas::findOrFail($id);
+        $itmberka->update($request->all());
+        return redirect()->route('itmberkas.index')->with('success', 'Data item berkas berhasil diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ItemBerkas $itemBerkas)
+    public function destroy(ItemBerkas $id)
     {
-        //
+        $itmberka = ItemBerkas::findOrFail($id);
+        $itmberka->delete();
+        return redirect()->route('itmberkas.index')->with('success', 'Data item berkas berhasil dihapus!');
     }
 }
