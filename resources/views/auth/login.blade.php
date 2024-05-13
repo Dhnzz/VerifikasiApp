@@ -2,8 +2,8 @@
 
 @section('main')
 <section class="flex h-screen">
-    <div class="flex-[1] bg-color-primary-500 flex items-center justify-center">
-        <img src="/illustration/growth assistance.png" alt="" class="w-80">
+    <div class="flex-[1] hidden bg-color-primary-500 lg:flex items-center justify-center">
+        <img src="/illustration/Data-report.png" alt="" class="w-80">
     </div>
     <div class="flex-[1] bg-white flex flex-col justify-center items-center gap-y-2">
         <h1 class="text-3xl font-semibold">Selamat Datang!</h1>
@@ -21,16 +21,14 @@
                 <input type="password" id="large-input"
                     class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
-            <div class="flex flex-col gap-y-4">
+            <div class="flex flex-col gap-y-2">
                 <x-button_lg color="primary" class="w-full ">
                 Masuk
             </x-button_lg>
-            <x-button_lg color="primary-outlined" class="w-full ">
+            <x-button_lg color="danger-outlined" class="w-full ">
                 Daftar
             </x-button_lg>
             </div>
-            
-
         </form>
     </div>
 </section>
