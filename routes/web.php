@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{ProfileController, PeriodeController, DosenController};
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+    
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -25,6 +25,16 @@ Route::prefix('periode')->group(function () {
     Route::get('/edit/{id}' , [PeriodeController::class, 'edit'])->name('periode.edit');
     Route::put('/update/{id}' , [PeriodeController::class, 'udpate'])->name('periode.update');
     Route::delete('/delete/{id}' , [PeriodeController::class, 'delete'])->name('periode.delete');
+});
+
+Route::prefix('dosen')->group(function () {
+    Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
+    Route::get('/show/{id}', [DosenController::class, 'show'])->name('dosen.show');
+    Route::get('/create', [DosenController::class, 'create'])->name('dosen.create');
+    Route::post('/store', [DosenController::class, 'store'])->name('dosen.store');
+    Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
+    Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update'); // Memperbaiki typo 'udpate' menjadi 'update'
+    Route::delete('/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy'); // Mengganti 'delete' dengan 'destroy' untuk konsistensi dengan method di controller
 });
 
 require __DIR__.'/auth.php';
