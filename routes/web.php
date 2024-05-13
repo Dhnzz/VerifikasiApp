@@ -18,6 +18,9 @@ Route::get('/browse_period', function () {
 Route::get('/period_details', function () {
     return view('admin.dosen.period_details');
 });
+Route::get('/dosen_form', function () {
+    return view('admin.superadmin.dosen_form');
+});
 Route::get('/sample', function () {
     return view('admin.dosen.sample');
 });
