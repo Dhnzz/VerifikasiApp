@@ -9,6 +9,9 @@ Route::get('/student_dashboard', function () {
 Route::get('/verificator_dashboard', function () {
     return view('admin.verificator.dashboard_verificator');
 });
+Route::get('/login', function () {
+    return view('auth.login');
+});
 
 
 Route::get('/dashboard', function () {

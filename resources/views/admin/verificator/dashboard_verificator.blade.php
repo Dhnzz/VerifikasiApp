@@ -2,6 +2,8 @@
 
 @section('main')
 <section>
-  <div>verificator</div>
+  <x-buttonlg :color="primary" />
+  Click Me
+  </x-buttonlg>
 </section>
 @endsection
