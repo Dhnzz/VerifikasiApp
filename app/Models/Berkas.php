@@ -12,11 +12,15 @@ class Berkas extends Model
 
     protected $fillable = [
         "mahasiswa_id",
-        "name",
+        "item_berkas_id",
         "status"
     ];
 
     function Mahasiswa(): BelongsTo {
         return $this->belongsTo(Mahasiswa::class);
+    }
+
+    function ItemBerkas() : HasOne {
+        return $this->hasOne(ItemBerkas::class);
     }
 }

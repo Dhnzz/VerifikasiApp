@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string("dosen_id");
             $table->string("name");
             $table->string("nim");
-            $table->string("batch");
+            $table->string("angkatan");
             $table->timestamps();
         });
     }
