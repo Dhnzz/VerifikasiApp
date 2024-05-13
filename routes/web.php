@@ -6,11 +6,20 @@ use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/student_dashboard', function () {
+Route::get('/dashboard_admin', function () {
+    return view('admin.superadmin.dashboard_superadmin');
+});
+Route::get('/dashboard_student', function () {
     return view('admin.student.dashboard_student');
 });
-Route::get('/verificator_dashboard', function () {
-    return view('admin.verificator.dashboard_verificator');
+Route::get('/browse_period', function () {
+    return view('admin.student.browse_period');
+});
+Route::get('/period_details', function () {
+    return view('admin.dosen.period_details');
+});
+Route::get('/sample', function () {
+    return view('admin.dosen.sample');
 });
 Route::get('/login', function () {
     return view('auth.login');
