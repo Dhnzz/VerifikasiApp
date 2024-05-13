@@ -12,12 +12,17 @@ $colorClasses = [
 'success-dark' => 'text-slate-800 bg-color-success-500 hover:bg-color-success-600 focus:ring-4 focus:ring-color-success-400',
 'danger-dark' => 'text-slate-800 bg-color-danger-500 hover:bg-color-danger-600 focus:ring-4 focus:ring-color-danger-400',
 'info-dark' => 'text-slate-800 bg-color-info-500 hover:bg-color-info-600 focus:ring-4 focus:ring-color-info-400',
+'primary-outlined' => 'text-color-primary-500 bg-white border border-color-primary-500 hover:bg-color-primary-500 hover:text-white',
+'warning-outlined' => 'text-color-warning-500 bg-white border border-color-warning-500 hover:bg-color-warning-500 hover:text-white',
+'success-outlined' => 'text-color-success-500 bg-white border border-color-success-500 hover:bg-color-success-500 hover:text-white',
+'danger-outlined' => 'text-color-danger-500 bg-white border border-color-danger-500 hover:bg-color-danger-500 hover:text-white',
+'info-outlined' => 'text-color-info-500 bg-white border border-color-info-500 hover:bg-color-info-500 hover:text-white',
 // tambahkan definisi warna lain di sini sesuai kebutuhan Anda
 ];
 
 $class = $colorClasses[$color] ?? 'text-slate-800 bg-white hover:bg-gray-100';
 @endphp
 
-<button type="button" {{ $attributes->merge(['class' => 'px-5 py-3 text-base font-medium text-center rounded-xl ' . $class]) }}>
+<button type="button" {{ $attributes->merge(['class' => 'px-5 py-3 text-base font-medium text-center rounded-xl transition-color duration-300 ' . $class]) }}>
     {{ $slot }}
 </button>
