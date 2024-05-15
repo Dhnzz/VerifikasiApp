@@ -119,13 +119,56 @@
           </span>
           <p class="text-sm font-semibold">Surat Makan Ketiak</p>
         </div>
-        
       </div>
     </div>
-    <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
-      <div class="col-span-12 flex flex-col gap-y-2">
-        <h4 class="text-xl font-semibold">Lokasi Kegiatan</h4>
-        <p class="text-sm">Kamu akan mengikuti kegiatan dari tanggal 14 Agu - 31 Des 2023.</p>
+    <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow ">
+      <div class="flex items-center gap-x-4">
+        <div class="flex gap-x-2">
+          <div class="flex flex-col items-center justify-center">
+            <span
+              class=" inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-white bg-color-danger-500 rounded-full ">
+              <i class="fas fa-times text-lg"></i>
+            </span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex gap-x-2 items-center text-color-danger-500">
+            <span class=""><i class="fas fa-marker text-sm"></i></span>
+            <p class="text-sm font-semibold">Belum Dibuat</p>
+          </div>
+          <p class="font-semibold">Surat Keterangan Tidak Mampu</p>
+        </div>
+      </div>
+      <hr class="mt-4 mb-4">
+      <div class="flex flex-col justify-center items-start">
+        <x-button_md color="primary-disabled">
+          Lihat Berkas
+        </x-button_md>
+      </div>
+    </div>
+    <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow ">
+      <div class="flex items-center gap-x-4">
+        <div class="flex gap-x-2">
+          <div class="flex flex-col items-center justify-center">
+            <span
+              class=" inline-flex items-center justify-center w-12 h-12 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
+              <i class="fas fa-check text-lg"></i>
+            </span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex gap-x-2 items-center text-color-success-500">
+            <span class=""><i class="fas fa-marker text-sm"></i></span>
+            <p class="text-sm font-semibold">Selesai Dibuat</p>
+          </div>
+          <p class="font-semibold">Surat Keterangan Tidak Mampu</p>
+        </div>
+      </div>
+      <hr class="mt-4 mb-4">
+      <div class="flex flex-col justify-center items-start">
+        <x-button_md color="primary">
+          Lihat Berkas
+        </x-button_md>
       </div>
     </div>
   </div>
