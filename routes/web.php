@@ -1,11 +1,34 @@
 <?php
 
-use App\Http\Controllers\{ProfileController, PeriodeController, DosenController};
+use App\Http\Controllers\BerkasController;
+use App\Http\Controllers\DosenController;
+use App\Http\Controllers\ItemBerkasController;
+use App\Http\Controllers\PeriodeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-    
-// });
+Route::get('/dashboard_admin', function () {
+    return view('admin.superadmin.dashboard_superadmin');
+});
+Route::get('/dashboard_student', function () {
+    return view('admin.student.dashboard_student');
+});
+Route::get('/browse_period', function () {
+    return view('admin.student.browse_period');
+});
+Route::get('/period_details', function () {
+    return view('admin.dosen.period_details');
+});
+Route::get('/dosen_form', function () {
+    return view('admin.superadmin.dosen_form');
+});
+Route::get('/sample', function () {
+    return view('admin.dosen.sample');
+});
+Route::get('/login', function () {
+    return view('auth.login');
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -18,14 +41,19 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::prefix('periode')->group(function () {
-    Route::get('/' , [PeriodeController::class, 'index'])->name('periode.index');
-    Route::get('/show/{id}' , [PeriodeController::class, 'show'])->name('periode.show');
-    Route::get('/create' , [PeriodeController::class, 'create'])->name('periode.create');
-    Route::post('/store' , [PeriodeController::class, 'store'])->name('periode.store');
-    Route::get('/edit/{id}' , [PeriodeController::class, 'edit'])->name('periode.edit');
-    Route::put('/update/{id}' , [PeriodeController::class, 'udpate'])->name('periode.update');
-    Route::delete('/delete/{id}' , [PeriodeController::class, 'delete'])->name('periode.delete');
+    Route::get('/', [PeriodeController::class, 'index'])->name('periode.index');
+    Route::get('/show/{id}', [PeriodeController::class, 'show'])->name('periode.show');
+    Route::get('/create', [PeriodeController::class, 'create'])->name('periode.create');
+    Route::post('/store', [PeriodeController::class, 'store'])->name('periode.store');
+    Route::get('/edit/{id}', [PeriodeController::class, 'edit'])->name('periode.edit');
+    Route::put('/update/{id}', [PeriodeController::class, 'udpate'])->name('periode.update');
+    Route::delete('/delete/{id}', [PeriodeController::class, 'delete'])->name('periode.delete');
 });
+
+
+Route::resource('/berkas', BerkasController::class);
+Route::resource('/itmberkas', ItemBerkasController::class);
+
 
 Route::prefix('dosen')->group(function () {
     Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
@@ -37,4 +65,4 @@ Route::prefix('dosen')->group(function () {
     Route::delete('/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy'); // Mengganti 'delete' dengan 'destroy' untuk konsistensi dengan method di controller
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

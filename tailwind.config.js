@@ -1,21 +1,61 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
-
 /** @type {import('tailwindcss').Config} */
 export default {
-    content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
-    ],
-
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
-        },
+  content: [
+    "./resources/**/*.blade.php",
+    "./resources/**/*.js",
+    "./resources/**/*.vue",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        "color-primary-100": "#D0FDFC",
+        "color-primary-200": "#A3F7FC",
+        "color-primary-300": "#74E7F7",
+        "color-primary-400": "#51D1F0",
+        "color-primary-500": "#1BB1E6",
+        "color-primary-600": "#138AC5",
+        "color-primary-700": "#0D68A5",
+        "color-primary-800": "#084A85",
+        "color-primary-900": "#05356E",
+        "color-success-100": "#EEFCD1",
+        "color-success-200": "#D9F9A5",
+        "color-success-300": "#BAED75",
+        "color-success-400": "#99DB50",
+        "color-success-500": "#6CC41F",
+        "color-success-600": "#53A816",
+        "color-success-700": "#3C8D0F",
+        "color-success-800": "#297109",
+        "color-success-900": "#1C5E05",
+        "color-info-100": "#D7DEFF",
+        "color-info-200": "#B0BCFF",
+        "color-info-300": "#8899FF",
+        "color-info-400": "#6B7EFF",
+        "color-info-500": "#3A51FF",
+        "color-info-600": "#2A3CDB",
+        "color-info-700": "#1D2BB7",
+        "color-info-800": "#121C93",
+        "color-info-900": "#0B127A",
+        "color-warning-100": "#FFFACC",
+        "color-warning-200": "#FFF499",
+        "color-warning-300": "#FFEC66",
+        "color-warning-400": "#FFE43F",
+        "color-warning-500": "#FFD800",
+        "color-warning-600": "#DBB600",
+        "color-warning-700": "#B79500",
+        "color-warning-800": "#937600",
+        "color-warning-900": "#7A5F00",
+        "color-danger-100": "#FFE4D7",
+        "color-danger-200": "#FFC2AF",
+        "color-danger-300": "#FF9987",
+        "color-danger-400": "#FF7269",
+        "color-danger-500": "#FF383E",
+        "color-danger-600": "#DB283E",
+        "color-danger-700": "#B71C3C",
+        "color-danger-800": "#931138",
+        "color-danger-900": "#7A0A35"
+      }
     },
+  },
+  plugins: [],
+}
 
-    plugins: [forms],
-};
