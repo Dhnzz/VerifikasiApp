@@ -1,7 +1,7 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\BerkasController;
+use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ItemBerkasController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
@@ -26,14 +26,6 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-=======
-use App\Http\Controllers\{ProfileController, PeriodeController, DosenController};
-use Illuminate\Support\Facades\Route;
-
-// Route::get('/', function () {
-    
-// });
->>>>>>> main
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -55,12 +47,11 @@ Route::prefix('periode')->group(function () {
     Route::delete('/delete/{id}', [PeriodeController::class, 'delete'])->name('periode.delete');
 });
 
-<<<<<<< HEAD
+
 Route::resource('/berkas', BerkasController::class);
 Route::resource('/itmberkas', ItemBerkasController::class);
 
-require __DIR__ . '/auth.php';
-=======
+
 Route::prefix('dosen')->group(function () {
     Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
     Route::get('/show/{id}', [DosenController::class, 'show'])->name('dosen.show');
@@ -71,5 +62,4 @@ Route::prefix('dosen')->group(function () {
     Route::delete('/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy'); // Mengganti 'delete' dengan 'destroy' untuk konsistensi dengan method di controller
 });
 
-require __DIR__.'/auth.php';
->>>>>>> main
+require __DIR__ . '/auth.php';
