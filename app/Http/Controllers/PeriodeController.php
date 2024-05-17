@@ -12,8 +12,8 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $data = Periode::all();
-        return view('periode.index', compact('data'));
+        $periode = Periode::all();
+        return view('periode.index', compact('periode'));
     }
 
     /**
@@ -29,23 +29,32 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        Periode::create($request->all());
-        return redirect()->route('periode.index')->with('success', 'Data periode berhasil ditambahkan!');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'tgl_mulai' => 'required|date',
+            'tgl_berakhir' => 'required|date|after:tgl_mulai',
+        ]);
+
+        Periode::create($validatedData);
+
+        return redirect()->route('periode.index')->with('success', 'Periode baru berhasil dibuat!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Periode $id)
+    public function show($id)
     {
         $periode = Periode::findOrFail($id);
-        return view('periode.show', compact('periode'));
+        $templateBerkas = $periode->templateBerkas;
+
+        return view('periode.show', compact('periode', 'templateBerkas'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Periode $id)
+    public function edit($id)
     {
         $periode = Periode::findOrFail($id);
         return view('periode.edit', compact('periode'));
@@ -54,17 +63,24 @@ class PeriodeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Periode $id)
+    public function update(Request $request, $id)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'tgl_mulai' => 'required|date',
+            'tgl_berakhir' => 'required|date|after:tgl_mulai',
+        ]);
+
         $periode = Periode::findOrFail($id);
-        $periode->update($request->all());
-        return redirect()->route('periode.edit')->with('success', 'Data periode berhasil diubah!');
+        $periode->update($validatedData);
+
+        return redirect()->route('periode.index')->with('success', 'Periode berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Periode $id)
+    public function destroy($id)
     {
         $periode = Periode::findOrFail($id);
         $periode->delete();
