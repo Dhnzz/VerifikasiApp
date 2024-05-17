@@ -12,8 +12,8 @@ class ItemBerkasController extends Controller
      */
     public function index()
     {
-        $data = ItemBerkas::all();
-        return view('itmberkas.index', compact('data'));
+        $itemBerkas = ItemBerkas::all();
+        return view('itemberkas.index', compact('itemBerkas'));
     }
 
     /**
@@ -21,7 +21,7 @@ class ItemBerkasController extends Controller
      */
     public function create()
     {
-        return  view('itmberkas.create');
+        return view('itemberkas.create');
     }
 
     /**
@@ -29,37 +29,49 @@ class ItemBerkasController extends Controller
      */
     public function store(Request $request)
     {
-        ItemBerkas::create($request->all());
-        return redirect()->route('itmberkas.index')->with('success', 'Data item berkas berhasil ditambahkan!');
+        $validatedData = $request->validate([
+            "name" => "required|string|max:255",
+            'template_berkas_id' => 'required|exists:template_berkas,id',
+        ]);
+
+        $itemBerkas = ItemBerkas::create($validatedData);
+        $itemBerkas->save();
+
+        return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
     // public function show(ItemBerkas $itemBerkas)
-    public function show(ItemBerkas $id)
+    public function show($id)
     {
-        $itmberka = ItemBerkas::findOrFail($id);
-        return view('itmberkas.show', compact("itmberka"));
+        $itemberkas = ItemBerkas::findOrFail($id);
+        return view('itemberkas.show', compact("itemberkas"));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ItemBerkas $id)
+    public function edit($id)
     {
-        $itmberka = ItemBerkas::findOrFail($id);
-        return view('itmberkas.edit', compact("itmberka"));
+        $itemberkas = ItemBerkas::findOrFail($id);
+        return view('itemberkas.show', compact("itemberkas"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ItemBerkas $id)
+    public function update(Request $request, $id)
     {
-        $itmberka = ItemBerkas::findOrFail($id);
-        $itmberka->update($request->all());
-        return redirect()->route('itmberkas.index')->with('success', 'Data item berkas berhasil diubah!');
+        $itemBerkas = ItemBerkas::findOrFail($id);
+        $validatedData = $request->validate([
+            "name" => "required|string|max:255",
+            'template_berkas_id' => 'required|exists:template_berkas,id',
+        ]);
+
+        $itemBerkas->update($validatedData);
+        return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil diubah!');
     }
 
     /**
@@ -69,6 +81,6 @@ class ItemBerkasController extends Controller
     {
         $itmberka = ItemBerkas::findOrFail($id);
         $itmberka->delete();
-        return redirect()->route('itmberkas.index')->with('success', 'Data item berkas berhasil dihapus!');
+        return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil dihapus!');
     }
 }

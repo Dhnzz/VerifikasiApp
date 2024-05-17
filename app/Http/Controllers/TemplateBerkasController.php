@@ -12,7 +12,8 @@ class TemplateBerkasController extends Controller
      */
     public function index()
     {
-        //
+        $tmpberkas = TemplateBerkas::all();
+        return view('template-berkas.index', compact('tmpberkas'));
     }
 
     /**
@@ -20,7 +21,7 @@ class TemplateBerkasController extends Controller
      */
     public function create()
     {
-        //
+        return view('template-berkas.create');
     }
 
     /**
@@ -28,38 +29,57 @@ class TemplateBerkasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            "name" => "required|string|max:255",
+        ]);
+
+        $tmpBerkas = TemplateBerkas::create($validatedData);
+        $tmpBerkas->save();
+
+        return redirect()->route('template-berkas.index')->with('success', 'Template Berkas berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(TemplateBerkas $templateBerkas)
+    public function show($id)
     {
-        //
+        $tmpBerkas = TemplateBerkas::findOrFail($id);
+        return view('template-berkas.show', compact('tmpBerkas'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(TemplateBerkas $templateBerkas)
+    public function edit($id)
     {
-        //
+        $tmpBerkas = TemplateBerkas::findOrFail($id);
+        return view('template-berkas.show', compact('tmpBerkas'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, TemplateBerkas $templateBerkas)
+    public function update(Request $request, $id)
     {
-        //
+        $tmpBerkas = TemplateBerkas::findOrFail($id);
+        $validatedData = $request->validate([
+            "name" => "required|string|max:255",
+        ]);
+
+        $tmpBerkas->update($validatedData);
+
+        return redirect()->route('template-berkas.index')->with('success', 'Template Berkas berhasil diubah.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(TemplateBerkas $templateBerkas)
+    public function destroy($id)
     {
-        //
+        $tmpBerkas = TemplateBerkas::findOrFail($id);
+        $tmpBerkas->delete();
+
+        return redirect()->route('template-berkas.index')->with('success', 'Template Berkas berhasil dihapus.');
     }
 }
