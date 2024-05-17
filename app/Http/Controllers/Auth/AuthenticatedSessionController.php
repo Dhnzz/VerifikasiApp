@@ -24,9 +24,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
-        $request->session()->regenerate();
-        return redirect()->intended(route('dashboard', absolute: false));
+        $request->authenticate(); // Melakukan autentikasi pengguna berdasarkan data yang diberikan dalam request
+        $request->session()->regenerate(); // Membuat session baru untuk menggantikan session yang lama, ini membantu mencegah serangan session fixation
+        return redirect()->intended(route('dashboard', absolute: false)); // Mengarahkan pengguna ke halaman dashboard jika ada, jika tidak ada maka ke halaman default
     }
 
     /**
