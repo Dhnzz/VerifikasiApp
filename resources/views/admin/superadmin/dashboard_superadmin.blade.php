@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-20 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="grid grid-cols-12 gap-4">
     <div
       class="col-span-12 lg:col-span-6 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
