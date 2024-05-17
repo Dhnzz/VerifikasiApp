@@ -21,7 +21,15 @@ class DosenFactory extends Factory
         return [
             'user_id' =>  UserFactory::new()->create(['role' => 'dosen'])->id,
             'name' => fake()->name(),
-            'nidn' => fake()->unique()->randomNumber(9),
         ];
+    }
+
+    public function superAdmin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'user_id' =>  UserFactory::new()->create(['role' => 'super_admin'])->id,
+            ];
+        });
     }
 }

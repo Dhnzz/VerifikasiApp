@@ -20,7 +20,6 @@ class MahasiswaFactory extends Factory
             'user_id' => UserFactory::new()->create(['role' => 'mahasiswa'])->id,
             'dosen_id' => DosenFactory::new()->create()->id,
             'name' => fake()->name(),
-            'nim' => fake()->unique()->randomNumber(9),
             'angkatan' => fake()->randomNumber(4),
         ];
     }

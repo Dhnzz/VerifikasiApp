@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string("user_id");
             $table->string("dosen_id");
             $table->string("name");
-            $table->string("nim");
             $table->string("angkatan");
             $table->timestamps();
         });
