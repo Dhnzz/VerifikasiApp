@@ -16,8 +16,9 @@ class MahasiswaFactory extends Factory
      */
     public function definition(): array
     {
+        $user = UserFactory::new()->create(['role' => 'mahasiswa']);
         return [
-            'user_id' => UserFactory::new()->create(['role' => 'mahasiswa'])->id,
+            'user_id' => $user->id,
             'dosen_id' => DosenFactory::new()->create()->id,
             'name' => fake()->name(),
             'angkatan' => fake()->randomNumber(4),

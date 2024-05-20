@@ -38,31 +38,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::prefix('periode')->group(function () {
-    Route::get('/', [PeriodeController::class, 'index'])->name('periode.index');
-    Route::get('/show/{id}', [PeriodeController::class, 'show'])->name('periode.show');
-    Route::get('/create', [PeriodeController::class, 'create'])->name('periode.create');
-    Route::post('/store', [PeriodeController::class, 'store'])->name('periode.store');
-    Route::get('/edit/{id}', [PeriodeController::class, 'edit'])->name('periode.edit');
-    Route::put('/update/{id}', [PeriodeController::class, 'udpate'])->name('periode.update');
-    Route::delete('/delete/{id}', [PeriodeController::class, 'delete'])->name('periode.delete');
-});
-
-
 Route::resource('/berkas', BerkasController::class);
 Route::resource('/itmberkas', ItemBerkasController::class);
 
 
-Route::prefix('dosen')->group(function () {
-    Route::get('/', [DosenController::class, 'index'])->name('dosen.index');
-    Route::get('/show/{id}', [DosenController::class, 'show'])->name('dosen.show');
-    Route::get('/create', [DosenController::class, 'create'])->name('dosen.create');
-    Route::post('/store', [DosenController::class, 'store'])->name('dosen.store');
-    Route::get('/edit/{id}', [DosenController::class, 'edit'])->name('dosen.edit');
-    Route::put('/update/{id}', [DosenController::class, 'update'])->name('dosen.update'); // Memperbaiki typo 'udpate' menjadi 'update'
-    Route::delete('/delete/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy'); // Mengganti 'delete' dengan 'destroy' untuk konsistensi dengan method di controller
-});
-
-Route::resource('/mahasiswa', MahasiswaController::class);
+Route::resource('/periode', PeriodeController::class)->middleware('auth');
+Route::resource('/mahasiswa', MahasiswaController::class)->middleware('auth');
 
 require __DIR__ . '/auth.php';
