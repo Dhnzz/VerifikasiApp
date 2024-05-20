@@ -23,4 +23,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
 });
 
+Route::get('/sample', function(){
+    return view('admin.superadmin.nested_form');
+});
+
 require __DIR__ . '/auth.php';
