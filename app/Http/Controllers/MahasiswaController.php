@@ -17,7 +17,7 @@ class MahasiswaController extends Controller
     {
         $title = "Verifikasi App";
         $data = Mahasiswa::get();
-        return view('admin.superadmin.students', compact('title', 'data'));
+        return view('admin.superadmin.mahasiswa.index', compact('title', 'data'));
     }
 
     /**
@@ -26,7 +26,7 @@ class MahasiswaController extends Controller
     public function create()
     {
         $title = 'Verifikasi App';
-        return view('mahasiswa.create', compact('title'));  
+        return view('admin.superadmin.mahasiswa.create', compact('title'));  
     }
 
     /**
@@ -65,8 +65,8 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        return view('mahasiswa.show', compact('mahasiswa'));
+        $data = Mahasiswa::findOrFail($id);
+        return view('admin.superadmin.mahasiswa.show', compact('data'));
     }
 
     /**
@@ -74,8 +74,8 @@ class MahasiswaController extends Controller
      */
     public function edit($id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        return view('mahasiswa.edit', compact('mahasiswa'));
+        $data = Mahasiswa::findOrFail($id);
+        return view('admin.superadmin.mahasiswa.edit', compact('data'));
     }
 
     /**
@@ -84,24 +84,21 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
-        $users = User::findOrFail($mahasiswa->user_id);
+        $user = User::findOrFail($mahasiswa->user_id);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'credential' => 'required|string|max:255|unique:users,credential',
-            'password' => 'required|min:8|max:255',
+            'credential' => 'required|string|max:255|unique:users,credential,' . $user->id,
             'angkatan' => 'required|string|max:255',
-            'dosen_id' => 'required|string|max:255',
+            // 'dosen_id' => 'required|exists:dosen,id',
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
 
-        $users->update([
-            'credential' => $validatedData['credential'],
-            'password' => $validatedData['password'],
+        $user->update([
+            'credential' => $request->credential,
         ]);
         $mahasiswa->update([
-            'name' => $validatedData['name'],
-            'dosen_id' => $validatedData['dosen_id'],
-            'angkatan' => $validatedData['angkatan']
+            'name' => $request->name,
+            'angkatan' => $request->angkatan
         ]);
 
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');

@@ -3,7 +3,7 @@
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Mahasiswa</h1>
+    <h1 class="text-xl font-semibold">Mahasiswa</h1> <x-button_md color="primary" onclick="location.href='{{ route('mahasiswa.create') }}';">Tambah Data</x-button_md>
   </div>
   <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
     <table id="table_config" class="">
@@ -43,23 +43,23 @@
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <div
+                  <a href="{{ route('mahasiswa.show', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem">
                     <i class="w-4 h-4 fas fa-info-circle"></i>
                     Detail
-                  </div>
-                  <div
+                  </a>
+                  <a href="{{ route('mahasiswa.edit', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                     role="menuitem">
                     <i class="fas fa-pen w-4 h-4"></i>
                     Update
-                  </div>
-                  <form action="" method="POST" role="none"
+                  </a>
+                  <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" role="none"
                     style="display: inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete?')"
+                    <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"
                       class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
                       role="menuitem">
                       <i class="fas fa-trash w-4 h-4"></i>
