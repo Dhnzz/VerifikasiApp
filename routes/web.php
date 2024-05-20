@@ -22,7 +22,7 @@ Route::get('/dosen_form', function () {
     return view('admin.superadmin.dosen_form');
 });
 Route::get('/sample', function () {
-    return view('admin.dosen.sample');
+    return view('admin.superadmin.nested_form');
 });
 Route::get('/login', function () {
     return view('auth.login');
@@ -30,6 +30,7 @@ Route::get('/login', function () {
 Route::get('/students', function () {
     return view('admin.superadmin.students');
 });
+
 
 
 Route::get('/dashboard', function () {
