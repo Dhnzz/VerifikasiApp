@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{Mahasiswa, Dosen};
 
-class AdminController extends Controller
+class DashboardController extends Controller
 {
-    public function index()
+    public function admin()
     {
         $jumlahMahasiswa = Mahasiswa::count();
         $jumlahDosen = Dosen::count();
@@ -16,12 +16,13 @@ class AdminController extends Controller
 
     public function mahasiswa()
     {
-        $data = Mahasiswa::get();
-        return view('admin.student_index');
+        $data = Mahasiswa::all();
+        return view('admin.superadmin.students', compact('data'));
     }
 
     public function dosen()
     {
-        return view('admin.dosen_index');
+        $data = Dosen::all();
+        return view('admin.superadmin.dosen', compact('data'));
     }
 }

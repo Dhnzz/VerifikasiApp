@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'credential',
         'password',
-        'role_id'
+        'role'
     ];
 
     /**
@@ -51,10 +51,6 @@ class User extends Authenticatable
     }
 
     function Dosen(): HasOne {
-        return $this->hasOne(Dosen::class);
-    }
-
-    function Role(): HasOne {
         return $this->hasOne(Dosen::class);
     }
 

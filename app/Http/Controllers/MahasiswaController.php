@@ -16,8 +16,8 @@ class MahasiswaController extends Controller
     public function index()
     {
         $title = "Verifikasi App";
-        $mahasiswas = Mahasiswa::get();
-        return view('mahasiswa.index', compact('title', 'mahasiswas'));
+        $data = Mahasiswa::get();
+        return view('admin.superadmin.students', compact('title', 'data'));
     }
 
     /**

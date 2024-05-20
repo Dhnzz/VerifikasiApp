@@ -1,50 +1,26 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BerkasController;
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\ItemBerkasController;
-use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\PeriodeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{MahasiswaController, DosenController, DashboardController, PeriodeController};
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard_admin', [AdminController::class,'index'])->name('admin.dashboard');
-Route::get('/dashboard_student', function () {
-    return view('admin.student.dashboard_student');
-});
-Route::get('/browse_period', function () {
-    return view('admin.student.browse_period');
-});
-Route::get('/period_details', function () {
-    return view('admin.dosen.period_details');
-});
-Route::get('/dosen_form', function () {
-    return view('admin.superadmin.dosen_form');
-});
-Route::get('/sample', function () {
-    return view('admin.dosen.sample');
-});
+Route::middleware(['auth'])->group(function(){
+    // Admin Routes
+    Route::prefix('admin')->group(function(){
+        Route::get('/', [DashboardController::class, 'admin'])->name('admin.dashboard');
+        Route::resource('mahasiswa', MahasiswaController::class);
+        Route::resource('dosen', DosenController::class);
+        Route::resource('periode', PeriodeController::class);
+    });
 
+    // Dosen Routes
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    // Mahasiswa Routes
+    Route::prefix('mahasiswa')->group(function(){
+        Route::get('/', [DashboardController::class, 'mahasiswa'])->name('mahasiswa.dashboard');
+    });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.dashboard');
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
 });
-// Master Route
-Route::resource('/mahasiswa', MahasiswaController::class)->middleware('auth');
-Route::resource('/dosen', DosenController::class)->middleware('auth');
-
-// Mahasiswa Route
-
-
-// Dosen Route
-Route::resource('/berkas', BerkasController::class);
-Route::resource('/itmberkas', ItemBerkasController::class);
 
 require __DIR__ . '/auth.php';

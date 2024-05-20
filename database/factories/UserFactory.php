@@ -27,7 +27,7 @@ class UserFactory extends Factory
         return [
             'credential' => fake()->unique()->numerify('##########'),
             'password' => static::$password ??= Hash::make('1sampai9'),
-            'role_id' => static::$role ??= 'admin',
+            'role' => static::$role ??= 'admin',
             'remember_token' => Str::random(10),
         ];
     }
