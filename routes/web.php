@@ -36,12 +36,15 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+// Master Route
+Route::resource('/mahasiswa', MahasiswaController::class)->middleware('auth');
+Route::resource('/dosen', DosenController::class)->middleware('auth');
 
+// Mahasiswa Route
+
+
+// Dosen Route
 Route::resource('/berkas', BerkasController::class);
 Route::resource('/itmberkas', ItemBerkasController::class);
-
-
-Route::resource('/periode', PeriodeController::class)->middleware('auth');
-Route::resource('/mahasiswa', MahasiswaController::class)->middleware('auth');
 
 require __DIR__ . '/auth.php';
