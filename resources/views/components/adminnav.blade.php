@@ -37,23 +37,26 @@
                 <div class="inline-flex items-center gap-x-2  text-slate-500">
                     <a href="">
                         <i class="fas fa-home"></i>
-                        single menu
+                        Beranda
                     </a>
                 </div>
             </li>
             <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
                 <div class="inline-flex items-center gap-x-2  text-slate-500">
                     <i class="fas fa-box"></i>
-                    nested menu
+                    Master
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div
                     class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
                     <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
                         <a href="">
-
                             <i class="fas fa-file"></i>
-                            menu
+                            Mahasiswa
+                        </a>
+                        <a href="">
+                            <i class="fas fa-file"></i>
+                            Dosen
                         </a>
                     </div>
 

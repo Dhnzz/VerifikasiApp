@@ -27,6 +27,9 @@ Route::get('/sample', function () {
 Route::get('/login', function () {
     return view('auth.login');
 });
+Route::get('/students', function () {
+    return view('admin.superadmin.students');
+});
 
 
 Route::get('/dashboard', function () {

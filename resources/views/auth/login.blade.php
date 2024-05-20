@@ -1,4 +1,4 @@
-@extends('layout.admin')
+@extends('layout.auth')
 
 @section('main')
 <section class="flex h-screen">
