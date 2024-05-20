@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BerkasController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ItemBerkasController;
@@ -8,9 +9,7 @@ use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard_admin', function () {
-    return view('admin.superadmin.dashboard_superadmin');
-});
+Route::get('/dashboard_admin', [AdminController::class,'index'])->name('admin.dashboard');
 Route::get('/dashboard_student', function () {
     return view('admin.student.dashboard_student');
 });

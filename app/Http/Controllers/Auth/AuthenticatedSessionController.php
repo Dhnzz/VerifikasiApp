@@ -26,7 +26,15 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate(); // Melakukan autentikasi pengguna berdasarkan data yang diberikan dalam request
         $request->session()->regenerate(); // Membuat session baru untuk menggantikan session yang lama, ini membantu mencegah serangan session fixation
-        return redirect()->intended(route('dashboard', absolute: false)); // Mengarahkan pengguna ke halaman dashboard jika ada, jika tidak ada maka ke halaman default
+        if (Auth::user()->role === 'super_admin') {
+            return redirect()->intended(route('admin.dashboard'));
+        } elseif (Auth::user()->role === 'dosen') {
+            return redirect()->intended(route('dashboard_dosen'));
+        } elseif (Auth::user()->role === 'mahasiswa'){
+            return redirect()->intended(route('dashboard_student'));
+        }
+
+        return redirect()->intended(route('base'))->with('error','User Tidak Memiliki Role');
     }
 
     /**
