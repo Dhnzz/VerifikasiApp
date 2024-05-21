@@ -7,18 +7,18 @@
       <p class="font-semibold text-lg">Tambah Data Template</p>
     </div>
     <div class="mt-4">
-      <form action="{{route('mahasiswa.store')}}" method="post" class=" w-full">
+      <form action="{{route('template.store')}}" method="post" class=" w-full">
         @csrf
         <div class="mb-4">
           <label for="nama_template" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Nama Template
           </label>
-          <input type="text" placeholder="Nama Template" name="nama_template"
+          <input type="text" placeholder="Nama Template" name="name"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
-        <x-button_md color="primary" class="w-full col-span-12">
+        <button type="submit" class="w-full col-span-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Kirim
-        </x-button_md>
+        </button>
       </form>
     </div>
   </div>

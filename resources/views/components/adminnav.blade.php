@@ -79,6 +79,13 @@
                     </a>
                 </div>
             </li>
+            <li class="p-2">
+                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <a href="{{route('template.index')}}">
+                        <i class="fas fa-home"></i>
+                        Template Berkas
+                    </a>
+                </div>
             </li>
         </div>
         <button class=" px-4 py-2.5 lg:hidden block text-slate-500 rounded-lg" onclick="handleMenuClick()">

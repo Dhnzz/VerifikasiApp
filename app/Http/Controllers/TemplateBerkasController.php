@@ -12,8 +12,8 @@ class TemplateBerkasController extends Controller
      */
     public function index()
     {
-        $tmpberkas = TemplateBerkas::all();
-        return view('template-berkas.index', compact('tmpberkas'));
+        $data = TemplateBerkas::all();
+        return view('admin.superadmin.template.index', compact('data'));
     }
 
     /**
@@ -21,7 +21,7 @@ class TemplateBerkasController extends Controller
      */
     public function create()
     {
-        return view('template-berkas.create');
+        return view('admin.superadmin.template.create');
     }
 
     /**
@@ -33,10 +33,11 @@ class TemplateBerkasController extends Controller
             "name" => "required|string|max:255",
         ]);
 
+        $validatedData['name'] .= ' ' . now()->format('d/m/Y');
         $tmpBerkas = TemplateBerkas::create($validatedData);
         $tmpBerkas->save();
 
-        return redirect()->route('template-berkas.index')->with('success', 'Template Berkas berhasil ditambahkan.');
+        return redirect()->route('template.index')->with('success', 'Template Berkas berhasil ditambahkan.');
     }
 
     /**
