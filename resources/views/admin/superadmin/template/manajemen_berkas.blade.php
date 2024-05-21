@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Nama Template</p>
     </div>
     <div class="mt-4">
-      <form action="{{ route('mahasiswa.store') }}" method="post" class="w-full">
+      <form action="{{ route('itemberkas.store') }}" method="post" class="w-full">
         @csrf
         <div class="mb-4">
           <div class="inline-flex justify-between items-end w-full mb-4">
@@ -51,15 +51,9 @@
           <label for="nama_berkas" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Nama Berkas
           </label>
-          <input type="text" name="nama_berkas[]" id="nama_berkas${berkasCount}" placeholder="Masukan Nama Berkas"
+          <input type="text" name="nama[]" id="nama_berkas${berkasCount}" placeholder="Masukan Nama Berkas"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-        </div>
-        <div class="mb-4">
-          <label for="template_berkas[]" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-            Template Berkas
-          </label>
-          <input type="file" name="template_berkas[]" id="template_berkas${berkasCount}" placeholder="Template Berkas"
-            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+          <input type="hidden" name="template_berkas_id[]" id="nama_berkas${berkasCount}" value="1" />
         </div>
       </div>
     </div>
