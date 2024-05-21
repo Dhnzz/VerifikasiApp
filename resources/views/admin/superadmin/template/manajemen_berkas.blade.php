@@ -4,7 +4,7 @@
     <section class="max-w-screen-lg min-h-screen mx-auto flex items-center py-44 px-4 lg:px-12 gap-4">
         <div class="w-full p-10 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col">
             <div class="w-full flex flex-col items-center">
-                <p class="font-semibold text-lg">{{ $data->name }}</p>
+                <p class="font-semibold text-lg">{{ $data->name }} </p>
             </div>
             <div class="mt-4">
                 <form action="{{ route('itemberkas.store') }}" method="post" class="w-full">
@@ -41,8 +41,8 @@
                                                 value="{{ $data->id }}" />
                                         </div>
                                         <div>
-                                            <x-button_sm color="primary" class="edit-button hidden" type="submit">
-                                                Edit
+                                            <x-button_sm color="primary" class="edit-button" type="submit" onclick="modalOpen()">
+                                                Aksi
                                             </x-button_sm>
                                         </div>
                                     </div>
@@ -54,6 +54,36 @@
                         Kirim
                     </x-button_md>
                 </form>
+                <div id="modal" class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+                  <div class="max-w-lg w-full p-6 bg-white rounded-xl">
+                    <div class="w-full inline-flex items-center justify-between">
+                      <p class="text-lg font-semibold">Berkas 1</p>
+                      <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                        onclick="modalOpen()">
+                        <i class="fas fa-times text-lg"></i>
+                      </button>
+                    </div>
+                    <hr class="mt-4 mb-4">
+                    <div class="mb-4">
+                      <form action="">
+                        <label for="nama_berkas_modal" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
+                          Nama Berkas
+                        </label>
+                        <input type="text" name="nama_berkas_modal" id="nama_berkas_modal" placeholder="Masukan Nama Berkas"
+                          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                      </form>
+                    </div>
+                    <hr class="mt-4 mb-4">
+                    <div class="inline-flex items-center gap-x-2">
+                      <x-button_md color="primary" type="submit">
+                        Edit
+                      </x-button_md>
+                      <x-button_md color="danger" type="submit">
+                        Hapus
+                      </x-button_md>
+                    </div>
+                  </div>
+                </div>
             </div>
         </div>
     </section>
