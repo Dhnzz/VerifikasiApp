@@ -14,6 +14,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
+
+
         $data = Mahasiswa::get();
         return view('admin.superadmin.mahasiswa.index', compact('data'));
     }
@@ -23,7 +25,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('admin.superadmin.mahasiswa.create');  
+        return view('admin.superadmin.mahasiswa.create');
     }
 
     /**
@@ -101,7 +103,8 @@ class MahasiswaController extends Controller
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
     }
 
-    public function updatePass(Request $request, $id){
+    public function updatePass(Request $request, $id)
+    {
         $mahasiswa = Mahasiswa::findOrFail($id);
         $user = User::findOrFail($mahasiswa);
         $validatedData = $request->validate([
@@ -110,7 +113,7 @@ class MahasiswaController extends Controller
         $user->update([
             'password' => Hash::make($validatedData['password']),
         ]);
-        return redirect()->route('mahasiswa.index')->with('success','Password berhasil diubah');
+        return redirect()->route('mahasiswa.index')->with('success', 'Password berhasil diubah');
     }
 
     /**
