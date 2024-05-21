@@ -18,9 +18,10 @@ Route::middleware(['auth'])->group(function(){
     Route::prefix('mahasiswa')->group(function(){
         Route::get('/', [DashboardController::class, 'mahasiswa'])->name('mahasiswa.dashboard');
     });
+});
 
-    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.dashboard');
-    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
+Route::get('/', function(){
+    return view('welcome');
 });
 
 Route::get('/sample', function(){

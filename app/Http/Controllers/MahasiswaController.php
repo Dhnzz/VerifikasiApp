@@ -6,7 +6,6 @@ use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 
 class MahasiswaController extends Controller
 {
@@ -15,9 +14,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $title = "Verifikasi App";
         $data = Mahasiswa::get();
-        return view('admin.superadmin.mahasiswa.index', compact('title', 'data'));
+        return view('admin.superadmin.mahasiswa.index', compact('data'));
     }
 
     /**
@@ -25,8 +23,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        $title = 'Verifikasi App';
-        return view('admin.superadmin.mahasiswa.create', compact('title'));  
+        return view('admin.superadmin.mahasiswa.create');  
     }
 
     /**
@@ -104,13 +101,27 @@ class MahasiswaController extends Controller
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
     }
 
+    public function updatePass(Request $request, $id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $user = User::findOrFail($mahasiswa);
+        $validatedData = $request->validate([
+            'password' => 'required|string|max:255',
+        ]);
+        $user->update([
+            'password' => Hash::make($validatedData['password']),
+        ]);
+        return redirect()->route('mahasiswa.index')->with('success','Password berhasil diubah');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
+        $user = User::findOrFail($mahasiswa->user_id);
         $mahasiswa->delete();
+        $user->delete();
 
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
     }
