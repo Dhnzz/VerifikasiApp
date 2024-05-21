@@ -12,8 +12,8 @@ class PeriodeController extends Controller
      */
     public function index()
     {
-        $periode = Periode::all();
-        return view('periode.index', compact('periode'));
+        $data = Periode::all();
+        return view('periode.index', compact('data'));
     }
 
     /**
@@ -21,7 +21,7 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-        return view('periode.create');
+        return view('admin.superadmin.periode.create');
     }
 
     /**

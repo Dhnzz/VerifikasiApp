@@ -6,7 +6,7 @@
         <a class="navbar-brand m-0" href="{{ route('dashboard') }}"
             target="_blank">
             <img src="{{ asset('assets/img/logo-ct-dark.png') }}" class="navbar-brand-img h-10" alt="main_logo">
-            <span class="ms-1 font-weight-bold">Argon Dashboard 2 Laravel</span>
+            <span class="ms-1 font-weight-bold">Verifikasi App</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -15,17 +15,41 @@
             <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}" href="{{ route('dashboard') }}">
                     <div
-                        class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+                        class="border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-house text-dark"></i>
                     </div>
                     <span class="nav-link-text ms-1">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item mt-3 d-flex align-items-center">
-                <div class="ps-4">
-                    <i class="fab fa-laravel" style="color: #f4645f;"></i>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->routeIs('dropdown-menu') ? 'active' : '' }}" href="#dropdown-menu" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="dropdown-menu">
+                    <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-bullet-list-67 text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Menu Master</span>
+                </a>
+                <div class="collapse" id="dropdown-menu">
+                    <ul class="nav ms-4">
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                <span class="sidenav-mini-icon"> S1 </span>
+                                <span class="sidenav-normal"> Submenu 1 </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                <span class="sidenav-mini-icon"> S2 </span>
+                                <span class="sidenav-normal"> Submenu 2 </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                <span class="sidenav-mini-icon"> S3 </span>
+                                <span class="sidenav-normal"> Submenu 3 </span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <h6 class="ms-2 text-uppercase text-xs font-weight-bolder opacity-6 mb-0">Laravel Examples</h6>
             </li>
             {{-- <li class="nav-item">
                 <a class="nav-link {{ Route::currentRouteName() == 'profile' ? 'active' : '' }}" href="{{ route('profile') }}">
@@ -114,21 +138,5 @@
                 </a>
             </li> --}}
         </ul>
-    </div>
-    <div class="sidenav-footer mx-3 ">
-        <div class="card card-plain shadow-none" id="sidenavCard">
-            <img class="w-50 mx-auto" src="/img/illustrations/icon-documentation-warning.svg"
-                alt="sidebar_illustration">
-            <div class="card-body text-center p-3 w-100 pt-0">
-                <div class="docs-info">
-                    <h6 class="mb-0">Need help?</h6>
-                    <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
-                </div>
-            </div>
-        </div>
-        <a href="/docs/bootstrap/overview/argon-dashboard/index.html" target="_blank"
-            class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-        <a class="btn btn-primary btn-sm mb-0 w-100"
-            href="https://www.creative-tim.com/product/argon-dashboard-pro-laravel" target="_blank" type="button">Upgrade to PRO</a>
     </div>
 </aside>

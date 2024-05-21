@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Dosen>
@@ -27,8 +28,9 @@ class DosenFactory extends Factory
     public function superAdmin()
     {
         return $this->state(function (array $attributes) {
+            $admin = UserFactory::new()->create(['role' => 'super_admin']);
             return [
-                'user_id' =>  UserFactory::new()->create(['role' => 'super_admin'])->id,
+                'user_id' =>  DosenFactory::new()->create(['user_id' => $admin->id]),
             ];
         });
     }

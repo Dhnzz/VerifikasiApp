@@ -6,7 +6,6 @@ use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 
 class MahasiswaController extends Controller
 {
@@ -15,8 +14,10 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        $mahasiswas = Mahasiswa::all();
-        return view('mahasiswa.index', compact('mahasiswas'));
+
+
+        $data = Mahasiswa::get();
+        return view('admin.superadmin.mahasiswa.index', compact('data'));
     }
 
     /**
@@ -24,7 +25,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswa.create');
+        return view('admin.superadmin.mahasiswa.create');
     }
 
     /**
@@ -35,21 +36,19 @@ class MahasiswaController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'credential' => 'required|string|max:255|unique:users,credential',
-            'password' => ['required|min:8|max:255', 'confirmed', Password::defaults()],
             'angkatan' => 'required|string|max:255',
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
         // Menyimpan credential dan password ke tabel users
         $user = User::create([
             'credential' => $validatedData['credential'],
-            'password' => Hash::make($validatedData['password']),
+            'password' => Hash::make($validatedData['credential']),
             'role' => 'mahasiswa'
         ]);
         $user->save();
 
         $mahasiswa = Mahasiswa::create([
             'name' => $validatedData['name'],
-            'nim' => $validatedData['credential'],
             'user_id' => $user->id,
             'dosen_id' => null,
             'angkatan' => $validatedData['angkatan']
@@ -65,8 +64,8 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        return view('mahasiswa.show', compact('mahasiswa'));
+        $data = Mahasiswa::findOrFail($id);
+        return view('admin.superadmin.mahasiswa.show', compact('data'));
     }
 
     /**
@@ -74,8 +73,8 @@ class MahasiswaController extends Controller
      */
     public function edit($id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        return view('mahasiswa.show', compact('mahasiswa'));
+        $data = Mahasiswa::findOrFail($id);
+        return view('admin.superadmin.mahasiswa.edit', compact('data'));
     }
 
     /**
@@ -84,28 +83,37 @@ class MahasiswaController extends Controller
     public function update(Request $request, $id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
-        $users = User::findOrFail($mahasiswa->id);
+        $user = User::findOrFail($mahasiswa->user_id);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'credential' => 'required|string|max:255|unique:users,credential',
-            'password' => ['required|min:8|max:255', 'confirmed', Password::defaults()],
+            'credential' => 'required|string|max:255|unique:users,credential,' . $user->id,
             'angkatan' => 'required|string|max:255',
-            'dosen_id' => 'required|string|max:255',
+            // 'dosen_id' => 'required|exists:dosen,id',
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
 
-        $users->update([
+        $user->update([
             'credential' => $validatedData['credential'],
-            'password' => Hash::make($validatedData['password']),
         ]);
         $mahasiswa->update([
             'name' => $validatedData['name'],
-            'nim' => $validatedData['credential'],
-            'dosen_id' => $validatedData['dosen_id'],
             'angkatan' => $validatedData['angkatan']
         ]);
 
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
+    }
+
+    public function updatePass(Request $request, $id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $user = User::findOrFail($mahasiswa);
+        $validatedData = $request->validate([
+            'password' => 'required|string|max:255',
+        ]);
+        $user->update([
+            'password' => Hash::make($validatedData['password']),
+        ]);
+        return redirect()->route('mahasiswa.index')->with('success', 'Password berhasil diubah');
     }
 
     /**
@@ -114,7 +122,9 @@ class MahasiswaController extends Controller
     public function destroy($id)
     {
         $mahasiswa = Mahasiswa::findOrFail($id);
+        $user = User::findOrFail($mahasiswa->user_id);
         $mahasiswa->delete();
+        $user->delete();
 
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
     }
