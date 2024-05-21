@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Dosen, Mahasiswa, User};
+use App\Models\{Dosen, User};
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,8 +69,8 @@ class DosenController extends Controller
      */
     public function edit($id)
     {
-        $dosen = Dosen::findOrFail($id);
-        return view('admin.superadmin.dosen.edit', compact('dosen'));
+        $data = Dosen::findOrFail($id);
+        return view('admin.superadmin.dosen.edit', compact('data'));
     }
 
     /**
@@ -79,24 +79,33 @@ class DosenController extends Controller
     public function update(Request $request, $id)
     {
         $dosen = Dosen::findOrFail($id);
-        $users = User::findOrFail($dosen->id);
+        $user = User::findOrFail($dosen->user_id);
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'credential' => 'required|string|max:255|unique:users,credential',
-            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
+            'credential' => 'required|string|max:255|unique:users,credential,' . $user->id,
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
 
-        $users->update([
+        $user->update([
             'credential' => $validatedData['credential'],
-            'password' => Hash::make($validatedData['password']),
         ]);
         $dosen->update([
-            'nama' => $validatedData['name'],
-            'nipdn' => $validatedData['credential']
+            'name' => $validatedData['name'],
         ]);
 
-        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil diperbarui.');
+        return redirect()->route('dosen.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
+    }
+
+    public function updatePass(Request $request, $id){
+        $dosen = Dosen::findOrFail($id);
+        $user = User::findOrFail($dosen->user_id);
+        $validatedData = $request->validate([
+            'password' => 'required|string|max:255',
+        ]);
+        $user->update([
+            'password' => Hash::make($validatedData['password']),
+        ]);
+        return redirect()->route('dosen.index')->with('success','Password berhasil diubah');
     }
 
     /**

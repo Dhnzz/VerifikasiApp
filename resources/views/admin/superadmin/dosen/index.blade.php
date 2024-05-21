@@ -23,7 +23,12 @@
         <tr>
           <td>{{ $i++ }}</td>
           <td>{{ $item->user->credential }}</td>
-          <td>{{ $item->name }}</td>
+          <td>
+            {{ $item->name }}
+            @if (auth()->user()->id == $item->user_id)
+              <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full ml-2">Anda sedang login</span>
+            @endif
+          </td>
           <td>
             <div class="relative inline-block text-left">
               <button type="button" id="dropdownMenuButton{{ $item->id }}"

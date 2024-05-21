@@ -91,11 +91,11 @@ class MahasiswaController extends Controller
         ]);
 
         $user->update([
-            'credential' => $request->credential,
+            'credential' => $validatedData['credential'],
         ]);
         $mahasiswa->update([
-            'name' => $request->name,
-            'angkatan' => $request->angkatan
+            'name' => $validatedData['name'],
+            'angkatan' => $validatedData['angkatan']
         ]);
 
         return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
