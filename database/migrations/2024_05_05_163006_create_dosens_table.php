@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dosens', function (Blueprint $table) {
-            $table->id();
-            $table->string("user_id");
-            $table->string("name");
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('dosens')) {
+            Schema::create('dosens', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger("user_id");
+                $table->string("name");
+                $table->timestamps();
+    
+                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            });
+        }
     }
 
     /**

@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('template_berkas')){
-            Artisan::call('migrate', ['--path' => 'database\migrations\2024_05_07_153246_create_template_berkas_table.php']);
-        }
-        Schema::create('periodes', function (Blueprint $table) {
+        Schema::create('periode_templates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('deskripsi');
-            $table->date('tgl_mulai');
-            $table->date('tgl_berakhir');
+            $table->unsignedBigInteger('periode_id');
             $table->unsignedBigInteger('template_berkas_id');
             $table->timestamps();
 
+            $table->foreign('periode_id')->references('id')->on('periodes')->onDelete('cascade');
             $table->foreign('template_berkas_id')->references('id')->on('template_berkas')->onDelete('cascade');
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('periodes');
+        Schema::dropIfExists('periode_templates');
     }
 };

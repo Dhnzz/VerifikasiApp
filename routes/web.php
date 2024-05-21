@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{MahasiswaController, DosenController, DashboardController, ItemBerkasController, PeriodeController};
+use App\Http\Controllers\{MahasiswaController, DosenController, DashboardController, PeriodeController, TemplateBerkasController, ItemBerkasController};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -10,6 +10,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('dosen', DosenController::class);
         Route::resource('periode', PeriodeController::class);
+        Route::resource('template', TemplateBerkasController::class);
+        Route::resource('itemberkas', ItemBerkasController::class)->except('create');
+        Route::get('/item-management/{id}', [ItemBerkasController::class, 'create'])->name('item-management.create');
     });
 
     // Dosen Routes
@@ -24,10 +27,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/sample', function () {});
 Route::get('/sample', function () {
     return view('admin.superadmin.template.manajemen_berkas');
 });
 
-Route::resource('itemberkas', ItemBerkasController::class);
 
 require __DIR__ . '/auth.php';

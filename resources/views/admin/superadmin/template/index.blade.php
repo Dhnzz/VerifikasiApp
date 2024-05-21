@@ -3,8 +3,8 @@
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Mahasiswa</h1>
-    <x-button_md color="primary" onclick="location.href='{{ route('mahasiswa.create') }}';" class="inline-flex gap-x-2">
+    <h1 class="text-xl font-semibold">Template Berkas</h1>
+    <x-button_md color="primary" onclick="location.href='{{ route('template.create') }}';" class="inline-flex gap-x-2">
       <span><i class="fas fa-plus"></i></span>
       Tambah
     </x-button_md>
@@ -14,9 +14,8 @@
       <thead>
         <tr>
           <th>NO</th>
-          <th>NIM</th>
           <th>Nama</th>
-          <th>Angkatan</th>
+          <th>List Berkas</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -27,9 +26,14 @@
         @foreach ($data as $item)
         <tr>
           <td>{{ $i++ }}</td>
-          <td>{{ $item->user->credential }}</td>
           <td>{{ $item->name }}</td>
-          <td>{{ $item->angkatan }}</td>
+          <td>
+            @forelse ($item->itemBerkas as $berkas)
+              <span>{{ $berkas->name }}</span><br>
+            @empty
+              <span>Belum ada item file yang dimasukkan</span>
+            @endforelse
+          </td>
           <td>
             <div class="relative inline-block text-left">
               <button type="button" id="dropdownMenuButton{{ $item->id }}"
@@ -43,7 +47,7 @@
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <a href="{{ route('mahasiswa.show', $item->id) }}"
+                  <a href="{{ route('item-management.create', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem">
                     <i class="w-4 h-4 fas fa-file"></i>

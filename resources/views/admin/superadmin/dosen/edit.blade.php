@@ -11,8 +11,8 @@
       </div>
       @endif
     </div>
-    <div class="mt-4">
-      <form action="{{route('mahasiswa.update', $data->id)}}" method="post" class=" w-full">
+    <div class="mt-12">
+      <form action="{{route('dosen.update', $data->id)}}" method="post" class=" w-full">
         @csrf
         @method('PUT')
         <div class="mb-4">
@@ -29,22 +29,9 @@
           <input type="text" placeholder="Nama Lengkap" name="name" value="{{$data->name}}"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
-<<<<<<< HEAD
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full transition duration-300 ease-in-out">
           Simpan
         </button>
-=======
-        <div class="mb-4">
-          <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-            Angkatan
-          </label>
-          <input type="text" placeholder="Angkatan Akademik" name="angkatan" value="{{$data->angkatan}}"
-            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
-        </div>
-        <x-button_md color="primary" class="w-full col-span-12">
-          Kirim
-        </x-button_md>
->>>>>>> frontend
       </form>
     </div>
   </div>

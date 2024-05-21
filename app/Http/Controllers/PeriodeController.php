@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Periode;
+use App\Models\{Periode, User, Mahasiswa};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PeriodeController extends Controller
 {
@@ -13,7 +14,7 @@ class PeriodeController extends Controller
     public function index()
     {
         $data = Periode::all();
-        return view('periode.index', compact('data'));
+        return view('admin.superadmin.periode.index', compact('data'));
     }
 
     /**
