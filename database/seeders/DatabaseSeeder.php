@@ -6,6 +6,7 @@ use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Database\Factories\UserFactory;
+use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,5 +21,17 @@ class DatabaseSeeder extends Seeder
 
         // Dosen::factory(5)->create();
         Mahasiswa::factory(5)->create();
+
+
+        // $user = User::create([
+        //     'credential' => fake()->unique()->numerify('##########'),
+        //     'password' => Hash::make('1sampai9'),
+        //     'role' => 'super_admin'
+        // ]);
+        // Dosen::create([
+        //     'name' => "Super Admin",
+        //     'user_id' => $user->id
+        // ]);
+        Dosen::factory(1)->superAdmin()->create();
     }
 }

@@ -1,59 +1,30 @@
 <?php
 
-use App\Http\Controllers\BerkasController;
-use App\Http\Controllers\ItemBerkasController;
-use App\Http\Controllers\PeriodeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\{MahasiswaController, DosenController, DashboardController, PeriodeController};
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard_admin', function () {
-    return view('admin.superadmin.dashboard_superadmin');
+Route::middleware(['auth'])->group(function(){
+    // Admin Routes
+    Route::prefix('admin')->group(function(){
+        Route::get('/', [DashboardController::class, 'admin'])->name('admin.dashboard');
+        Route::resource('mahasiswa', MahasiswaController::class);
+        Route::resource('dosen', DosenController::class);
+        Route::resource('periode', PeriodeController::class);
+    });
+
+    // Dosen Routes
+
+    // Mahasiswa Routes
+    Route::prefix('mahasiswa')->group(function(){
+        Route::get('/', [DashboardController::class, 'mahasiswa'])->name('mahasiswa.dashboard');
+    });
+
+    Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.dashboard');
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.dashboard');
 });
-Route::get('/dashboard_student', function () {
-    return view('admin.student.dashboard_student');
-});
-Route::get('/browse_period', function () {
-    return view('admin.student.browse_period');
-});
-Route::get('/period_details', function () {
-    return view('admin.dosen.period_details');
-});
-Route::get('/dosen_form', function () {
-    return view('admin.superadmin.dosen_form');
-});
-Route::get('/sample', function () {
+
+Route::get('/sample', function(){
     return view('admin.superadmin.nested_form');
 });
-Route::get('/login', function () {
-    return view('auth.login');
-});
-Route::get('/students', function () {
-    return view('admin.superadmin.students');
-});
-
-
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::prefix('periode')->group(function () {
-    Route::get('/', [PeriodeController::class, 'index'])->name('periode.index');
-    Route::get('/show/{id}', [PeriodeController::class, 'show'])->name('periode.show');
-    Route::get('/create', [PeriodeController::class, 'create'])->name('periode.create');
-    Route::post('/store', [PeriodeController::class, 'store'])->name('periode.store');
-    Route::get('/edit/{id}', [PeriodeController::class, 'edit'])->name('periode.edit');
-    Route::put('/update/{id}', [PeriodeController::class, 'udpate'])->name('periode.update');
-    Route::delete('/delete/{id}', [PeriodeController::class, 'delete'])->name('periode.delete');
-});
-
-Route::resource('/berkas', BerkasController::class);
-Route::resource('/itmberkas', ItemBerkasController::class);
 
 require __DIR__ . '/auth.php';

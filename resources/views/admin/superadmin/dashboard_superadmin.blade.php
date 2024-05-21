@@ -7,7 +7,7 @@
       class="col-span-12 lg:col-span-6 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Mahasiswa</p>
-        <span class="text-4xl font-semibold ">3</span>
+        <span class="text-4xl font-semibold ">{{$jumlahMahasiswa}}</span>
       </div>
       <i class="fas fa-graduation-cap text-4xl"></i>
     </div>
@@ -15,7 +15,7 @@
       class="col-span-12 lg:col-span-6 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Dosen</p>
-        <span class="text-4xl font-semibold ">3</span>
+        <span class="text-4xl font-semibold ">{{$jumlahDosen}}</span>
       </div>
       <i class="fas fa-users text-4xl"></i>
     </div>

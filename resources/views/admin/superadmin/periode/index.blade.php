@@ -3,34 +3,32 @@
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Mahasiswa</h1>
+    <h1 class="text-xl font-semibold">Periode</h1> <x-button_md color="primary" onclick="location.href='{{ route('periode.create') }}';">Tambah Data</x-button_md>
   </div>
   <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
     <table id="table_config" class="">
       <thead>
         <tr>
-          <th>NIM</th>
-          <th>Nama</th>
-          <th>Program Studi</th>
-          <th>Angkatan</th>
+          <th>NO</th>
+          <th>Nama Periode</th>
+          <th>Tanggal Mulai Periode</th>
+          <th>Tanggal Berakhir Periode</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
-        {{-- @foreach ($data as $item) --}}
+        @php
+          $i = 1;
+        @endphp
+        @foreach ($data as $item)
         <tr>
-          <td>Nama</td>
-          <td>Nim</td>
-          <td>Jenkel</td>
-          <td>Angkatan</td>
-          <td>naruto</td>
-          {{-- <td>{{ $item['nim'] }}</td>
-          <td>{{ $item['name'] }}</td>
-          <td>{{ $item->studi->name }}</td>
-          <td>{{ $item['angkatan'] }}</td> --}}
+          <td>{{ $i++ }}</td>
+          <td>{{ $item->name }}</td>
+          <td>{{ $item->tgl_mulai }}</td>
+          <td>{{ $item->tgl_berakhir }}</td>
           <td>
             <div class="relative inline-block text-left">
-              <button type="button" {{-- id="dropdownMenuButton{{ $item->id }}" --}}
+              <button type="button" id="dropdownMenuButton{{ $item->id }}"
                 class="inline-flex justify-center items-center w-full rounded-md px-2 py-1 bg-blue-500 text-white hover:bg-blue-600"
                 aria-expanded="false" aria-haspopup="true">
                 <!-- Tanda tiga titik vertikal (ellipsis) -->
@@ -41,23 +39,23 @@
                 </svg>
               </button>
 
-              {{-- <div id="dropdownMenu{{ $item->id }}"
+              <div id="dropdownMenu{{ $item->id }}"
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <a href="{{ route('admin.guru.show', $item->id) }}"
+                  <div
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem">
                     <i class="w-4 h-4 fas fa-info-circle"></i>
                     Detail
-                  </a>
-                  <a href="{{ route('admin.guru.edit', $item->id) }}"
+                  </div>
+                  <div
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                     role="menuitem">
                     <i class="fas fa-pen w-4 h-4"></i>
                     Update
-                  </a>
-                  <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST" role="none"
+                  </div>
+                  <form action="" method="POST" role="none"
                     style="display: inline-block;">
                     @csrf
                     @method('DELETE')
@@ -69,11 +67,11 @@
                     </button>
                   </form>
                 </div>
-              </div> --}}
+              </div>
             </div>
           </td>
         </tr>
-        {{-- @endforeach --}}
+        @endforeach
       </tbody>
     </table>
   </div>

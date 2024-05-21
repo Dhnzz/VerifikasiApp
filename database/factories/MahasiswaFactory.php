@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Mahasiswa;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,11 +17,11 @@ class MahasiswaFactory extends Factory
      */
     public function definition(): array
     {
+        $user = UserFactory::new()->create(['role' => 'mahasiswa']);
         return [
-            'user_id' => UserFactory::new()->create(['role' => 'mahasiswa'])->id,
+            'user_id' => $user->id,
             'dosen_id' => DosenFactory::new()->create()->id,
             'name' => fake()->name(),
-            'nim' => fake()->unique()->randomNumber(9),
             'angkatan' => fake()->randomNumber(4),
         ];
     }

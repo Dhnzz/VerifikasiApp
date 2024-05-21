@@ -9,18 +9,21 @@
     <table id="table_config" class="">
       <thead>
         <tr>
+          <th>NO</th>
           <th>NIDN</th>
           <th>Nama</th>
-          <th>Program Studi</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
+        @php
+          $no = 1;
+        @endphp
         @foreach ($data as $item)
         <tr>
-          <td>{{ $item['nidn'] }}</td>
-          <td>{{ $item['name'] }}</td>
-          <td>{{ $item->studi->name }}</td>
+          <td>{{ $no++ }}</td>
+          <td>{{ $item->user->credential }}</td>
+          <td>{{ $item->name }}</td>
           <td>
             <div class="relative inline-block text-left">
               <button type="button" id="dropdownMenuButton{{ $item->id }}"
@@ -38,19 +41,19 @@
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <a href="{{ route('admin.guru.show', $item->id) }}"
+                  <a href="#"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem">
                     <i class="w-4 h-4 fas fa-info-circle"></i>
                     Detail
                   </a>
-                  <a href="{{ route('admin.guru.edit', $item->id) }}"
+                  <a href="#"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                     role="menuitem">
                     <i class="fas fa-pen w-4 h-4"></i>
                     Update
                   </a>
-                  <form action="{{ route('admin.guru.delete', $item->id) }}" method="POST" role="none"
+                  <form action="" method="POST" role="none"
                     style="display: inline-block;">
                     @csrf
                     @method('DELETE')

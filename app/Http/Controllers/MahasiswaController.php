@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class MahasiswaController extends Controller
 {
@@ -12,8 +15,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
+        $title = "Verifikasi App";
         $data = Mahasiswa::get();
-        return view('mahasiswa.index', compact('data'));
+        return view('admin.superadmin.mahasiswa.index', compact('title', 'data'));
     }
 
     /**
@@ -21,7 +25,8 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Verifikasi App';
+        return view('admin.superadmin.mahasiswa.create', compact('title'));  
     }
 
     /**
@@ -29,38 +34,84 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'credential' => 'required|string|max:255|unique:users,credential',
+            'angkatan' => 'required|string|max:255',
+            // Tambahkan validasi lain sesuai kebutuhan
+        ]);
+        // Menyimpan credential dan password ke tabel users
+        $user = User::create([
+            'credential' => $validatedData['credential'],
+            'password' => Hash::make($validatedData['credential']),
+            'role' => 'mahasiswa'
+        ]);
+        $user->save();
+
+        $mahasiswa = Mahasiswa::create([
+            'name' => $validatedData['name'],
+            'user_id' => $user->id,
+            'dosen_id' => null,
+            'angkatan' => $validatedData['angkatan']
+        ]);
+        $mahasiswa->save();
+
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Mahasiswa $mahasiswa)
+    public function show($id)
     {
-        //
+        $data = Mahasiswa::findOrFail($id);
+        return view('admin.superadmin.mahasiswa.show', compact('data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Mahasiswa $mahasiswa)
+    public function edit($id)
     {
-        //
+        $data = Mahasiswa::findOrFail($id);
+        return view('admin.superadmin.mahasiswa.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(Request $request, $id)
     {
-        //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $user = User::findOrFail($mahasiswa->user_id);
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'credential' => 'required|string|max:255|unique:users,credential,' . $user->id,
+            'angkatan' => 'required|string|max:255',
+            // 'dosen_id' => 'required|exists:dosen,id',
+            // Tambahkan validasi lain sesuai kebutuhan
+        ]);
+
+        $user->update([
+            'credential' => $request->credential,
+        ]);
+        $mahasiswa->update([
+            'name' => $request->name,
+            'angkatan' => $request->angkatan
+        ]);
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mahasiswa $mahasiswa)
+    public function destroy($id)
     {
-        //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->delete();
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
     }
 }
