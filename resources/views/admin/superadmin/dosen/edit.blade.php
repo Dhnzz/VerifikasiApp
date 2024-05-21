@@ -6,9 +6,9 @@
     <div class="w-full flex flex-col items-center">
       <p class="font-semibold text-lg">Edit Data Dosen</p>
       @if (session('error'))
-        <div class="bg-red-500 text-white p-4 rounded-md mb-4">
-          {{ session('error') }}
-        </div>
+      <div class="bg-red-500 text-white p-4 rounded-md mb-4">
+        {{ session('error') }}
+      </div>
       @endif
     </div>
     <div class="mt-12">

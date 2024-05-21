@@ -3,7 +3,11 @@
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Periode</h1> <x-button_md color="primary" onclick="location.href='{{ route('periode.create') }}';">Tambah Data</x-button_md>
+    <h1 class="text-xl font-semibold">Periode</h1>
+    <x-button_md color="primary" onclick="location.href='{{ route('periode.create') }}';" class="inline-flex gap-x-2">
+      <span><i class="fas fa-plus"></i></span>
+      Tambah
+    </x-button_md>
   </div>
   <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
     <table id="table_config" class="">
