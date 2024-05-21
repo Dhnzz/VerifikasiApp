@@ -16,7 +16,7 @@ class DosenController extends Controller
     public function index()
     {
         $data = Dosen::get();
-        return view('admin.superadmin.dosen', compact('data'));
+        return view('admin.superadmin.dosen.index', compact('data'));
     }
 
     /**
@@ -24,7 +24,7 @@ class DosenController extends Controller
      */
     public function create()
     {
-        return view('dosen.create');
+        return view('admin.superadmin.dosen.create');
     }
 
     /**
@@ -35,20 +35,18 @@ class DosenController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'credential' => 'required|string|max:255|unique:users,credential',
-            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
         // Menyimpan credential dan password ke tabel users
         $user = User::create([
             'credential' => $validatedData['credential'],
-            'password' => Hash::make($validatedData['password']),
+            'password' => Hash::make($validatedData['credential']),
             'role' => 'dosen'
         ]);
         $user->save();
 
         $dosen = Dosen::create([
-            'nama' => $validatedData['name'],
-            'nipdn' => $validatedData['credential'],
+            'name' => $validatedData['name'],
             'user_id' => $user->id
         ]);
         $dosen->save();
@@ -62,8 +60,8 @@ class DosenController extends Controller
      */
     public function show($id)
     {
-        $dosen = Dosen::findOrFail($id);
-        return view('dosen.show', compact('dosen'));
+        $data = Dosen::findOrFail($id);
+        return view('admin.superadmin.dosen.show', compact('data'));
     }
 
     /**
@@ -72,7 +70,7 @@ class DosenController extends Controller
     public function edit($id)
     {
         $dosen = Dosen::findOrFail($id);
-        return view('dosen.edit', compact('dosen'));
+        return view('admin.superadmin.dosen.edit', compact('dosen'));
     }
 
     /**
@@ -107,7 +105,9 @@ class DosenController extends Controller
     public function destroy($id)
     {
         $dosen = Dosen::findOrFail($id);
+        $user = User::findOrFail($dosen->user_id);
         $dosen->delete();
+        $user->delete();
 
         return redirect()->route('dosen.index')->with('success', 'Dosen berhasil dihapus.');
     }
