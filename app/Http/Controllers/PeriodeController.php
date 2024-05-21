@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Periode;
+use App\Models\{Periode, User, Mahasiswa};
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PeriodeController extends Controller
 {
@@ -29,8 +30,30 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        Periode::create($request->all());
-        return redirect()->route('periode.index')->with('success', 'Data periode berhasil ditambahkan!');
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'credential' => 'required|string|max:255|unique:users,credential',
+            'angkatan' => 'required|string|max:255',
+            // Tambahkan validasi lain sesuai kebutuhan
+        ]);
+        // Menyimpan credential dan password ke tabel users
+        $user = User::create([
+            'credential' => $validatedData['credential'],
+            'password' => Hash::make($validatedData['credential']),
+            'role' => 'mahasiswa'
+        ]);
+        $user->save();
+
+        $mahasiswa = Mahasiswa::create([
+            'name' => $validatedData['name'],
+            'user_id' => $user->id,
+            'dosen_id' => null,
+            'angkatan' => $validatedData['angkatan']
+        ]);
+        $mahasiswa->save();
+
+
+        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil ditambahkan.');
     }
 
     /**

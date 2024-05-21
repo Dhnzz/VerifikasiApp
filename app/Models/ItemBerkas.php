@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
 
 class ItemBerkas extends Model
@@ -12,12 +13,11 @@ class ItemBerkas extends Model
       'nama',
       'template_berkas_id'  
     ];
-
-    function TemplateBerkas(): BelongsTo {
-        return $this->belongsTo(TemplateBerkas::class);
+    
+    public function templateBerkas(): BelongsToMany{
+        return $this->belongsToMany(TemplateBerkas::class, 'template_item');
     }
-
-    function Berkas() : BelongsTo {
-        return $this->belongsTo(Berkas::class);
+    public function mahasiswas(): BelongsToMany{
+        return $this->belongsToMany(Mahasiswa::class, 'mahasiswa_berkas');
     }
 }
