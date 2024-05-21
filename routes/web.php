@@ -25,7 +25,7 @@ Route::get('/', function(){
 });
 
 Route::get('/sample', function(){
-    return view('admin.dosen.period_details');
+    return view('admin.superadmin.template.manajemen_berkas');
 });
 
 require __DIR__ . '/auth.php';

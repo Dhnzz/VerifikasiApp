@@ -3,21 +3,25 @@
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Mahasiswa</h1> <x-button_md color="primary" onclick="location.href='{{ route('dosen.create') }}';">Tambah Data</x-button_md>
+    <h1 class="text-xl font-semibold">Dosen</h1>
+    <x-button_md color="primary" onclick="location.href='{{ route('dosen.create') }}';" class="inline-flex gap-x-2">
+      <span><i class="fas fa-plus"></i></span>
+      Tambah
+    </x-button_md>
   </div>
   <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
     <table id="table_config" class="">
       <thead>
         <tr>
           <th>NO</th>
-          <th>NIM</th>
+          <th>NIDN</th>
           <th>Nama</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         @php
-          $i = 1;
+        $i = 1;
         @endphp
         @foreach ($data as $item)
         <tr>
@@ -27,14 +31,10 @@
           <td>
             <div class="relative inline-block text-left">
               <button type="button" id="dropdownMenuButton{{ $item->id }}"
-                class="inline-flex justify-center items-center w-full rounded-md px-2 py-1 bg-blue-500 text-white hover:bg-blue-600"
+                class="inline-flex justify-center items-center w-full rounded-md px-2 py-1.5 bg-color-primary-500 text-white hover:bg-color-primary-500"
                 aria-expanded="false" aria-haspopup="true">
                 <!-- Tanda tiga titik vertikal (ellipsis) -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M4 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-                    clip-rule="evenodd" />
-                </svg>
+                <i class="fas fa-ellipsis-h"></i>
               </button>
 
               <div id="dropdownMenu{{ $item->id }}"
@@ -54,7 +54,7 @@
                     Update
                   </a>
                   <form action="{{ route('dosen.destroy', $item->id) }}" method="POST" role="none"
-                    style="display: inline-block;">
+                    style="display: inline-block;" class="w-full">
                     @csrf
                     @method('DELETE')
                     <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"

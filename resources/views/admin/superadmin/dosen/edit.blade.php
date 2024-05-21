@@ -6,12 +6,12 @@
     <div class="w-full flex flex-col items-center">
       <p class="font-semibold text-lg">Edit Data Mahasiswa</p>
       @if (session('error'))
-        <div class="bg-red-500 text-white p-4 rounded-md mb-4">
-          {{ session('error') }}
-        </div>
+      <div class="bg-red-500 text-white p-4 rounded-md mb-4">
+        {{ session('error') }}
+      </div>
       @endif
     </div>
-    <div class="mt-12">
+    <div class="mt-4">
       <form action="{{route('mahasiswa.update', $data->id)}}" method="post" class=" w-full">
         @csrf
         @method('PUT')
@@ -36,9 +36,9 @@
           <input type="text" placeholder="Angkatan Akademik" name="angkatan" value="{{$data->angkatan}}"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full transition duration-300 ease-in-out">
-          Simpan
-        </button>
+        <x-button_md color="primary" class="w-full col-span-12">
+          Kirim
+        </x-button_md>
       </form>
     </div>
   </div>
