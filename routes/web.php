@@ -25,7 +25,7 @@ Route::get('/', function(){
 });
 
 Route::get('/sample', function(){
-    return view('admin.superadmin.nested_form');
+    return view('admin.dosen.period_details');
 });
 
 require __DIR__ . '/auth.php';
