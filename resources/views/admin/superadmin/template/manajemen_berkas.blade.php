@@ -4,7 +4,7 @@
 <section class="max-w-screen-lg min-h-screen mx-auto flex justify-center items-center py-44 px-4 lg:px-12 gap-4">
   <div class="w-full p-10 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col">
     <div class="w-full flex flex-col items-center">
-      <p class="font-semibold text-lg">Nama Template</p>
+      <p class="font-semibold text-lg">{{$data->name}}</p>
     </div>
     <div class="mt-4">
       <form action="{{ route('itemberkas.store') }}" method="post" class="w-full">
@@ -18,8 +18,26 @@
               <span><i class="fas fa-plus"></i></span>
             </x-button_sm>
           </div>
-          <div id="berkas-container" class="flex flex-col ">
+          <div id="berkas-container" class="flex flex-col gap-y-4">
             <!-- Berkas sections will be added here -->
+            @foreach ($data->itemBerkas as $item)
+            <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4">
+              <button class="flex justify-between" onclick="openDetails(this, event)">
+                <p class="font-semibold">Berkas ${berkasCount}</p>
+                <span><i class="fas fa-chevron-down text-sm"></i></span>
+              </button>
+              <div class="detailContainer flex flex-col hidden">
+                <div class="mb-4">
+                  <label for="nama_berkas" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
+                    Nama Berkas
+                  </label>
+                  <input type="text" name="{{($data->itemBerkas->count() > 0 ? '' : 'name[]')}}" id="nama_berkas${berkasCount}" placeholder="Masukan Nama Berkas"
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" disable value="{{$item->name}}" />
+                  <input type="hidden" name="template_berkas_id[]" id="nama_berkas${berkasCount}" value="{{$data->id}}" />
+                </div>
+              </div>
+            </div>
+            @endforeach
           </div>
         </div>
         <x-button_md color="primary" class="w-full col-span-12" type="submit">
@@ -51,9 +69,9 @@
           <label for="nama_berkas" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Nama Berkas
           </label>
-          <input type="text" name="nama[]" id="nama_berkas${berkasCount}" placeholder="Masukan Nama Berkas"
+          <input type="text" name="name[]" id="nama_berkas${berkasCount}" placeholder="Masukan Nama Berkas"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-          <input type="hidden" name="template_berkas_id[]" id="nama_berkas${berkasCount}" value="1" />
+          <input type="hidden" name="template_berkas_id[]" id="nama_berkas${berkasCount}" value="{{$data->id}}" />
         </div>
       </div>
     </div>

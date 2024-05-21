@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TemplateBerkas;
+use App\Models\{TemplateBerkas, ItemBerkas};
 use Illuminate\Http\Request;
 
 class TemplateBerkasController extends Controller
@@ -12,7 +12,7 @@ class TemplateBerkasController extends Controller
      */
     public function index()
     {
-        $data = TemplateBerkas::all();
+        $data = TemplateBerkas::get();
         return view('admin.superadmin.template.index', compact('data'));
     }
 

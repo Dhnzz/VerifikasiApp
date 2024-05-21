@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ItemBerkas;
+use App\Models\TemplateBerkas;
 use Illuminate\Http\Request;
 
 class ItemBerkasController extends Controller
@@ -19,9 +20,10 @@ class ItemBerkasController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        return view('itemberkas.create');
+        $data = TemplateBerkas::findOrFail($id);
+        return view('admin.superadmin.template.manajemen_berkas', compact('data'));
     }
 
     /**
@@ -29,19 +31,23 @@ class ItemBerkasController extends Controller
      */
     public function store(Request $request)
     {
-        return dd($request);
-        $validatedData = $request->validate([
-            "nama" => "required|string|max:255",
-            'template_berkas_id' => 'required|exists:template_berkas,id',
-        ]);
+        // return dd($request);
+        // return dd($request->all());
+        // $validatedData = $request->validate([
+        //     "nama" => "required|string|max:255",
+        //     'template_berkas_id' => 'required|exists:template_berkas,id',
+        // ]);
 
-        foreach ($validatedData as $itemData) {
-            return $itemData;
-            # code...
-            ItemBerkas::create($itemData);
+        $data = $request->all();
+        foreach ($data['name'] as $index => $name) {
+            $template_berkas_id = $data['template_berkas_id'][$index];
+            ItemBerkas::create([
+                'name' => $name,
+                'template_berkas_id' => $template_berkas_id
+            ]);
         }
 
-        return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil ditambahkan!');
+        return redirect()->route('template.index')->with('success', 'Data item berkas berhasil ditambahkan!');
     }
 
     /**
@@ -69,12 +75,21 @@ class ItemBerkasController extends Controller
     public function update(Request $request, $id)
     {
         $itemBerkas = ItemBerkas::findOrFail($id);
-        $validatedData = $request->validate([
-            "name" => "required|string|max:255",
-            'template_berkas_id' => 'required|exists:template_berkas,id',
-        ]);
+        // $validatedData = $request->validate([
+        //     "name" => "required|string|max:255",
+        //     'template_berkas_id' => 'required|exists:template_berkas,id',
+        // ]);
 
-        $itemBerkas->update($validatedData);
+        $data = $request->all();
+        foreach ($data['name'] as $index => $name) {
+            $template_berkas_id = $data['template_berkas_id'][$index];
+            $itemBerkas = ItemBerkas::where('template_berkas_id', $template_berkas_id)->first();
+            if ($itemBerkas) {
+                $itemBerkas->update([
+                    'name' => $name
+                ]);
+            }
+        }
         return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil diubah!');
     }
 
