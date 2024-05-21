@@ -102,13 +102,19 @@
             berkasDiv.remove();
         }
 
-        function toggleEditButton(input) {
-            const editButton = input.closest('.detailContainer').querySelector('.edit-button');
-            if (input.value) {
-                editButton.classList.remove('hidden');
-            } else {
-                editButton.classList.add('hidden');
-            }
-        }
-    </script>
+  function toggleEditButton(input) {
+    const editButton = input.closest('.detailContainer').querySelector('.edit-button');
+    if (input.value) {
+      editButton.classList.remove('hidden');
+    } else {
+      editButton.classList.add('hidden');
+    }
+  }
+
+  function modalOpen() {
+    const modal = document.getElementById('modal');
+    modal.classList.toggle('hidden');
+  }
+
+</script>
 @endsection
