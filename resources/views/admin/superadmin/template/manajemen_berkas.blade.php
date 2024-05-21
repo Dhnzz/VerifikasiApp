@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Nama Template</p>
     </div>
     <div class="mt-4">
-      <form action="{{ route('mahasiswa.store') }}" method="post" class="w-full">
+      <form id="main-form" action="{{ route('mahasiswa.store') }}" method="post" class="w-full">
         @csrf
         <div class="mb-4">
           <div class="inline-flex justify-between items-end w-full mb-4">
@@ -31,12 +31,11 @@
                     Nama Berkas
                   </label>
                   <input type="text" name="nama_berkas[]" id="nama_berkas_statis" placeholder="Masukan Nama Berkas"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                    oninput="toggleEditButton(this)" />
+                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                 </div>
                 <div>
-                  <x-button_sm color="primary" class="edit-button hidden">
-                    Edit
+                  <x-button_sm color="primary" class="edit-button" id="toggle_modal" onclick="modalOpen()">
+                    Aksi
                   </x-button_sm>
                 </div>
               </div>
@@ -48,6 +47,37 @@
           Kirim
         </x-button_md>
       </form>
+      {{-- modal --}}
+      <div id="modal" class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+        <div class="max-w-lg w-full p-6 bg-white rounded-xl">
+          <div class="w-full inline-flex items-center justify-between">
+            <p class="text-lg font-semibold">Berkas 1</p>
+            <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+              onclick="modalOpen()">
+              <i class="fas fa-times text-lg"></i>
+            </button>
+          </div>
+          <hr class="mt-4 mb-4">
+          <div class="mb-4">
+            <form action="">
+              <label for="nama_berkas_modal" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
+                Nama Berkas
+              </label>
+              <input type="text" name="nama_berkas_modal" id="nama_berkas_modal" placeholder="Masukan Nama Berkas"
+                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+            </form>
+          </div>
+          <hr class="mt-4 mb-4">
+          <div class="inline-flex items-center gap-x-2">
+            <x-button_md color="primary" type="submit">
+              Edit
+            </x-button_md>
+            <x-button_md color="danger" type="submit">
+              Hapus
+            </x-button_md>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -109,5 +139,11 @@
       editButton.classList.add('hidden');
     }
   }
+
+  function modalOpen() {
+    const modal = document.getElementById('modal');
+    modal.classList.toggle('hidden');
+  }
+
 </script>
 @endsection
