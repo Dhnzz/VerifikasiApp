@@ -1,10 +1,10 @@
 <nav class="bg-color-primary-500 text-white fixed z-10 w-full shadow-sm font-Poppins">
     <div class="w-full p-4 max-w-screen-xl mx-auto flex z-[5] justify-between items-center ">
         @php
-            $role = Auth::user()->role;
-            if ($role == 'super_admin') {
-                $role = 'dosen';
-            }
+        $role = Auth::user()->role;
+        if ($role == 'super_admin') {
+        $role = 'dosen';
+        }
         @endphp
         <h1>{{Auth::user()->$role->name}}</h1>
         <h1>{{Auth::user()->role}}</h1>
@@ -62,21 +62,23 @@
                             <i class="fas fa-file"></i>
                             Mahasiswa
                         </a>
-                    <a href="{{route('dosen.index')}}">
+                    </div>
+                    <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
+                        <a href="{{route('dosen.index')}}">
                             <i class="fas fa-file"></i>
                             Dosen
                         </a>
                     </div>
 
                 </div>
-                <li class="p-2">
-                    <div class="inline-flex items-center gap-x-2  text-slate-500">
-                        <a href="{{route('periode.index')}}">
-                            <i class="fas fa-home"></i>
-                            Periode
-                        </a>
-                    </div>
-                </li>
+            <li class="p-2">
+                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                    <a href="{{route('periode.index')}}">
+                        <i class="fas fa-home"></i>
+                        Periode
+                    </a>
+                </div>
+            </li>
             </li>
         </div>
         <button class=" px-4 py-2.5 lg:hidden block text-slate-500 rounded-lg" onclick="handleMenuClick()">

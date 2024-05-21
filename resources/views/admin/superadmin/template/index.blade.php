@@ -3,8 +3,8 @@
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Dosen</h1>
-    <x-button_md color="primary" onclick="location.href='{{ route('dosen.create') }}';" class="inline-flex gap-x-2">
+    <h1 class="text-xl font-semibold">Mahasiswa</h1>
+    <x-button_md color="primary" onclick="location.href='{{ route('mahasiswa.create') }}';" class="inline-flex gap-x-2">
       <span><i class="fas fa-plus"></i></span>
       Tambah
     </x-button_md>
@@ -14,8 +14,9 @@
       <thead>
         <tr>
           <th>NO</th>
-          <th>NIDN</th>
+          <th>NIM</th>
           <th>Nama</th>
+          <th>Angkatan</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -27,12 +28,8 @@
         <tr>
           <td>{{ $i++ }}</td>
           <td>{{ $item->user->credential }}</td>
-          <td>
-            {{ $item->name }}
-            @if (auth()->user()->id == $item->user_id)
-              <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full ml-2">Anda sedang login</span>
-            @endif
-          </td>
+          <td>{{ $item->name }}</td>
+          <td>{{ $item->angkatan }}</td>
           <td>
             <div class="relative inline-block text-left">
               <button type="button" id="dropdownMenuButton{{ $item->id }}"
@@ -46,24 +43,24 @@
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <a href="{{ route('dosen.show', $item->id) }}"
+                  <a href="{{ route('mahasiswa.show', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem">
-                    <i class="w-4 h-4 fas fa-info-circle"></i>
-                    Detail
+                    <i class="w-4 h-4 fas fa-file"></i>
+                    Manajemen Berkas
                   </a>
-                  <a href="{{ route('dosen.edit', $item->id) }}"
+                  <a href="{{ route('mahasiswa.edit', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                     role="menuitem">
                     <i class="fas fa-pen w-4 h-4"></i>
                     Update
                   </a>
-                  <form action="{{ route('dosen.destroy', $item->id) }}" method="POST" role="none"
+                  <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" role="none"
                     style="display: inline-block;" class="w-full">
                     @csrf
                     @method('DELETE')
                     <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"
-                      class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
+                      class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-color-danger-500 hover:bg-gray-100 hover:text-color-danger-700"
                       role="menuitem">
                       <i class="fas fa-trash w-4 h-4"></i>
                       Delete
