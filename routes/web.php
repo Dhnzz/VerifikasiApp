@@ -26,7 +26,10 @@ Route::get('/', function () {
 });
 
 Route::get('/sample', function () {
+Route::get('/sample', function () {
     return view('admin.superadmin.template.manajemen_berkas');
 });
+
+Route::resource('itemberkas', ItemBerkasController::class);
 
 require __DIR__ . '/auth.php';

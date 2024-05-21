@@ -29,13 +29,17 @@ class ItemBerkasController extends Controller
      */
     public function store(Request $request)
     {
+        return dd($request);
         $validatedData = $request->validate([
-            "name" => "required|string|max:255",
+            "nama" => "required|string|max:255",
             'template_berkas_id' => 'required|exists:template_berkas,id',
         ]);
 
-        $itemBerkas = ItemBerkas::create($validatedData);
-        $itemBerkas->save();
+        foreach ($validatedData as $itemData) {
+            return $itemData;
+            # code...
+            ItemBerkas::create($itemData);
+        }
 
         return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil ditambahkan!');
     }
