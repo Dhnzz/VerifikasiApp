@@ -10,7 +10,7 @@ class Periode extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama',
+        'name',
         'deskripsi',
         'tgl_mulai',
         'tgl_berakhir',

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Periode, User, Mahasiswa};
+use App\Models\PeriodeTemplate;
+use App\Models\TemplateBerkas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,7 +24,9 @@ class PeriodeController extends Controller
      */
     public function create()
     {
-        return view('admin.superadmin.periode.create');
+        $template_berkas = TemplateBerkas::get();
+        // dd($template_berkas);
+        return view('admin.superadmin.periode.create', compact('template_berkas'));
     }
 
     /**
@@ -30,13 +34,19 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'tgl_mulai' => 'required|date',
-            'tgl_berakhir' => 'required|date|after:tgl_mulai',
+        // dd($request);
+        $periode = Periode::create([
+            'name' => $request->name,
+            'deskripsi' => $request->deskripsi,
+            'tgl_mulai' => $request->tanggal_mulai,
+            'tgl_berakhir' => $request->tanggal_berakhir,
+            'template_berkas_id' => $request->template_berkas_id,
         ]);
 
-        Periode::create($validatedData);
+        PeriodeTemplate::create([
+            'periode_id' => $periode->id,
+            'template_berkas_id' => $request->template_berkas_id,
+        ]);
 
         return redirect()->route('periode.index')->with('success', 'Periode baru berhasil dibuat!');
     }

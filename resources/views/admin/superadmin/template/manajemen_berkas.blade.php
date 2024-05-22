@@ -21,12 +21,12 @@
                         <div id="berkas-container" class="flex flex-col gap-y-4">
                             <!-- Dynamic berkas section will be added here -->
                             @php
-                              $i = 1;
+                                $i = 1;
                             @endphp
                             @foreach ($data->itemBerkas as $item)
                                 <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4">
                                     <button class="flex justify-between" onclick="openDetails(this, event)">
-                                        <p class="font-semibold">Berkas {{$i++}}</p>
+                                        <p class="font-semibold">Berkas {{ $i++ }}</p>
                                         <span><i class="fas fa-chevron-down text-sm"></i></span>
                                     </button>
                                     <div class="detailContainer flex flex-col hidden">
@@ -80,8 +80,8 @@
                                 <input type="text" name="name" id="nama_berkas_modal"
                                     placeholder="Masukan Nama Berkas"
                                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                                <input type="text" name="template_berkas_id"
-                                    placeholder="Masukan Nama Berkas" id="template_berkas_id"
+                                <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
+                                    id="template_berkas_id"
                                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                                 <div class="inline-flex items-center gap-x-2">
                                     <x-button_md color="primary" type="submit">
@@ -89,11 +89,14 @@
                                     </x-button_md>
                                 </div>
                             </form>
-                            <form action="{{route('item-management.destroy')}}" method="post">
+                            <form action="{{ route('item-management.destroy') }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <input type="text" name="template_berkas_id"
-                                    placeholder="Masukan Nama Berkas" id="template_berkas_id_delete"
+                                <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
+                                    id="template_berkas_id_delete"
+                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                                <input type="text" name="template_id" value="{{$data->id}}" placeholder="Masukan Nama Berkas"
+                                    id="template_id_delete"
                                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                                 <div class="inline-flex items-center gap-x-2">
                                     <x-button_md color="danger" type="submit">
