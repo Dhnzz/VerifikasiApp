@@ -47,7 +47,7 @@
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <a href="{{ route("periode.show", $item->id) }}">
+                  <a href="{{ route("admin.periode.show", $item->id) }}">
                     <div
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem">

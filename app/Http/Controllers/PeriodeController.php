@@ -53,9 +53,7 @@ class PeriodeController extends Controller
     public function show($id)
     {
         $periode = Periode::findOrFail($id);
-        $templateBerkas = $periode->templateBerkas;
-
-        return view('admin.superadmin.periode.show', compact('periode', 'templateBerkas'));
+        return view('admin.superadmin.periode.show', compact('periode'));
     }
 
     /**
