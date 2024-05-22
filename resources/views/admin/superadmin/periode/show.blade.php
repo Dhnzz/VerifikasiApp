@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-lg min-h-screen mx-auto grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-lg min-h-screen mx-auto grid grid-cols-12 pt-44 pb-20 px-4 lg:px-12 gap-4">
     {{-- <div class="w-full p-10 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col">
         <div class="w-full flex flex-col items-center">
             <p class="font-semibold text-lg">Detail Periode</p>

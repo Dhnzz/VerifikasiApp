@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-lg min-h-screen mx-auto grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-lg min-h-screen mx-auto grid grid-cols-12 pt-44 pb-20 px-4 lg:px-12 gap-4">
     <div class="col-span-12 w-full h-fit p-8 bg-white rounded-xl border border-slate-200 shadow-sm">
         <div>
             <p class="font-semibold text-lg">Detail Data Dosen</p>
