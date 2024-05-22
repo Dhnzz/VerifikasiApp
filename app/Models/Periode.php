@@ -15,6 +15,7 @@ class Periode extends Model
         'tgl_mulai',
         'tgl_berakhir',
         'template_berkas_id',
+        'status',
     ];
 
     public function templateBerkas(): BelongsTo{
