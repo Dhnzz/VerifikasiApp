@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Nama Periode</p>
     </div>
     <div class="mt-12">
-      <form action="{{route('periode.store')}}" method="post" class=" w-full grid grid-cols-12 gap-4">
+      <form action="{{route('admin.periode.store')}}" method="post" class=" w-full grid grid-cols-12 gap-4">
         @csrf
         <div class="mb-4 col-span-12">
           <label for="nama_periode" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">

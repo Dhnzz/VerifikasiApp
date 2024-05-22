@@ -4,7 +4,7 @@
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
     <h1 class="text-xl font-semibold">Periode</h1>
-    <x-button_md color="primary" onclick="location.href='{{ route('periode.create') }}';" class="inline-flex gap-x-2">
+    <x-button_md color="primary" onclick="location.href='{{ route('admin.periode.create') }}';" class="inline-flex gap-x-2">
       <span><i class="fas fa-plus"></i></span>
       Tambah
     </x-button_md>
@@ -55,7 +55,7 @@
                     Detail
                   </div>
                 </a>
-                <a href="{{ route('periode.edit', $item->id) }}">
+                <a href="{{ route('admin.periode.edit', $item->id) }}">
                   <div
                   class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                   role="menuitem">
@@ -63,7 +63,7 @@
                   Update
                 </div>
               </a>
-                  <form action="{{ route('periode.destroy', $item->id) }}" method="POST" role="none"
+                  <form action="{{ route('admin.periode.destroy', $item->id) }}" method="POST" role="none"
                     style="display: inline-block;">
                     @csrf
                     @method('DELETE')

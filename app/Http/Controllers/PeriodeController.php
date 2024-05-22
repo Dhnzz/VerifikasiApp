@@ -44,7 +44,7 @@ class PeriodeController extends Controller
             'status' => 1,
         ]);
 
-        return redirect()->route('periode.index')->with('success', 'Periode baru berhasil dibuat!');
+        return redirect()->route('admin.periode.index')->with('success', 'Periode baru berhasil dibuat!');
     }
 
     /**
@@ -89,7 +89,7 @@ class PeriodeController extends Controller
             // 'status' => 1,
         ]);
 
-        return redirect()->route('periode.index')->with('success', 'Periode berhasil diperbarui!');
+        return redirect()->route('admin.periode.index')->with('success', 'Periode berhasil diperbarui!');
     }
 
     /**
@@ -99,7 +99,7 @@ class PeriodeController extends Controller
     {
         $periode = Periode::findOrFail($id);
         $periode->delete();
-        return redirect()->route('periode.index')->with('success', 'Data periode berhasil dihapus!');
+        return redirect()->route('admin.periode.index')->with('success', 'Data periode berhasil dihapus!');
     }
 
     public function periodeAktif(){
