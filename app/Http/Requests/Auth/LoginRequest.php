@@ -27,8 +27,20 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'credential' => ['required', 'numeric'],
-            'password' => ['required', 'string'],
+            'credential' => ['required', 'numeric', 'regex:/^[0-9]+$/'],
+            'password' => ['required', 'string', 'min:8'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'credential.required' => 'Kolom NIM/NIDN wajib diisi.',
+            'credential.numeric' => 'NIM/NIDN harus berupa angka.',
+            'credential.regex' => 'NIM/NIDN hanya boleh mengandung angka.',
+            'password.required' => 'Kolom kata sandi wajib diisi.',
+            'password.string' => 'Kata sandi harus berupa teks.',
+            'password.min' => 'Kata sandi harus memiliki minimal 8 karakter.',
         ];
     }
 

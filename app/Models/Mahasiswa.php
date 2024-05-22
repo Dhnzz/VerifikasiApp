@@ -27,6 +27,10 @@ class Mahasiswa extends Model
         return $this->belongsTo(Dosen::class);
     }
 
+    public function periode(): BelongsTo{
+        return $this->belongsTo(Periode::class);
+    }
+
     public function itemBerkas(): BelongsToMany{
         return $this->belongsToMany(ItemBerkas::class, 'mahasiswa_berkas');
     }
