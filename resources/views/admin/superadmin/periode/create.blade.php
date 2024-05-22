@@ -7,53 +7,51 @@
       <p class="font-semibold text-lg">Nama Periode</p>
     </div>
     <div class="mt-12">
-      <form action="" class=" w-full grid grid-cols-12 gap-4">
+      <form action="{{route('periode.store')}}" method="post" class=" w-full grid grid-cols-12 gap-4">
+        @csrf
         <div class="mb-4 col-span-12">
           <label for="nama_periode" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Nama Periode
           </label>
-          <input id="nama_periode" placeholder="nama periode"
+          <input id="nama_periode" name="name" placeholder="nama periode"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
         <div class="mb-4 col-span-12">
           <label for="deksripsi_periode" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Deskripsi Periode
           </label>
-          <textarea id="deksripsi_periode" placeholder="deksripsi periode"
+          <textarea id="deksripsi_periode" name="deskripsi" placeholder="deksripsi periode"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "></textarea>
         </div>
         <div class="mb-4 col-span-6">
           <label for="tanggal_mulai" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Tanggal Mulai
           </label>
-          <input type="date" max="100" id="tanggal_mulai" placeholder="tanggal mulai"
+          <input type="date" max="100" id="tanggal_mulai" name="tanggal_mulai" placeholder="tanggal mulai"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
         <div class="mb-4 col-span-6">
           <label for="tanggal_berakhir" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Tanggal Berakhir
           </label>
-          <input type="date" id="tanggal_berakhir" placeholder="tanggal berakhir"
+          <input type="date" id="tanggal_berakhir" name="tanggal_berakhir" placeholder="tanggal berakhir"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
         <div class="mb-4 col-span-12">
           <label for="template_berkas" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Template Berkas
           </label>
-          <select id="template_berkas" placeholder="template berkas" style="height: 75%"
-            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
-            <option value="apple">Apple</option>
-            <option value="banana">Banana</option>
-            <option value="cherry">Cherry</option>
-            <option value="date">Date</option>
-            <option value="fig">Fig</option>
-            <option value="grape">Grape</option>
-            <option value="kiwi">Kiwi</option>
+          <select id="template_berkas" name="template_berkas_id" placeholder="template berkas"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" style="height: 100%;">
+            <option value="">Pilih Template</option>
+            @foreach ($template_berkas as $item)
+                <option value="{{ $item->id }}">{{ $item->name }}</option>
+            @endforeach
           </select>
         </div>
-        <x-button_md color="primary" class="w-full col-span-12">
+        <x-button_md color="primary" class="w-full col-span-12" type="submit">
           Kirim
-        </x-button_md>
+      </x-button_md>
       </form>
     </div>
   </div>
