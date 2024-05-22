@@ -4,21 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\{BelongsToMany, HasMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
 
 class Periode extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama',
+        'name',
         'deskripsi',
         'tgl_mulai',
         'tgl_berakhir',
         'template_berkas_id',
     ];
 
-    public function templateBerkas(): BelongsToMany{
-        return $this->belongsToMany(TemplateBerkas::class, 'periode_template');
+    public function templateBerkas(): BelongsTo{
+        return $this->belongsTo(TemplateBerkas::class);
     }
 
     public function mahasiswa(): HasMany{

@@ -89,9 +89,8 @@ class ItemBerkasController extends Controller
      */
     public function destroy(Request $request)
     {
-        // dd($request->template_berkas_id);
         $itemBerkas = ItemBerkas::findOrFail($request->template_berkas_id);
         $itemBerkas->delete();
-        return redirect()->route('itemBerkas.index')->with('success', 'Data item berkas berhasil dihapus!');
+        return redirect()->route('item-management.create', $request->template_id)->with('success', 'Data item berkas berhasil dihapus!');
     }
 }
