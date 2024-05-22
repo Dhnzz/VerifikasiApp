@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Tambah Data Dosen</p>
     </div>
     <div class="mt-4">
-      <form action="{{route('dosen.store')}}" method="post" class=" w-full">
+      <form action="{{route('admin.dosen.store')}}" method="post" class=" w-full">
         @csrf
         <div class="mb-4">
           <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
