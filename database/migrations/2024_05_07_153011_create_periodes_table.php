@@ -22,6 +22,7 @@ return new class extends Migration {
                 $table->date('tgl_mulai');
                 $table->date('tgl_berakhir');
                 $table->unsignedBigInteger('template_berkas_id')->nullable();
+                $table->enum('status', [0,1]);
                 $table->timestamps();
 
                 $table->foreign('template_berkas_id')->references('id')->on('template_berkas')->onDelete('cascade');
