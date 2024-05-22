@@ -7,7 +7,7 @@
                 <p class="font-semibold text-lg">{{ $data->name }} </p>
             </div>
             <div class="mt-4">
-                <form action="{{ route('itemberkas.store') }}" method="post" class="w-full">
+                <form action="{{ route('admin.itemberkas.store') }}" method="post" class="w-full">
                     @csrf
                     <div class="mb-4">
                         <div class="inline-flex justify-between items-end w-full mb-4">
@@ -70,7 +70,7 @@
                         </div>
                         <hr class="mt-4 mb-4">
                         <div class="mb-4">
-                            <form action="{{ route('item-management.update') }}" method="post">
+                            <form action="{{ route('admin.item-management.update') }}" method="post">
                                 @csrf
                                 @method('PUT')
                                 <label for="nama_berkas_modal"
@@ -89,7 +89,7 @@
                                     </x-button_md>
                                 </div>
                             </form>
-                            <form action="{{ route('item-management.destroy') }}" method="post">
+                            <form action="{{ route('admin.item-management.destroy') }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"

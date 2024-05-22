@@ -47,7 +47,7 @@ class ItemBerkasController extends Controller
             ]);
         }
 
-        return redirect()->route('template.index')->with('success', 'Data item berkas berhasil ditambahkan!');
+        return redirect()->route('admin.template.index')->with('success', 'Data item berkas berhasil ditambahkan!');
     }
 
     /**
@@ -84,7 +84,7 @@ class ItemBerkasController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil diubah!');
+        return redirect()->route('admin.item-management.create', $request->template_id)->with('success', 'Data item berkas berhasil diubah!');
     }
 
     /**
@@ -94,6 +94,6 @@ class ItemBerkasController extends Controller
     {
         $itemBerkas = ItemBerkas::findOrFail($request->template_berkas_id);
         $itemBerkas->delete();
-        return redirect()->route('item-management.create', $request->template_id)->with('success', 'Data item berkas berhasil dihapus!');
+        return redirect()->route('admin.item-management.create', $request->template_id)->with('success', 'Data item berkas berhasil dihapus!');
     }
 }
