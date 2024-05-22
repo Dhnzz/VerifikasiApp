@@ -28,7 +28,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'credential' => ['required', 'numeric', 'regex:/^[0-9]+$/'],
-            'password' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string'],
         ];
     }
 
@@ -40,7 +40,6 @@ class LoginRequest extends FormRequest
             'credential.regex' => 'NIM/NIDN hanya boleh mengandung angka.',
             'password.required' => 'Kolom kata sandi wajib diisi.',
             'password.string' => 'Kata sandi harus berupa teks.',
-            'password.min' => 'Kata sandi harus memiliki minimal 8 karakter.',
         ];
     }
 
