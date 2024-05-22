@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Edit Data Template</p>
     </div>
     <div class="mt-4">
-      <form action="{{route('template.update', $tmpBerkas->id)}}" method="post" class=" w-full">
+      <form action="{{route('admin.template.update', $tmpBerkas->id)}}" method="post" class=" w-full">
         @csrf
         @method('PUT')
         <div class="mb-4">
