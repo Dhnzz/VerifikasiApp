@@ -43,7 +43,7 @@
         <div class="max-w-screen-xl hidden mx-auto text-black list-none lg:flex items-center p-2 gap-x-8 text-sm">
             <li class="p-2">
                 <div class="inline-flex items-center gap-x-2  text-slate-500">
-                    <a href="{{ route('admin.dashboard') }}">
+                    <a href="{{ route('dashboard') }}">
                         <i class="fas fa-home"></i>
                         Beranda
                     </a>
