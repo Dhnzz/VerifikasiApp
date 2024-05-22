@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
     <h1 class="text-xl font-semibold">Dosen</h1>
     <x-button_md color="primary" onclick="location.href='{{ route('admin.dosen.create') }}';" class="inline-flex gap-x-2 items-center">
