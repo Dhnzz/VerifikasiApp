@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 py-32 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
   <div class="lg:col-span-4 col-span-12  w-full ">
     <div class="p-6 bg-white flex gap-4 items-center rounded-xl shadow-sm border border-slate-200">
       <div class=" relative w-fit">
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
+    {{-- <div class="w-full bg-white border border-gray-200 rounded-lg shadow mt-4">
       <a href="#" class="w-full">
         <img class="rounded-t-lg w-full brightness-50" src="/images/hero-image/image.png" alt="" />
       </a>
@@ -46,6 +46,22 @@
             <p class="text-sm">Keluar</p>
           </div>
         </div>
+      </div>
+    </div> --}}
+
+    {{-- kalau belum terdaftar dalam periode apapun --}}
+    <div
+      class="mt-4 relative overflow-visible bg-white p-6 rounded-xl w-full border border-color-danger-500 shadow-sm transition-all duration-300 ">
+      <div class="flex items-start">
+        <div class="">
+          <span
+            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-danger-500 rounded-full ">
+            <i class="fas fa-exclamation"></i>
+          </span>
+        </div>
+
+        <p class="text-sm font-semibold text-color-danger-500">Kamu Belum Mendaftar Dalam Periode, Daftar Terlebih
+          Dahulu</p>
       </div>
     </div>
 
@@ -90,8 +106,14 @@
             class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
             <i class="fas fa-check"></i>
           </span>
-          <a  href="" class="text-sm font-semibold text-color-primary-500 underline">Surat Berak Dicelana</a>
+          <a href="" class="text-sm font-semibold text-color-primary-500 underline">Surat Berak Dicelana</a>
         </div>
+      </div>
+      <hr class="col-span-12 mt-4">
+      <div class="col-span-12 mt-4">
+        <x-button_md color="primary" type="submit" >
+          Daftar
+        </x-button_md>
       </div>
     </div>
   </div>

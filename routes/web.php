@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/sample', function () {});
 Route::get('/sample', function () {
-    return view('admin.superadmin.template.manajemen_berkas');
+    return view('admin.student.dashboard_student');
 });
 
 
