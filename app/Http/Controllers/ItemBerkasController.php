@@ -38,10 +38,13 @@ class ItemBerkasController extends Controller
         //     'template_berkas_id' => 'required|exists:template_berkas,id',
         // ]);
 
-        foreach ($validatedData as $itemData) {
-            return $itemData;
-            # code...
-            ItemBerkas::create($itemData);
+        $data = $request->all();
+        foreach ($data['name'] as $index => $name) {
+            $template_berkas_id = $data['template_berkas_id'][$index];
+            ItemBerkas::create([
+                'name' => $name,
+                'template_berkas_id' => $template_berkas_id
+            ]);
         }
 
         return redirect()->route('template.index')->with('success', 'Data item berkas berhasil ditambahkan!');
@@ -76,11 +79,11 @@ class ItemBerkasController extends Controller
         //     "name" => "required|string|max:255",
         //     'template_berkas_id' => 'required|exists:template_berkas,id',
         // ]);
-        
+
         $itemBerkas->update([
             'name' => $request->name
         ]);
-        
+
         return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil diubah!');
     }
 

@@ -161,7 +161,6 @@
             berkasDiv.remove();
         }
 
-<<<<<<<<< Temporary merge branch 1
         function toggleEditButton(input) {
             const editButton = input.closest('.detailContainer').querySelector('.edit-button');
             if (input.value) {
@@ -170,18 +169,6 @@
                 editButton.classList.add('hidden');
             }
         }
-    </script>
-@endsection
-=========
-  function toggleEditButton(input) {
-    const editButton = input.closest('.detailContainer').querySelector('.edit-button');
-    if (input.value) {
-      editButton.classList.remove('hidden');
-    } else {
-      editButton.classList.add('hidden');
-    }
-  }
-
   function modalOpen(value) {
     console.log(value)
     const inputan = value.parentElement.previousElementSibling.children[1].value;

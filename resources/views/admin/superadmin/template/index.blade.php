@@ -8,6 +8,7 @@
       <span><i class="fas fa-plus"></i></span>
       Tambah
     </x-button_md>
+    
   </div>
   <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
     <table id="table_config" class="">
@@ -26,7 +27,7 @@
         @foreach ($data as $item)
         <tr>
           <td>{{ $i++ }}</td>
-          <td>{{ $item->name }}</td>
+          <td>{{ $item->name ." ". $item->created_at->format("d/m/Y") }}</td>
           <td>
             @forelse ($item->itemBerkas as $berkas)
               <span>{{ $berkas->name }}</span><br>
@@ -42,7 +43,6 @@
                 <!-- Tanda tiga titik vertikal (ellipsis) -->
                 <i class="fas fa-ellipsis-h"></i>
               </button>
-
               <div id="dropdownMenu{{ $item->id }}"
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
@@ -53,13 +53,13 @@
                     <i class="w-4 h-4 fas fa-file"></i>
                     Manajemen Berkas
                   </a>
-                  <a href="{{ route('mahasiswa.edit', $item->id) }}"
+                  <a href="{{ route('template.edit', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                     role="menuitem">
                     <i class="fas fa-pen w-4 h-4"></i>
                     Update
                   </a>
-                  <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" role="none"
+                  <form action="{{ route('template.destroy', $item->id) }}" method="POST" role="none"
                     style="display: inline-block;" class="w-full">
                     @csrf
                     @method('DELETE')
