@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Tambah Data Mahasiswa</p>
     </div>
     <div class="mt-4">
-      <form action="{{route('mahasiswa.store')}}" method="post" class=" w-full">
+      <form action="{{route('admin.mahasiswa.store')}}" method="post" class=" w-full">
         @csrf
         <div class="mb-4">
           <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">

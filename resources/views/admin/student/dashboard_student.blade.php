@@ -111,7 +111,7 @@
       </div>
       <hr class="col-span-12 mt-4">
       <div class="col-span-12 mt-4">
-        <x-button_md color="primary" type="submit" >
+        <x-button_md color="primary" type="submit">
           Daftar
         </x-button_md>
       </div>

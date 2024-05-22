@@ -12,7 +12,7 @@
       @endif
     </div>
     <div class="mt-4">
-      <form action="{{route('mahasiswa.update', $data->id)}}" method="post" class=" w-full">
+      <form action="{{route('admin.mahasiswa.update', $data->id)}}" method="post" class=" w-full">
         @csrf
         @method('PUT')
         <div class="mb-4">

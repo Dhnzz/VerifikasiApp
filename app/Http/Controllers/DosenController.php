@@ -52,7 +52,7 @@ class DosenController extends Controller
         $dosen->save();
 
 
-        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil ditambahkan.');
+        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan.');
     }
 
     /**
@@ -93,7 +93,7 @@ class DosenController extends Controller
             'name' => $validatedData['name'],
         ]);
 
-        return redirect()->route('dosen.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
+        return redirect()->route('admin.dosen.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
     }
 
     public function updatePass(Request $request, $id){
@@ -105,7 +105,7 @@ class DosenController extends Controller
         $user->update([
             'password' => Hash::make($validatedData['password']),
         ]);
-        return redirect()->route('dosen.index')->with('success','Password berhasil diubah');
+        return redirect()->route('admin.dosen.index')->with('success','Password berhasil diubah');
     }
 
     /**
@@ -118,6 +118,6 @@ class DosenController extends Controller
         $dosen->delete();
         $user->delete();
 
-        return redirect()->route('dosen.index')->with('success', 'Dosen berhasil dihapus.');
+        return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil dihapus.');
     }
 }

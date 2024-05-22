@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     // Admin Routes
-    Route::prefix('admin')->group(function () {
-        Route::get('/', [DashboardController::class, 'admin'])->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::middleware('roleCheck:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('dosen', DosenController::class);
         Route::resource('periode', PeriodeController::class);
@@ -18,11 +18,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/item-management', [ItemBerkasController::class, 'destroy'])->name('item-management.destroy');
     });
 
-    // Dosen Routes
-
     // Mahasiswa Routes
-    Route::prefix('mahasiswa')->group(function () {
-        Route::get('/', [DashboardController::class, 'mahasiswa'])->name('mahasiswa.dashboard');
+    Route::middleware('roleCheck:mahasiswa')->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+        Route::name('periode.')->group(function(){
+            Route::get('/periode', [PeriodeController::class, 'periodeAktif'])->name('index');
+        });
     });
 });
 

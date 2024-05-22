@@ -6,7 +6,7 @@
       <p class="font-semibold text-lg">Nama Periode</p>
     </div>
     <div class="mt-12">
-      <form action="{{route('periode.update', $periode->id)}}" method="post" class=" w-full grid grid-cols-12 gap-4">
+      <form action="{{route('admin.periode.update', $periode->id)}}" method="post" class=" w-full grid grid-cols-12 gap-4">
         @csrf
         @method('PUT')
         <div class="mb-4 col-span-12">

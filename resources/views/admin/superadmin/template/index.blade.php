@@ -4,7 +4,7 @@
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
     <h1 class="text-xl font-semibold">Template Berkas</h1>
-    <x-button_md color="primary" onclick="location.href='{{ route('template.create') }}';" class="inline-flex gap-x-2">
+    <x-button_md color="primary" onclick="location.href='{{ route('admin.template.create') }}';" class="inline-flex gap-x-2">
       <span><i class="fas fa-plus"></i></span>
       Tambah
     </x-button_md>
@@ -47,19 +47,19 @@
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <a href="{{ route('item-management.create', $item->id) }}"
+                  <a href="{{ route('admin.item-management.create', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     role="menuitem">
                     <i class="w-4 h-4 fas fa-file"></i>
                     Manajemen Berkas
                   </a>
-                  <a href="{{ route('template.edit', $item->id) }}"
+                  <a href="{{ route('admin.template.edit', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                     role="menuitem">
                     <i class="fas fa-pen w-4 h-4"></i>
                     Update
                   </a>
-                  <form action="{{ route('template.destroy', $item->id) }}" method="POST" role="none"
+                  <form action="{{ route('admin.template.destroy', $item->id) }}" method="POST" role="none"
                     style="display: inline-block;" class="w-full">
                     @csrf
                     @method('DELETE')

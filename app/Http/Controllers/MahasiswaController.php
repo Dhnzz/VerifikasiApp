@@ -56,7 +56,7 @@ class MahasiswaController extends Controller
         $mahasiswa->save();
 
 
-        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil ditambahkan.');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil ditambahkan.');
     }
 
     /**
@@ -100,7 +100,7 @@ class MahasiswaController extends Controller
             'angkatan' => $validatedData['angkatan']
         ]);
 
-        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
     }
 
     public function updatePass(Request $request, $id)
@@ -113,7 +113,7 @@ class MahasiswaController extends Controller
         $user->update([
             'password' => Hash::make($validatedData['password']),
         ]);
-        return redirect()->route('mahasiswa.index')->with('success', 'Password berhasil diubah');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Password berhasil diubah');
     }
 
     /**
@@ -126,6 +126,6 @@ class MahasiswaController extends Controller
         $mahasiswa->delete();
         $user->delete();
 
-        return redirect()->route('mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
+        return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
     }
 }

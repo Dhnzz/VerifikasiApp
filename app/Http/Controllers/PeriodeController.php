@@ -44,7 +44,7 @@ class PeriodeController extends Controller
             'status' => 1,
         ]);
 
-        return redirect()->route('periode.index')->with('success', 'Periode baru berhasil dibuat!');
+        return redirect()->route('admin.periode.index')->with('success', 'Periode baru berhasil dibuat!');
     }
 
     /**
@@ -53,9 +53,7 @@ class PeriodeController extends Controller
     public function show($id)
     {
         $periode = Periode::findOrFail($id);
-        $templateBerkas = $periode->templateBerkas;
-
-        return view('admin.superadmin.periode.show', compact('periode', 'templateBerkas'));
+        return view('admin.superadmin.periode.show', compact('periode'));
     }
 
     /**
@@ -89,7 +87,7 @@ class PeriodeController extends Controller
             // 'status' => 1,
         ]);
 
-        return redirect()->route('periode.index')->with('success', 'Periode berhasil diperbarui!');
+        return redirect()->route('admin.periode.index')->with('success', 'Periode berhasil diperbarui!');
     }
 
     /**
@@ -99,6 +97,12 @@ class PeriodeController extends Controller
     {
         $periode = Periode::findOrFail($id);
         $periode->delete();
-        return redirect()->route('periode.index')->with('success', 'Data periode berhasil dihapus!');
+        return redirect()->route('admin.periode.index')->with('success', 'Data periode berhasil dihapus!');
+    }
+
+    public function periodeAktif(){
+        $data = Mahasiswa::findOrFail(auth()->user()->mahasiswa->id);
+        $aktif = Periode::where('status', 0)->get();
+        return view('admin.student.periode.index', compact('data','aktif'));
     }
 }
