@@ -38,7 +38,7 @@
                                     <input type="text" name="{{ $data->itemBerkas->count() > 0 ? '' : 'name[]' }}"
                                         id="nama_berkas${berkasCount}" placeholder="Masukan Nama Berkas"
                                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
-                                        disable value="{{ $item->name }}" oninput="toggleEditButton(this)" />
+                                        disable value="{{ $item->name }}" oninput="toggleEditButton(this)" disabled />
                                     <input type="hidden" name="template_berkas_id[]" id="nama_berkas${berkasCount}"
                                         value="{{ $item->id }}" />
                                 </div>
@@ -67,7 +67,7 @@
                             <i class="fas fa-times text-lg"></i>
                         </button>
                     </div>
-                    <hr class="mt-4 mb-4">
+
                     <div class="mb-4">
                         <form action="{{ route('item-management.update') }}" method="post">
                             @csrf
@@ -76,31 +76,35 @@
                                 class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                                 Nama Berkas
                             </label>
-                            <input type="text" name="name" id="nama_berkas_modal" placeholder="Masukan Nama Berkas"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                            <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
-                                id="template_berkas_id"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                            <div class="inline-flex items-center gap-x-2">
+                            <div class="inline-flex gap-x-2 w-full">
+                                <div class="w-full">
+                                    <input type="text" name="name" id="nama_berkas_modal"
+                                        placeholder="Masukan Nama Berkas"
+                                        class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                                    <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
+                                        id="template_berkas_id"
+                                        class="w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs hidden" />
+                                </div>
                                 <x-button_md color="primary" type="submit">
                                     Edit
                                 </x-button_md>
                             </div>
                         </form>
+                        <hr class="mt-4">
                         <form action="{{route('item-management.destroy')}}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
                                 id="template_berkas_id_delete"
-                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                            <div class="inline-flex items-center gap-x-2">
-                                <x-button_md color="danger" type="submit">
-                                    Hapus
+                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs hidden" />
+                            <div class="inline-flex items-center gap-x-2 mt-4">
+                                <x-button_md color="danger" type="submit" class="inline-flex gap-x-1 items-center">
+                                    <span><i class="fas fa-trash"></i></span>
+                                    Hapus Data
                                 </x-button_md>
                             </div>
                         </form>
                     </div>
-                    <hr class="mt-4 mb-4">
                 </div>
             </div>
         </div>
