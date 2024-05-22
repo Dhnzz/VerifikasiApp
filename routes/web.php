@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     // Admin Routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::middleware('roleCheck:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('dosen', DosenController::class);
@@ -24,10 +25,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/periode', [PeriodeController::class, 'periodeAktif'])->name('index');
         });
     });
+
+    // Dosen Routes
+    Route::middleware('roleCheck:dosen')->prefix('dosen')->name('dosen.')->group(function () {
+        Route::name('periode.')->group(function () {
+            Route::get('/periode', [PeriodeController::class, 'show'])->name('show');
+        });
+    });
 });
 
 Route::get('/sample', function () {
-    return view('admin.dosen.template_detail_periode');
+    return view('admin.dosen.tample_dashbaord');
 });
 
 
