@@ -16,8 +16,10 @@ class DashboardController extends Controller
             return view('admin.superadmin.dashboard_superadmin', compact('jumlahMahasiswa', 'jumlahDosen'));
         }elseif(Auth::user()->role == 'mahasiswa'){
             $data = Mahasiswa::findOrFail(Auth::user()->mahasiswa->id);
+            $registered = Periode::find($data->periode_id);
+            $dosen = Dosen::find($data->dosen_id);
             $periode = Periode::where('status', 1)->first();
-            return view('admin.student.dashboard_student', compact('data', 'periode'));
+            return view('admin.student.dashboard_student', compact('data', 'periode', 'registered', 'dosen'));
         }
     }
 }
