@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         @php
-          $i = 1;
+        $i = 1;
         @endphp
         @foreach ($data as $item)
         <tr>
@@ -33,14 +33,10 @@
           <td>
             <div class="relative inline-block text-left">
               <button type="button" id="dropdownMenuButton{{ $item->id }}"
-                class="inline-flex justify-center items-center w-full rounded-md px-2 py-1 bg-blue-500 text-white hover:bg-blue-600"
+                class="inline-flex justify-center items-center w-full rounded-md px-2 py-1.5 bg-color-primary-500 text-white hover:bg-color-primary-500"
                 aria-expanded="false" aria-haspopup="true">
                 <!-- Tanda tiga titik vertikal (ellipsis) -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M4 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm6 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-                    clip-rule="evenodd" />
-                </svg>
+                <i class="fas fa-ellipsis-h"></i>
               </button>
 
               <div id="dropdownMenu{{ $item->id }}"
@@ -67,8 +63,8 @@
                     style="display: inline-block;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete?')"
-                      class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
+                    <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"
+                      class="flex w-full items-center gap-x-2 px-4 py-2 text-sm text-color-danger-500 hover:bg-gray-100 hover:text-color-danger-700"
                       role="menuitem">
                       <i class="fas fa-trash w-4 h-4"></i>
                       Delete
