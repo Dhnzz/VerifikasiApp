@@ -2,7 +2,7 @@
     <div class="w-full p-4 max-w-screen-xl mx-auto flex z-[5] justify-between items-center ">
         @php
         $role = Auth::user()->role;
-        if ($role == 'super_admin') {
+        if ($role == 'admin') {
         $role = 'dosen';
         }
         @endphp

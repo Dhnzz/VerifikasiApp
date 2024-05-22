@@ -72,34 +72,29 @@ class ItemBerkasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $itemBerkas = ItemBerkas::findOrFail($id);
+        $itemBerkas = ItemBerkas::findOrFail($request->template_berkas_id);
         // $validatedData = $request->validate([
         //     "name" => "required|string|max:255",
         //     'template_berkas_id' => 'required|exists:template_berkas,id',
         // ]);
-
-        $data = $request->all();
-        foreach ($data['name'] as $index => $name) {
-            $template_berkas_id = $data['template_berkas_id'][$index];
-            $itemBerkas = ItemBerkas::where('template_berkas_id', $template_berkas_id)->first();
-            if ($itemBerkas) {
-                $itemBerkas->update([
-                    'name' => $name
-                ]);
-            }
-        }
+        
+        $itemBerkas->update([
+            'name' => $request->name
+        ]);
+        
         return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil diubah!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ItemBerkas $id)
+    public function destroy(Request $request)
     {
-        $itmberka = ItemBerkas::findOrFail($id);
-        $itmberka->delete();
-        return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil dihapus!');
+        // dd($request->template_berkas_id);
+        $itemBerkas = ItemBerkas::findOrFail($request->template_berkas_id);
+        $itemBerkas->delete();
+        return redirect()->route('itemBerkas.index')->with('success', 'Data item berkas berhasil dihapus!');
     }
 }

@@ -28,19 +28,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        if (Auth::user()->role == 'super_admin') {
-            return redirect()->intended(route('admin.dashboard', absolute:false));
-        } elseif (Auth::user()->role == 'dosen') {
-            Log::info('Redirecting to dosen dashboard');
-            return redirect()->intended(route('dosen.dashboard'));
-        } elseif (Auth::user()->role == 'mahasiswa') {
-            Log::info('Redirecting to mahasiswa dashboard');
-            return redirect()->intended(route('mahasiswa.dashboard'));
-        } else {
-            Log::info('User does not have a recognized role, redirecting to login');
-            Auth::logout();
-            return redirect('/')->withErrors(['error' => 'User Tidak Memiliki Role yang Dikenali']);
-        }
+        return redirect()->intended(route('admin.dashboard', absolute:false));
     }
 
     /**
