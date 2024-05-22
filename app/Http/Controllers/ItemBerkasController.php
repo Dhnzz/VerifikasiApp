@@ -39,8 +39,8 @@ class ItemBerkasController extends Controller
         // ]);
 
         $data = $request->all();
-        foreach ($data['name'] as $index => $name) {
-            $template_berkas_id = $data['template_berkas_id'][$index];
+        foreach ($data['name'] as $item => $name) {
+            $template_berkas_id = $data['template_berkas_id'][$item];
             ItemBerkas::create([
                 'name' => $name,
                 'template_berkas_id' => $template_berkas_id
