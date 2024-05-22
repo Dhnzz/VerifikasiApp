@@ -33,7 +33,7 @@ class TemplateBerkasController extends Controller
             "name" => "required|string|max:255",
         ]);
 
-        $validatedData['name'] .= ' ' . now()->format('d/m/Y');
+
         $tmpBerkas = TemplateBerkas::create($validatedData);
         $tmpBerkas->save();
 
@@ -55,7 +55,7 @@ class TemplateBerkasController extends Controller
     public function edit($id)
     {
         $tmpBerkas = TemplateBerkas::findOrFail($id);
-        return view('template-berkas.show', compact('tmpBerkas'));
+        return view('admin.superadmin.template.edit', compact('tmpBerkas'));
     }
 
     /**
@@ -64,13 +64,12 @@ class TemplateBerkasController extends Controller
     public function update(Request $request, $id)
     {
         $tmpBerkas = TemplateBerkas::findOrFail($id);
-        $validatedData = $request->validate([
-            "name" => "required|string|max:255",
-        ]);
+        // $validatedData = $request->validate([
+        //     "name" => "required||max:255",
+        // ]);
+        $tmpBerkas->update(["name" => $request->name]);
 
-        $tmpBerkas->update($validatedData);
-
-        return redirect()->route('template-berkas.index')->with('success', 'Template Berkas berhasil diubah.');
+        return redirect()->route('template.index')->with('success', 'Template Berkas berhasil diubah.');
     }
 
     /**
@@ -81,6 +80,6 @@ class TemplateBerkasController extends Controller
         $tmpBerkas = TemplateBerkas::findOrFail($id);
         $tmpBerkas->delete();
 
-        return redirect()->route('template-berkas.index')->with('success', 'Template Berkas berhasil dihapus.');
+        return redirect()->route('template.index')->with('success', 'Template Berkas berhasil dihapus.');
     }
 }

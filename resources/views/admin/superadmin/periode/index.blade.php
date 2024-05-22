@@ -43,18 +43,24 @@
                 class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
                 role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
                 <div class="py-1" role="none">
-                  <a class="flex hover:cursor-pointer items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem">
-                    <i class="w-4 h-4 fas fa-info-circle"></i>
-                    Detail
+                  <a href="{{ route("periode.show", $item->id) }}">
+                    <div
+                      class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem">
+                      <i class="w-4 h-4 fas fa-info-circle"></i>
+                      Detail
+                    </div>
                   </a>
-                  <a class="flex hover:cursor-pointer items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
-                    role="menuitem">
-                    <i class="fas fa-pen w-4 h-4"></i>
-                    Update
+                  <a href="{{ route('periode.edit', $item->id) }}">
+                    <div
+                      class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
+                      role="menuitem">
+                      <i class="fas fa-pen w-4 h-4"></i>
+                      Update
+                    </div>
                   </a>
-                  <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" role="none"
-                    style="display: inline-block;" class="w-full">
+                  <form action="{{ route('periode.destroy', $item->id) }}" method="POST" role="none"
+                    style="display: inline-block;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"

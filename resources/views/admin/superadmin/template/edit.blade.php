@@ -7,16 +7,17 @@
       <p class="font-semibold text-lg">Edit Data Template</p>
     </div>
     <div class="mt-4">
-      <form action="{{route('mahasiswa.store')}}" method="post" class=" w-full">
+      <form action="{{route('template.update', $tmpBerkas->id)}}" method="post" class=" w-full">
         @csrf
+        @method('PUT')
         <div class="mb-4">
-          <label for="nama_template" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
+          <label for="name" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
             Nama Template
           </label>
-          <input type="text" placeholder="Nama Template" name="nama_template"
-            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
+          <input type="text" placeholder="Nama Template" name="name"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " value="{{ $tmpBerkas->name }}" />
         </div>
-        <x-button_md color="primary" class="w-full col-span-12">
+        <x-button_md color="primary" class="w-full col-span-12" type="submit">
           Kirim
         </x-button_md>
       </form>

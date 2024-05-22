@@ -79,11 +79,11 @@ class ItemBerkasController extends Controller
         //     "name" => "required|string|max:255",
         //     'template_berkas_id' => 'required|exists:template_berkas,id',
         // ]);
-        
+
         $itemBerkas->update([
             'name' => $request->name
         ]);
-        
+
         return redirect()->route('itemberkas.index')->with('success', 'Data item berkas berhasil diubah!');
     }
 

@@ -10,6 +10,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('dosen', DosenController::class);
         Route::resource('periode', PeriodeController::class);
+        Route::get('/periode/{id}', [PeriodeController::class, 'show'])->name('periode.show');
         Route::resource('template', TemplateBerkasController::class);
         Route::resource('itemberkas', ItemBerkasController::class)->except('create','update','destroy');
         Route::get('/item-management/{id}', [ItemBerkasController::class, 'create'])->name('item-management.create');
