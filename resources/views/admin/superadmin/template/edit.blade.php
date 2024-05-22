@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Edit Data Template</p>
     </div>
     <div class="mt-4">
-      <form action="{{route('mahasiswa.store')}}" method="post" class=" w-full">
+      <form action="{{route('admin.mahasiswa.store')}}" method="post" class=" w-full">
         @csrf
         <div class="mb-4">
           <label for="nama_template" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">

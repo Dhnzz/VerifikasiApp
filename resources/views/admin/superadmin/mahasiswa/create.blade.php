@@ -7,7 +7,7 @@
       <p class="font-semibold text-lg">Tambah Data Mahasiswa</p>
     </div>
     <div class="mt-4">
-      <form action="{{route('mahasiswa.store')}}" method="post" class=" w-full">
+      <form action="{{route('admin.mahasiswa.store')}}" method="post" class=" w-full">
         @csrf
         <div class="mb-4">
           <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
@@ -30,7 +30,7 @@
           <input type="text" placeholder="Angkatan Akademik" name="angkatan"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
-        <x-button_md color="primary" class="w-full col-span-12">
+        <x-button_md color="primary" type="submit" class="w-full col-span-12">
           Kirim
         </x-button_md>
       </form>

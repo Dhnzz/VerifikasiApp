@@ -92,4 +92,10 @@ class PeriodeController extends Controller
         $periode->delete();
         return redirect()->route('periode.index')->with('success', 'Data periode berhasil dihapus!');
     }
+
+    public function periodeAktif(){
+        $data = Mahasiswa::findOrFail(auth()->user()->mahasiswa->id);
+        $aktif = Periode::where('status', 0)->get();
+        return view('admin.student.periode.index', compact('data','aktif'));
+    }
 }

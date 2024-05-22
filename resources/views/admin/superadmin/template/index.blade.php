@@ -53,13 +53,13 @@
                     <i class="w-4 h-4 fas fa-file"></i>
                     Manajemen Berkas
                   </a>
-                  <a href="{{ route('mahasiswa.edit', $item->id) }}"
+                  <a href="{{ route('admin.mahasiswa.edit', $item->id) }}"
                     class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                     role="menuitem">
                     <i class="fas fa-pen w-4 h-4"></i>
                     Update
                   </a>
-                  <form action="{{ route('mahasiswa.destroy', $item->id) }}" method="POST" role="none"
+                  <form action="{{ route('admin.mahasiswa.destroy', $item->id) }}" method="POST" role="none"
                     style="display: inline-block;" class="w-full">
                     @csrf
                     @method('DELETE')
