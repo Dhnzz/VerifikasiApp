@@ -41,6 +41,7 @@ class PeriodeController extends Controller
             'tgl_mulai' => $request->tanggal_mulai,
             'tgl_berakhir' => $request->tanggal_berakhir,
             'template_berkas_id' => $request->template_berkas_id,
+            'status' => 1,
         ]);
 
         return redirect()->route('periode.index')->with('success', 'Periode baru berhasil dibuat!');
@@ -54,7 +55,7 @@ class PeriodeController extends Controller
         $periode = Periode::findOrFail($id);
         $templateBerkas = $periode->templateBerkas;
 
-        return view('periode.show', compact('periode', 'templateBerkas'));
+        return view('admin.superadmin.periode.show', compact('periode', 'templateBerkas'));
     }
 
     /**
@@ -63,7 +64,8 @@ class PeriodeController extends Controller
     public function edit($id)
     {
         $periode = Periode::findOrFail($id);
-        return view('periode.edit', compact('periode'));
+        $template_berkas = TemplateBerkas::get();
+        return view('admin.superadmin.periode.edit', compact('periode', 'template_berkas'));
     }
 
     /**
@@ -71,14 +73,21 @@ class PeriodeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'tgl_mulai' => 'required|date',
-            'tgl_berakhir' => 'required|date|after:tgl_mulai',
-        ]);
+        // $validatedData = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'tgl_mulai' => 'required|date',
+        //     'tgl_berakhir' => 'required|date|after:tgl_mulai',
+        // ]);
 
         $periode = Periode::findOrFail($id);
-        $periode->update($validatedData);
+        $periode->update([
+            'name' => $request->name,
+            'deskripsi' => $request->deskripsi,
+            'tgl_mulai' => $request->tanggal_mulai,
+            'tgl_berakhir' => $request->tanggal_berakhir,
+            'template_berkas_id' => $request->template_berkas_id,
+            // 'status' => 1,
+        ]);
 
         return redirect()->route('periode.index')->with('success', 'Periode berhasil diperbarui!');
     }
