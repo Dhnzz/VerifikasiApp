@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-lg min-h-screen mx-auto flex justify-center items-center py-44 px-4 lg:px-12 gap-4">
+<section class="max-w-screen-lg min-h-screen mx-auto flex justify-center items-center pt-44 pb-20 px-4 lg:px-12 gap-4">
   <div class="w-full p-10 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col">
     <div class="w-full flex flex-col items-center">
       <p class="font-semibold text-lg">Tambah Data Mahasiswa</p>
@@ -30,7 +30,7 @@
           <input type="text" placeholder="Angkatan Akademik" name="angkatan"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
-        <x-button_md color="primary" type="submit" class="w-full col-span-12">
+        <x-button_md color="primary" class="w-full col-span-12" type="submit">
           Kirim
         </x-button_md>
       </form>
