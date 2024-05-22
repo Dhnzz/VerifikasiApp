@@ -43,11 +43,6 @@ class PeriodeController extends Controller
             'template_berkas_id' => $request->template_berkas_id,
         ]);
 
-        PeriodeTemplate::create([
-            'periode_id' => $periode->id,
-            'template_berkas_id' => $request->template_berkas_id,
-        ]);
-
         return redirect()->route('periode.index')->with('success', 'Periode baru berhasil dibuat!');
     }
 
