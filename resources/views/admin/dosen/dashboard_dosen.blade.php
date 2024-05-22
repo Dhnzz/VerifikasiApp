@@ -1,6 +1,7 @@
 @extends('layout.admin')
 
 @section('main')
+{{-- @dd($mahasiswas) --}}
 <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 py-40 px-4 lg:px-12 gap-4">
   <div class="col-span-4 w-full">
     <div class="w-full bg-white border border-gray-200 rounded-lg shadow">
@@ -19,18 +20,25 @@
             </span>
           </div>
           <p class="text-base mt-1">
-            SDN 6 Telaga Biru Kota Gorontalo
+            nama : {{ $data->name }}
           </p>
           <p class="text-sm mt-1 text-slate-500">
-            Semester Ganjil 2023/2024
+            Credential : {{ $user->credential }}
           </p>
           <div class="mt-3 flex flex-col gap-y-1">
             <span class="text-sm mt-1 font-semibold">
-              MITRA/Guru Pamong :
+              Mahasiswa:
             </span>
+            @foreach ($mahasiswas as $mahasiswa)
+                
             <p class="uppercase text-sm">
-              Suryato Bilal Bil Halal
+                Name: {{ $mahasiswa->name }}
             </p>
+            <p class="uppercase text-sm">
+                Angkatan: {{ $mahasiswa->angkatan }}
+            </p>
+            -----------
+            @endforeach
           </div>
           <div class="mt-3 flex flex-col gap-y-1">
             <p class="text-sm mt-1 font-semibold">
@@ -50,15 +58,16 @@
     </div>
   </div>
   <div class="col-span-8 w-full flex flex-col gap-y-2">
+    @foreach ($mahasiswas as $mahasiswa)
     <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow ">
       <div class="flex justify-between">
         <div class="flex flex-col gap-y-1">
           <div class="flex gap-x-2 items-center text-color-danger-500">
             <span class=""><i class="fas fa-marker text-sm"></i></span>
-            <p class="text-sm font-semibold">Belum Dibuat</p>
+            <p class="text-sm font-semibold">{{ $mahasiswa->name }}</p>
           </div>
-          <p class="font-semibold">16 - 20 Agu 2021</p>
-          <p class="text-sm text-slate-500">Minggu Ke-1</p>
+          <p class="font-semibold">{{ $mahasiswa->User->credential }}</p>
+          <p class="text-sm text-slate-500">{{ $mahasiswa->periode->name }}</p>
         </div>
         <div class="flex gap-x-2">
           <div class="flex flex-col items-center justify-center">
@@ -104,9 +113,12 @@
           class="text-white h-full bg-color-primary-500 hover:bg-color-primary-600 focus:ring-4 focus:ring-color-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
           Lengkapi Laporan Harian
         </button>
-        <p class="text-sm text-slate-500">Laporan mingguan dapat di isi ketika laporan harian sudah lengkap</p>
+        
+        <p class="text-sm text-slate-500">{{ $mahasiswa->periode->deskripsi }}</p>
+        <p class="text-sm text-slate-500">Status: {{ ($mahasiswa->periode->status == 1) ? 'aktif' : 'non aktif'}}</p>
       </div>
     </div>
+    @endforeach
     <div class="p-8 bg-white w-full rounded-xl broder border-gray-200 shadow">
       <div class="flex justify-between">
         <div class="flex flex-col gap-y-1">
