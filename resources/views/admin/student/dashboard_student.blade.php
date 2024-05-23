@@ -154,20 +154,24 @@
                 </div>
             </div>
             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
+                @foreach ($value->templateBerkas->itemBerkas as $berkas)
                 <div>
-                    <p class="font-semibold">Curiculum Vitae</p>
-                    <p class="text-sm">Unggah CV kamu dalam format PDF dengan ukuran maksimal 2MB</p>
+                    <p class="font-semibold">{{$berkas->name}} </p>
+                    <p class="text-sm">Unggah {{$berkas->name}} kamu dalam format PDF dengan ukuran maksimal 2MB</p>
                 </div>
-                <form action="">
+                <form action="{{ route('mahasiswa.berkas_mahasiswa.store') }}" method="POST">
+                    @csrf
                     <input
                         class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-                        type="file">
-                    <input type="text" name="mahasiswa_id" value="mahasiswa_id" hidden>
-                    <x-button_md color="primary" class="mt-2 inline-flex items-center gap-x-2">
+                        type="file" name="file">
+                    <input type="text" name="mahasiswa_id" value="{{$data->id}}" hidden>
+                    <input type="text" name="item_berkas_id" value="{{$berkas->id}}" hidden>
+                    <x-button_md color="success" type="submit" class="mt-2 inline-flex items-center gap-x-2">
                         <span><i class="fas fa-check"></i></span>
                         <p>Kirim</p>
                     </x-button_md>
                 </form>
+                @endforeach
             </div>
             <hr class="mt-4 col-span-12">
         </div>
@@ -190,7 +194,6 @@
         </div>
         @elseif ($periode->count() > 0)
         @foreach ($periode as $item => $value)
-        {{-- @dd($periode[$item]->name) --}}
         <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
 
             <div class="col-span-12 inline-flex justify-between items-center">

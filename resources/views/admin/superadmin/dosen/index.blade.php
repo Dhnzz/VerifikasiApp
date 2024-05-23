@@ -1,92 +1,116 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
-  <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Dosen</h1>
-    <x-button_md color="primary" onclick="location.href='{{ route('admin.dosen.create') }}';" class="inline-flex gap-x-2 items-center">
-      <span><i class="fas fa-plus"></i></span>
-      Tambah
-    </x-button_md>
-  </div>
-  <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
-    <table id="table_config" class="">
-      <thead>
-        <tr>
-          <th>NO</th>
-          <th>NIDN</th>
-          <th>Nama</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        @php
-        $i = 1;
-        @endphp
-        @foreach ($data as $item)
-        <tr>
-          <td>{{ $i++ }}</td>
-          <td>{{ $item->user->credential }}</td>
-          <td>
-            {{ $item->name }}
-            @if (auth()->user()->id == $item->user_id)
-              <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full ml-2">Anda sedang login</span>
-            @endif
-          </td>
-          <td>
-            <div class="relative inline-block text-left">
-              <button type="button" id="dropdownMenuButton{{ $item->id }}"
-                class="inline-flex justify-center items-center w-full rounded-md px-2 py-1.5 bg-color-primary-500 text-white hover:bg-color-primary-500"
-                aria-expanded="false" aria-haspopup="true">
-                <!-- Tanda tiga titik vertikal (ellipsis) -->
-                <i class="fas fa-ellipsis-h"></i>
-              </button>
+    <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
+        <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
+            <h1 class="text-xl font-semibold">Dosen</h1>
+            <x-button_md color="primary" onclick="location.href='{{ route('admin.dosen.create') }}';"
+                class="inline-flex gap-x-2 items-center">
+                <span><i class="fas fa-plus"></i></span>
+                Tambah
+            </x-button_md>
+        </div>
+        <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+            <table id="table_config" class="">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>NIDN</th>
+                        <th>Nama</th>
+                        <th>Role</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($data as $item)
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $item->user->credential }}</td>
+                            <td>
+                                {{ $item->name }}
+                                @if (auth()->user()->id == $item->user_id)
+                                    <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full ml-2">Anda
+                                        sedang login</span>
+                                @endif
+                            </td>
+                            <td>
+                                @switch($item->user->role)
+                                    @case('admin')
+                                        <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded-full ml-2">Admin</span>
+                                    @break
 
-              <div id="dropdownMenu{{ $item->id }}"
-                class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
-                role="menu" aria-orientation="vertical" aria-labelledby="dropdownMenuButton{{ $item->id }}">
-                <div class="py-1" role="none">
-                  <a href="{{ route('admin.dosen.show', $item->id) }}"
-                    class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                    role="menuitem">
-                    <i class="w-4 h-4 fas fa-info-circle"></i>
-                    Detail
-                  </a>
-                  <a href="{{ route('admin.dosen.edit', $item->id) }}"
-                    class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
-                    role="menuitem">
-                    <i class="fas fa-pen w-4 h-4"></i>
-                    Update
-                  </a>
-                  <form action="{{ route('admin.dosen.destroy', $item->id) }}" method="POST" role="none"
-                    style="display: inline-block;" class="w-full">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus?')"
-                      class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
-                      role="menuitem">
-                      <i class="fas fa-trash w-4 h-4"></i>
-                      Delete
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-</section>
-<script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
-<script>
-  $(document).ready(function() {
+                                    @case('dosen')
+                                        <span class="text-xs bg-gray-500 text-white px-2 py-1 rounded-full ml-2">Dosen</span>
+                                    @break
+
+                                    @case('kajur')
+                                        <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full ml-2">Kajur</span>
+                                    @break
+
+                                    @case('kaprodi')
+                                        <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded-full ml-2">Kaprodi</span>
+                                    @break
+                                @endswitch
+                            </td>
+                            <td>
+                                <div class="relative inline-block text-left">
+                                    <button type="button" id="dropdownMenuButton{{ $item->id }}"
+                                        class="inline-flex justify-center items-center w-full rounded-md px-2 py-1.5 bg-color-primary-500 text-white hover:bg-color-primary-500"
+                                        aria-expanded="false" aria-haspopup="true">
+                                        <!-- Tanda tiga titik vertikal (ellipsis) -->
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
+
+                                    <div id="dropdownMenu{{ $item->id }}"
+                                        class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
+                                        role="menu" aria-orientation="vertical"
+                                        aria-labelledby="dropdownMenuButton{{ $item->id }}">
+                                        <div class="py-1" role="none">
+                                            <a href="{{ route('admin.dosen.show', $item->id) }}"
+                                                class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                                role="menuitem">
+                                                <i class="w-4 h-4 fas fa-info-circle"></i>
+                                                Detail
+                                            </a>
+                                            <a href="{{ route('admin.dosen.edit', $item->id) }}"
+                                                class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
+                                                role="menuitem">
+                                                <i class="fas fa-pen w-4 h-4"></i>
+                                                Update
+                                            </a>
+                                            <form action="{{ route('admin.dosen.destroy', $item->id) }}" method="POST"
+                                                role="none" style="display: inline-block;" class="w-full">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus?')"
+                                                    class="flex w-full gap-x-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-gray-100 hover:text-red-700"
+                                                    role="menuitem">
+                                                    <i class="fas fa-trash w-4 h-4"></i>
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
             $('#table_config').DataTable();
         });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             const dropdownButtons = document.querySelectorAll('[id^="dropdownMenuButton"]');
             dropdownButtons.forEach(function(button) {
                 button.addEventListener('click', function(event) {
@@ -122,5 +146,5 @@
                 });
             });
         });
-</script>
+    </script>
 @endsection

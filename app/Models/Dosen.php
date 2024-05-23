@@ -14,7 +14,7 @@ class Dosen extends Model
     protected $fillable = [
         "user_id",
         "name",
-        "nidn",
+        "prodi",
     ];
 
     function User(): BelongsTo {
