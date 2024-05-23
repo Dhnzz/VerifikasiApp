@@ -16,7 +16,8 @@ class Mahasiswa extends Model
         "user_id",
         "dosen_id",
         "name",
-        "angkatan"
+        "angkatan",
+        "periode_id"
     ];
 
     function User() : BelongsTo {

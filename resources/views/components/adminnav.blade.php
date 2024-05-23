@@ -92,14 +92,7 @@
                 @break
 
                 @case('mahasiswa')
-                    <li class="p-2">
-                        <div class="inline-flex items-center gap-x-2  text-slate-500">
-                            <a href="{{ route('mahasiswa.periode.index') }}">
-                                <i class="fas fa-home"></i>
-                                Daftar Periode
-                            </a>
-                        </div>
-                    </li>
+                    
                 @break
 
                 @default
