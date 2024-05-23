@@ -41,7 +41,7 @@ class DosenController extends Controller
         $user = User::create([
             'credential' => $validatedData['credential'],
             'password' => Hash::make($validatedData['credential']),
-            'role' => 'dosen'
+            'role' => $request->role
         ]);
         $user->save();
 

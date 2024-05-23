@@ -23,18 +23,13 @@
                     <p class="w-full">Profile</p>
                 </div>
                 <div class="inline-flex items-center gap-x-2 text-red-400">
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="{{ route('logout') }}">
                         <i class="fas fa-sign-out-alt"></i> <!-- Mengubah ikon menjadi ikon keluar -->
                         Log Out
                     </a>
                 </div>
             </div>
         </div>
-
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            @csrf
-        </form>
 
     </div>
 
