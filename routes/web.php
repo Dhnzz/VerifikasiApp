@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function () {
         Route::name('periode.')->group(function () {
             Route::put('/daftarPeriode/{id}', [MahasiswaController::class, 'daftar'])->name('daftar');
         });
+        Route::name('berkas_mahasiswa')->group(function() {
+            Route::get('/index', [MahasiswaBerkasController::class,'index'])->name('berkas_mahasiswa.index');
+            Route::get('/create', [MahasiswaBerkasController::class,'create'])->name('berkas_mahasiswa.create');
+        });
     });
 
     // Dosen Routes
@@ -37,6 +41,7 @@ Route::middleware('auth')->group(function () {
             Route::put('/approve/{idBerkas}', [MahasiswaBerkasController::class, 'approve'])->name('approve');
         });
     });
+    
 });
 
 Route::get('/sample', function () {
