@@ -27,7 +27,7 @@
                     <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                         Role
                     </label>
-                    <input type="text" placeholder="Nama Lengkap" name="name" value="Dosen Pembimbing"
+                    <input type="text" placeholder="Nama Lengkap" name="name" value="{{ ($data->User->role == 'dosen' ? 'Dosen ' : ($data->User->role == 'kaprodi' ? 'Ketua Program Studi' : ($data->User->role == 'kajur' ? 'Ketua Jurusan' : ''))) }}
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "
                         disabled />
                 </div>
