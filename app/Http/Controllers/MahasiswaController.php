@@ -36,6 +36,13 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
+        $nimProdi = substr($request->credential, 2, 2);
+        $prodi = '';
+        if ($nimProdi == '14') {
+            $prodi = 'Sistem Informasi';
+        }elseif ($nimProdi == '24'){
+            $prodi = 'Pendidikan Teknologi Informasi';
+        }
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'credential' => 'required|string|max:255|unique:users,credential',
@@ -54,6 +61,7 @@ class MahasiswaController extends Controller
             'name' => $validatedData['name'],
             'user_id' => $user->id,
             'dosen_id' => null,
+            'prodi' => $prodi,
             'angkatan' => $validatedData['angkatan']
         ]);
         $mahasiswa->save();

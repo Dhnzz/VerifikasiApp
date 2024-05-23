@@ -17,6 +17,7 @@
           <th>NO</th>
           <th>NIM</th>
           <th>Nama</th>
+          <th>Program Studi</th>
           <th>Angkatan</th>
           <th>Aksi</th>
         </tr>
@@ -30,6 +31,7 @@
           <td>{{ $i++ }}</td>
           <td>{{ $item->user->credential }}</td>
           <td>{{ $item->name }}</td>
+          <td>{{ $item->prodi }}</td>
           <td>{{ $item->angkatan }}</td>
           <td>
             <div class="relative inline-block text-left">

@@ -38,6 +38,8 @@ class DashboardController extends Controller
             // }
             // $rangeFormat = $timeRangeDuration . ' Bulan';
             return view('admin.dosen.dashboard', compact('data', 'user', 'mahasiswas', 'periode'));
+        } elseif (Auth::user()->role == 'kajur') {
+            return view('admin.kajur.dashboard');
         }
     }
 }
