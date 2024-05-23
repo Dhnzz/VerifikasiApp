@@ -29,7 +29,8 @@ Route::middleware('auth')->group(function () {
     // Dosen Routes
     Route::middleware('roleCheck:dosen')->prefix('dosen')->name('dosen.')->group(function () {
         Route::name('periode.')->group(function () {
-            Route::get('/periode', [PeriodeController::class, 'show'])->name('show');
+            Route::get('/periode/{id}', [PeriodeController::class, 'showDosen'])->name('show');
+            Route::get('/get-peserta/{id}', [periodeController::class, 'getPeserta'])->name('getPesarta');
         });
     });
 });

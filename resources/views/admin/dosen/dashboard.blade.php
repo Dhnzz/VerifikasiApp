@@ -58,7 +58,7 @@
       </div>
       <hr class="col-span-12 mt-4">
       <div class="col-span-12 mt-4">
-        <x-button_md color="primary" type="submit" onclick="window.location='{{ route('dosen.periode.show', $item->id) }}'">
+        <x-button_md color="primary" type="submit" onclick="window.location='{{ route('dosen.periode.show', $item->id)}}'">
           Detail 
         </x-button_md>
       </div>

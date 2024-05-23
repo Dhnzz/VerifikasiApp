@@ -6,7 +6,7 @@
     <div class="col-span-12">
       <div class="flex gap-x-2 items-center text-color-primary-500">
         <span class=""><i class="fas fa-book text-lg"></i></span>
-        <p class="text-lg font-semibold">asdasdas</p>
+        <p class="text-lg font-semibold">{{ $periode->name }}</p>
       </div>
     </div>
     <form action="" class="mt-4 col-span-12 flex gap-x-4">
@@ -23,56 +23,32 @@
   </div>
 
   <div class="lg:col-span-4 col-span-12">
-
+    @foreach ($periode->mahasiswa as $mahasiswa)
+        
     <div class="max-h-[42rem] overflow-y-auto flex flex-col">
       <div
-        class="relative overflow-visible bg-white p-6 rounded-xl w-full flex items-center gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
-        onclick="">
+      class="relative overflow-visible bg-white p-6 rounded-xl w-full flex items-center gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
+        onclick="showPesertaDetail({{ $mahasiswa->id }})">
         <div class="w-16 rounded-full">
           <img src="/avatar/placeholder.jpg" alt="" class="rounded-full">
         </div>
         <div>
-          <p class="font-semibold text-sm">Nama Mahasiswa</p>
-          <p class="text-sm">531421003</p>
+          <p class="font-semibold text-sm">{{ $mahasiswa->name }}</p>
+          <p class="text-sm">{{ $mahasiswa->user->credential }}</p>
         </div>
       </div>
     </div>
+    @endforeach
   </div>
 
   <!-- Kolom kanan dengan detail peserta -->
-  <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4">
-    <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm" onclick="showPesertaDetail({{ $item->id }})">
-      <div class="col-span-12 inline-flex justify-between items-center">
-        <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500">
-          <p class="text-xl font-semibold">Mohamad Rafiq Daud</p>
-        </div>
-      </div>
-      <div class="col-span-12 detailContainer flex flex-col">
-        <div class="col-span-12 mt-4 flex flex-col gap-y-2">
-          <div class="flex flex-col">
-            <span class="text-xs text-slate-500">NIM : </span>
-            <p class="text-sm">541341243</p>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-xs text-slate-500">Waktu Periode : </span>
-            <p class="text-sm">14 Agu 2023 - 31 Des 2023 <span class="text-slate-500">(1 bulan)</span></p>
-          </div>
-        </div>
-        <hr class="col-span-12 mt-4">
-        <div class="col-span-12 mt-4 ">
-          <div id="detail_mahasiswa" class="flex flex-col gap-y-4"></div>
-        </div>
-      </div>
-      <hr class="col-span-12 mt-4">
-      <div class="col-span-12 mt-4">
-        <x-button_md color="primary" type="submit">
-          Detail
-        </x-button_md>
-      </div>
-    </div>
+  <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4" >
+    <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm" id="detail_mahasiswa" >
   </div>
 </section>
+
 <script>
+  
   function openDetails(button, event) {
             event.preventDefault();
             const detailContainer = button.nextElementSibling;
@@ -82,7 +58,7 @@
             // Menggunakan AJAX untuk mengambil detail peserta dari server
             $.ajax({
                 type: 'GET',
-                url: '/dashboard/pamong/get-peserta/' + pesertaId,
+                url: '/dosen/get-peserta/' + pesertaId,
                 success: function(response) {
                     // Memperbarui konten di sebelah kanan dengan detail peserta yang baru
                     $('#detail_mahasiswa').html(response);

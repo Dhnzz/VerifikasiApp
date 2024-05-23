@@ -116,4 +116,16 @@ class PeriodeController extends Controller
         $aktif = Periode::where('status', 0)->get();
         return view('admin.student.periode.index', compact('data', 'aktif'));
     }
+
+    public function showDosen($id)
+    {
+        $periode = Periode::findOrFail($id);
+        return view('admin.dosen.template_detail_periode', compact('periode'));
+    }
+
+    public function getPeserta($id)
+    {
+        $peserta = Mahasiswa::findOrFail($id);
+        return view('admin.dosen.template_detail_mahasiswa', compact('peserta'));
+    }
 }
