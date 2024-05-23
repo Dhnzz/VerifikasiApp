@@ -16,6 +16,7 @@
           <th>NO</th>
           <th>NIDN</th>
           <th>Nama</th>
+          <th>Role</th>
           <th>Aksi</th>
         </tr>
       </thead>
@@ -31,6 +32,24 @@
             {{ $item->name }}
             @if (auth()->user()->id == $item->user_id)
               <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full ml-2">Anda sedang login</span>
+            @endif
+          </td>
+          <td>
+            @if (auth()->user()->id == $item->user_id)
+              @switch($item->user->role)
+                @case('admin')
+                  <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded-full ml-2">Admin</span>
+                  @break
+                @case('dosen')
+                  <span class="text-xs bg-gray-500 text-white px-2 py-1 rounded-full ml-2">Dosen</span>
+                  @break
+                @case('kajur')
+                  <span class="text-xs bg-green-500 text-white px-2 py-1 rounded-full ml-2">Kajur</span>
+                  @break
+                @case('kaprodi')
+                  <span class="text-xs bg-yellow-500 text-white px-2 py-1 rounded-full ml-2">Kaprodi</span>
+                  @break
+              @endswitch
             @endif
           </td>
           <td>
