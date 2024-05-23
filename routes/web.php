@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
         });
         Route::name('berkas_mahasiswa.')->group(function() {
             Route::get('/byTemplateBerkas/{periode_id}', [MahasiswaBerkasController::class,'byTemplateBerkas'])->name('berkas_mahasiswa.byTemplateBerkas');
-            Route::post('/berkas_mahasiswa/store', [MahasiswaBerkasController::class,'store'])->name('store');
+            Route::put('/berkas_mahasiswa/store', [MahasiswaBerkasController::class,'store'])->name('store');
         });
     });
 
