@@ -15,6 +15,7 @@
           </label>
           <input type="text" placeholder="NIDN" name="credential"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
+        
         </div>
         <div class="mb-4">
           <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
