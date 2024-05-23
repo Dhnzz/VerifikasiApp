@@ -110,7 +110,8 @@ class PeriodeController extends Controller
         return redirect()->route('admin.periode.index')->with('success', 'Data periode berhasil dihapus!');
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $periode = Periode::findOrFail($id);
         $periode->update([
             'status' => ($periode->status == '1') ? '0' : '1',
