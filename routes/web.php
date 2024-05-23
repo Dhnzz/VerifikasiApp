@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/sample', function () {
-    return view('admin.dosen.tample_dashbaord');
+    return view('admin.student.assign_file');
 });
 
 
