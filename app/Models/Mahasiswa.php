@@ -16,6 +16,7 @@ class Mahasiswa extends Model
         "user_id",
         "dosen_id",
         "name",
+        "prodi",
         "angkatan",
         "periode_id"
     ];

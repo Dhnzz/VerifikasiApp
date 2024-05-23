@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("dosen_id")->nullable();
             $table->string("name");
+            $table->string("prodi");
             $table->string("angkatan");
             $table->unsignedBigInteger("periode_id")->nullable();
             $table->timestamps();

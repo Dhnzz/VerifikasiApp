@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         Dosen::factory(1)->admin();
+        Dosen::factory(1)->kajur();
     }
 }

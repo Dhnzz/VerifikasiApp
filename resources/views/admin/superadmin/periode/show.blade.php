@@ -56,50 +56,37 @@
             </div>
             <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500 mt-8">
                 <span class=""><i class="fas fa-book text-xl"></i></span>
-                <p class="text-xl font-semibold">Nama Periode</p>
+                <p class="text-xl font-semibold">{{ $periode->name }}</p>
             </div>
             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
                 <div class="flex flex-col">
                     <span class="text-xs text-slate-500">Deskripsi Periode : </span>
-                    <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam blanditiis, error,
-                        provident quos a officia aspernatur autem voluptatem beatae nihil doloribus quis sint at
-                        perspiciatis aliquid doloremque consequuntur temporibus, quia porro ex. Dolore nostrum deserunt
-                        fugit nihil quo accusamus et.</p>
+                    <p class="text-sm">{{$periode->deksripsi}}</p>
                 </div>
                 <hr class="">
                 <div class="flex flex-col">
                     <span class="text-xs text-slate-500">Lama Periode : </span>
-                    <p class="text-sm">14 Agu 2023 - 31 Des 2023 <span class="text-slate-500">(1 bulan)</span></p>
+                    <p class="text-sm">{{ $tglAwal->format('j M Y') }} - {{ $tglAkhir->format('j M Y') }} <span class="text-slate-500">({{ $rangeFormat }})</span></p>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-xs text-slate-500">Template Berkas : </span>
-                    <p class="text-sm">Nama Template Berkas</p>
+                    <p class="text-sm">{{ $template_berkas->name }}</p>
                 </div>
             </div>
             <hr class="col-span-12 mt-4">
             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
+                @foreach ($itemBerkas as $item)
+                    
+                
                 <div class="flex items-center">
                     <span
                         class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
                         <i class="fas fa-check"></i>
                     </span>
-                    <a href="" class="text-sm font-semibold text-color-primary-500 underline">Surat Keterangan Tidak
-                        Mampu</a>
+                    <p class="text-sm font-semibold text-color-primary-500 underline">{{$item->name}}</p>
                 </div>
-                <div class="flex items-center">
-                    <span
-                        class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
-                        <i class="fas fa-check"></i>
-                    </span>
-                    <a href="" class="text-sm font-semibold text-color-primary-500 underline">Surat Berak Dicelana</a>
-                </div>
-                <div class="flex items-center">
-                    <span
-                        class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
-                        <i class="fas fa-check"></i>
-                    </span>
-                    <a href="" class="text-sm font-semibold text-color-primary-500 underline">Surat Berak Dicelana</a>
-                </div>
+                
+                @endforeach
             </div>
             <hr class="col-span-12 mt-4">
             <div class="col-span-12 mt-4">
