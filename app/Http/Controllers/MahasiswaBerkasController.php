@@ -31,7 +31,7 @@ class MahasiswaBerkasController extends Controller
     {
         $data = MahasiswaBerkas::create([
             'mahasiswa_id' => $request->mahasiswa_id,
-
+            
         ]);
     }
 
