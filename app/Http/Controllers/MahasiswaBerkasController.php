@@ -38,10 +38,24 @@ class MahasiswaBerkasController extends Controller
      */
     public function store(Request $request)
     {
+        $imageName = time().'.'.$request->image->extension();
+
+        $request->image->move(public_path('images'), $imageName);
+
+        /* Simpan informasi gambar ke database jika diperlukan, misalnya: */
+        $image = new Image();
+        $image->name = $imageName;
+        $image->path = 'images/' . $imageName;
+    
+
         $data = MahasiswaBerkas::create([
             'mahasiswa_id' => $request->mahasiswa_id,
-            
+            'item_berkas_id' => $request->item_berkas_id,
+            'berkas' => $imageName,
+            'status' => '0'
         ]);
+
+        return redirect()->route('admin.superadmin.berkas_mahasiswa.index')->with('success', 'Data berkas mahasiswa berhasil ditambahkan!');
     }
 
     /**
@@ -49,7 +63,7 @@ class MahasiswaBerkasController extends Controller
      */
     public function show(MahasiswaBerkas $mahasiswaBerkas)
     {
-        //
+        return view('admin.superadmin.berkas_mahasiswa.edit',compact('$mahasiswaBerkas'));
     }
 
     /**
@@ -57,7 +71,7 @@ class MahasiswaBerkasController extends Controller
      */
     public function edit(MahasiswaBerkas $mahasiswaBerkas)
     {
-        //
+        return view('admin.superadmin.berkas_mahasiswa.edit', compact($mahasiswaBerkas));
     }
 
     /**
@@ -65,7 +79,24 @@ class MahasiswaBerkasController extends Controller
      */
     public function update(Request $request, MahasiswaBerkas $mahasiswaBerkas)
     {
-        //
+        $imageName = time().'.'.$request->image->extension();
+
+        $request->image->move(public_path('images'), $imageName);
+
+        /* Simpan informasi gambar ke database jika diperlukan, misalnya: */
+        $image = new Image();
+        $image->name = $imageName;
+        $image->path = 'images/' . $imageName;
+    
+
+        $mahasiswaBerkas->update([
+            'mahasiswa_id' => $request->mahasiswa_id,
+            'item_berkas_id' => $request->item_berkas_id,
+            'berkas' => $imageName,
+            'status' => '0'
+        ]);
+
+        return redirect()->route('admin.superadmin.berkas_mahasiswa.index')->with('success', 'Data berkas mahasiswa berhasil diperbarui!');
     }
 
     /**
@@ -73,6 +104,7 @@ class MahasiswaBerkasController extends Controller
      */
     public function destroy(MahasiswaBerkas $mahasiswaBerkas)
     {
-        //
+        $mahasiswaBerkas->delete();
+        return redirect()->route('admin.superadmin.berkas_mahasiswa.index')->with('success', 'Data berkas mahasiswa berhasil dihapus!');
     }
 }
