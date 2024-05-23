@@ -65,14 +65,10 @@
         <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500">
                 <span class=""><i class="fas fa-book text-xl"></i></span>
-                <p class="text-xl font-semibold">{{ $value->name }}</p>
+                <p class="text-xl font-semibold">{{ $value->name }} - nama template berkas</p>
             </div>
             <div class="col-span-12 detailContainer flex flex-col">
                 <div class="col-span-12 mt-4 flex flex-col gap-y-2">
-                    <div class="flex flex-col">
-                        <span class="text-xs text-slate-500">Deskripsi Periode: </span>
-                        <p class="text-sm">{{ $value->deskripsi }}</p>
-                    </div>
                     <div class="flex flex-col">
                         <span class="text-xs text-slate-500">Lama Periode : </span>
                         <p class="text-sm">
@@ -94,10 +90,36 @@
                             class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
                             <i class="fas fa-check"></i>
                         </span>
-                        <a href="" class="text-sm font-semibold text-color-primary-500 underline">{{ $berkas->name
-                            }}</a>
+                        <p class="text-sm font-semibold text-color-primary-500 underline">{{ $berkas->name
+                            }}</p>
                     </div>
                     @endforeach
+
+                    {{-- beken bgini kalo depe berkas dia tolak --}}
+                    <div class="flex items-center">
+                        <span
+                            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-danger-500 rounded-full ">
+                            <i class="fas fa-exclamation"></i>
+                        </span>
+                        <p class="text-sm font-semibold text-color-primary-500 underline">{{ $berkas->name
+                            }}</p>
+                    </div>
+                    <hr>
+                    {{-- kalo depe template s ta upload samua, depe status jadi menunggu periode berikutnya --}}
+                    <div
+                        class="p-4 bg-color-success-100 border border-color-success-500 text-sm rounded-xl inline-flex gap-x-2 w-full">
+                        <div class="">
+                            <span
+                                class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
+                                <i class="fas fa-check"></i>
+                            </span>
+                        </div>
+                        <div class="">
+                            <p>Seluruh dokumen berkas dalam periode ini telah berhasil diverifikasi, silahkan tunggu
+                                periode selanjutnya</p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,19 +193,14 @@
         {{-- @dd($periode[$item]->name) --}}
         <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
 
-            <button class="col-span-12 inline-flex justify-between items-center" onclick="openDetails(this, event)">
+            <div class="col-span-12 inline-flex justify-between items-center">
                 <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500">
                     <span class=""><i class="fas fa-book text-xl"></i></span>
                     <p class="text-xl font-semibold">{{ $value->name }}</p>
                 </div>
-                <span><i class="fas fa-chevron-down text-sm"></i></span>
-            </button>
-            <div class="col-span-12 detailContainer flex flex-col hidden">
+            </div>
+            <div class="col-span-12 detailContainer flex flex-col ">
                 <div class="col-span-12 mt-4 flex flex-col gap-y-2">
-                    <div class="flex flex-col">
-                        <span class="text-xs text-slate-500">Deskripsi Periode: </span>
-                        <p class="text-sm">{{ $value->deskripsi }}</p>
-                    </div>
                     <div class="flex flex-col">
                         <span class="text-xs text-slate-500">Lama Periode : </span>
                         <p class="text-sm">
@@ -197,34 +214,55 @@
                         </p>
                     </div>
                 </div>
-                <hr class="col-span-12 mt-4">
-                <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                    @foreach ($value->templateBerkas->itemBerkas as $berkas)
-                    <div class="flex items-center">
-                        <span
-                            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
-                            <i class="fas fa-check"></i>
-                        </span>
-                        <a href="" class="text-sm font-semibold text-color-primary-500 underline">{{ $berkas->name
-                            }}</a>
-                    </div>
-                    @endforeach
-                </div>
             </div>
             <hr class="col-span-12 mt-4">
-            <form action="{{ route('mahasiswa.periode.daftar', $data->id) }}" method="post">
-                @csrf
-                @method('PUT')
-                <div class="col-span-12 mt-4">
-                    <input type="hidden" name="periode_id" value="{{ $periode[$item]->id }}">
-                    @foreach ($periode[$item]->templateBerkas->itemBerkas as $item)
-                    <input type="text" name="item_berkas_id[]" id="" value="{{ $item->id }}">
-                    @endforeach
-                    <x-button_md color="primary" type="submit">
-                        Daftar
-                    </x-button_md>
+            <div class="col-span-12 mt-4">
+                <p class="font-semibold">Pilih Template Berkas</p>
+            </div>
+            <div class="col-span-12 mt-4 flex flex-col gap-y-4">
+                <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4 w-full">
+                    <button class="flex justify-between" onclick="openDetails(this, event)">
+                        <p class="font-semibold">Nama Template Berkas</p>
+                        <span><i class="fas fa-chevron-down text-sm"></i></span>
+                    </button>
+                    
+                    <div class="detailContainer flex flex-col gap-y-2 hidden">
+                        <div>
+                            <p>Daftar Berkas Dalam Template :</p>
+                        </div>
+                        <div class="inline-flex items-center mt-2">
+                            <div class="">
+                                <span
+                                    class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                            <p class="font-semibold ">Nama Berkas</p>
+                        </div>
+                        <div class="inline-flex items-center ">
+                            <div class="">
+                                <span
+                                    class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                            <p class="font-semibold ">Nama Berkas</p>
+                        </div>
+                        <div class="inline-flex items-center ">
+                            <div class="">
+                                <span
+                                    class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                            <p class="font-semibold ">Nama Berkas</p>
+                        </div>
+                        <hr class="mt-2">
+                        <x-button_md color="primary" class="w-fit mt-2">Daftar</x-button_md>
+                    </div>
+
                 </div>
-            </form>
+            </div>
         </div>
         @endforeach
         @endif
