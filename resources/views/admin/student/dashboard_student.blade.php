@@ -31,11 +31,6 @@
             <div class="flex flex-col mt-1">
                 <p class="text-sm"></p>
             </div>
-            <hr class="">
-            <x-button_md color="primary" class="mt-4 inline-flex items-center gap-x-2">
-                <span><i class="fas fa-file"></i></span>
-                <p>Lengkapi Berkas</p>
-            </x-button_md>
             {{-- <div class="my-4">
                 <hr>
                 <a class="inline-flex underline text-color-primary-500 font-semibold items-center gap-x-2 py-4">
