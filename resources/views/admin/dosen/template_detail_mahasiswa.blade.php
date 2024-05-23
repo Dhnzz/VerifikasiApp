@@ -1,5 +1,6 @@
 
-  <div class="col-span-12 inline-flex justify-between items-center">
+<div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm"  >
+<div class="col-span-12 inline-flex justify-between items-center">
     <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500">
       <p class="text-xl font-semibold">{{ $peserta->name }}</p>
     </div>
@@ -12,13 +13,14 @@
       </div>
       <div class="flex flex-col">
         <span class="text-xs text-slate-500">Waktu Periode : </span>
-        <p class="text-sm">{{ date('j M Y',strtotime($peserta->periode->tgl_mulai)) }} - {{ date('j M Y',strtotime($peserta->periode->tgl_berakhir)) }} <span class="text-slate-500">(1 bulan)</span></p>
+        <p class="text-sm">{{ date('j M Y',strtotime($peserta->periode->tgl_mulai)) }} - {{ date('j M Y',strtotime($peserta->periode->tgl_berakhir)) }} <span class="text-slate-500">({{ round(\Carbon\Carbon::now()->diffInDays(\Carbon\Carbon::parse($peserta->periode->tgl_berakhir), false)) }}
+          hari )</span></p>
       </div>
     </div>
     <hr class="col-span-12 mt-4">
     <div class="col-span-12 mt-4 ">
       <div class="flex flex-col gap-y-4">
-        @foreach ($peserta->periode->templateBerkas->itemBerkas as $berkas)
+        @foreach ($peserta->itemBerkas as $berkas)
             
         <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4">
           <button class="flex justify-between" onclick="openDetails(this, event)">
@@ -37,10 +39,16 @@
               Download Berkas
             </x-button_md>
             <div class="inline-flex gap-x-2 items-center">
-              <x-button_md color="success" type="submit" class="inline-flex items-center gap-x-2">
-                <span><i class="fas fa-check"></i></span>
-                Approve
-              </x-button_md>
+              
+            <form action="{{ route('dosen.berkas.approve', $berkas->id) }}" method="post">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+                    <x-button_md color="success" type="submit" class="inline-flex items-center gap-x-2">
+                      <span><i class="fas fa-check"></i></span>
+                      Approve
+                    </x-button_md>
+            </form>
               <x-button_md color="danger" type="submit" class="inline-flex items-center gap-x-2">
                 <span><i class="fas fa-times"></i></span>
                 Tolak
@@ -59,3 +67,4 @@
       Detail
     </x-button_md>
   </div>
+</div>

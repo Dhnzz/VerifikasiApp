@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{MahasiswaController, DosenController, DashboardController, PeriodeController, TemplateBerkasController, ItemBerkasController};
+use App\Http\Controllers\{MahasiswaController, DosenController, DashboardController, PeriodeController, TemplateBerkasController, ItemBerkasController, MahasiswaBerkasController};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
         Route::name('periode.')->group(function () {
             Route::get('/periode/{id}', [PeriodeController::class, 'showDosen'])->name('show');
             Route::get('/get-peserta/{id}', [periodeController::class, 'getPeserta'])->name('getPesarta');
+        });
+        Route::name('berkas.')->group(function () {
+            Route::put('/approve/{idBerkas}', [MahasiswaBerkasController::class, 'approve'])->name('approve');
         });
     });
 });

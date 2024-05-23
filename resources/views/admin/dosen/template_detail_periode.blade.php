@@ -23,7 +23,7 @@
   </div>
 
   <div class="lg:col-span-4 col-span-12">
-    @foreach ($periode->mahasiswa as $mahasiswa)
+    @foreach ($dosen->Mahasiswa as $mahasiswa)
         
     <div class="max-h-[42rem] overflow-y-auto flex flex-col">
       <div
@@ -42,8 +42,8 @@
   </div>
 
   <!-- Kolom kanan dengan detail peserta -->
-  <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4" >
-    <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm" id="detail_mahasiswa" >
+  <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4" id="detail_mahasiswa" >
+    
   </div>
 </section>
 

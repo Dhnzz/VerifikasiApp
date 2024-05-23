@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{Mahasiswa, Dosen, Periode, ItemBerkas, TemplateBerkas};
-use App\Models\{Mahasiswa, Dosen, ItemBerkas, Periode, User};
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -20,7 +19,7 @@ class DashboardController extends Controller
             $data = Mahasiswa::findOrFail(Auth::user()->mahasiswa->id);
             $registered = Periode::where('id', $data->periode_id)->get();
             $dosen = Dosen::find($data->dosen_id);
-            $periode = Periode::where('status', '1')->get(); 
+            $periode = Periode::where('status', '1')->get();
             return view('admin.student.dashboard_student', compact('data', 'periode', 'registered', 'dosen'));
         } elseif (Auth::user()->role == 'dosen') {
             $data = Dosen::findOrFail(Auth::user()->dosen->id);
@@ -28,7 +27,7 @@ class DashboardController extends Controller
             $mahasiswas = Mahasiswa::where('dosen_id', $data->id)->get();
             $periodeIds = $mahasiswas->pluck('periode_id');
             // $periode = Periode::findOrFail($periodeIds->first());
-            $periode = Periode::where('status', 1)->get();
+            $periode = Periode::where('status', "1")->get();
             // $template_berkas = $periode->templateBerkas;
             // $itemBerkas = ItemBerkas::where('template_berkas_id', $template_berkas->id)->get();
             // $tglAwal = Carbon::createFromFormat('Y-m-d', $periode->tgl_mulai);

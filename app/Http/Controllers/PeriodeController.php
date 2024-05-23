@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{ItemBerkas, Periode, User, Mahasiswa};
+use App\Models\{Dosen, ItemBerkas, Periode, User, Mahasiswa};
 use App\Models\PeriodeTemplate;
 use App\Models\TemplateBerkas;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PeriodeController extends Controller
@@ -118,17 +119,18 @@ class PeriodeController extends Controller
         ]);
         return redirect()->route('admin.periode.index')->with('success', 'Status periode berhasil diubah!');
     }
-    public function periodeAktif()
-    {
-        $data = Mahasiswa::findOrFail(auth()->user()->mahasiswa->id);
-        $aktif = Periode::where('status', 0)->get();
-        return view('admin.student.periode.index', compact('data', 'aktif'));
-    }
+    // public function periodeAktif()
+    // {
+    //     $data = Mahasiswa::findOrFail(auth()->user()->mahasiswa->id);
+    //     $aktif = Periode::where('status', 0)->get();
+    //     return view('admin.student.periode.index', compact('data', 'aktif'));
+    // }
 
     public function showDosen($id)
     {
+        $dosen = Dosen::findOrFail(Auth::user()->dosen->id);
         $periode = Periode::findOrFail($id);
-        return view('admin.dosen.template_detail_periode', compact('periode'));
+        return view('admin.dosen.template_detail_periode', compact('periode', 'dosen'));
     }
 
     public function getPeserta($id)
