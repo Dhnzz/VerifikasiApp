@@ -27,33 +27,39 @@
                 <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                     Role
                 </label>
-                <input type="text" placeholder="Nama Lengkap" name="name" value="Dosen Pembimbing"
-                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "
-                    disabled />
+                <input type="text" placeholder="Nama Lengkap" name="name" value="{{ ($data->User->role == 'dosen' ? 'Dosen ' : ($data->User->role == 'kaprodi' ? 'Ketua Program Studi' : ($data->User->role == 'kajur' ? 'Ketua Jurusan' : ''))) }}"
+                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "
+                disabled />
             </div>
         </div>
     </div>
     <div class="col-span-12 w-full">
         <p class="mt-4">Total Mahasiswa : </p>
         <div class="mt-4 max-h-[42rem] overflow-y-auto flex flex-col gap-y-2">
+            @if ($data->mahasiswa)
+            @foreach ($data->mahasiswa as $mahasiswa)
+                
             <div
-                class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-color-primary-500 shadow-sm items-center">
+            class="relative overflow-visible bg-white p-6 rounded-xl w-full flex gap-x-4 border border-color-primary-500 shadow-sm items-center">
                 <div class="w-16 rounded-full">
                     <img src="/avatar/placeholder.jpg" alt="" class="rounded-full">
                 </div>
                 <div class="flex flex-col gap-y-1">
-                    <p class="font-semibold text-sm">Mohamad Rafiq Daud</p>
-                    <p class="text-sm">531421003</p>
+                    <p class="font-semibold text-sm">{{ $mahasiswa->name }}</p>
+                    <p class="text-sm">{{ $mahasiswa->User->credential }}</p>
                     <div class="flex gap-x-2 items-center text-color-primary-500">
                         <span class=""><i class="fas fa-book text-sm"></i></span>
-                        <p class="text-sm font-semibold">Nama Periode Terdaftar</p>
+                        <p class="text-sm font-semibold">{{ $mahasiswa->periode->name }}</p>
                     </div>
                 </div>
             </div>
-            {{-- <div class="w-full flex flex-col items-center justify-center gap-y-4 py-12">
+            @endforeach
+            @else
+            <div class="w-full flex flex-col items-center justify-center gap-y-4 py-12">
                 <img src="/illustration/Caution.png" alt="" class="w-40">
                 <p class="font-semibold text-lg text-color-danger-500 ">Data Mahasiswa Tidak Tersedia</p>
-            </div> --}}
+            </div>
+            @endif
         </div>
 
     </div>

@@ -35,13 +35,14 @@ class DosenController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'credential' => 'required|string|max:255|unique:users,credential',
+            'role' => 'required|string'
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
         // Menyimpan credential dan password ke tabel users
         $user = User::create([
             'credential' => $validatedData['credential'],
             'password' => Hash::make($validatedData['credential']),
-            'role' => 'dosen'
+            'role' => $validatedData['role'],
         ]);
         $user->save();
 
@@ -83,11 +84,13 @@ class DosenController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'credential' => 'required|string|max:255|unique:users,credential,' . $user->id,
+            'role' => 'required|string'
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
 
         $user->update([
             'credential' => $validatedData['credential'],
+            'role' => $validatedData['role'],
         ]);
         $dosen->update([
             'name' => $validatedData['name'],
@@ -96,7 +99,8 @@ class DosenController extends Controller
         return redirect()->route('admin.dosen.index')->with('success', 'Data Mahasiswa berhasil diperbarui.');
     }
 
-    public function updatePass(Request $request, $id){
+    public function updatePass(Request $request, $id)
+    {
         $dosen = Dosen::findOrFail($id);
         $user = User::findOrFail($dosen->user_id);
         $validatedData = $request->validate([
@@ -105,7 +109,7 @@ class DosenController extends Controller
         $user->update([
             'password' => Hash::make($validatedData['password']),
         ]);
-        return redirect()->route('admin.dosen.index')->with('success','Password berhasil diubah');
+        return redirect()->route('admin.dosen.index')->with('success', 'Password berhasil diubah');
     }
 
     /**

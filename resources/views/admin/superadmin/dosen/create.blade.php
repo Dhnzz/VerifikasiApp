@@ -23,6 +23,14 @@
           <input type="text" placeholder="Nama Lengkap" name="name"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
+        <div class="mb-4">
+          <select type="text" placeholder="Role" name="role"
+            class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " >
+            <option value="dosen">Dosen</option>
+            <option value="kajur">Ketua Jurusan</option>
+            <option value="kaprodi">Ketua Program Studi</option>
+          </select>
+        </div>
         <x-button_md color="primary" class="w-full col-span-12"  type="submit">
           Kirim
         </x-button_md>
