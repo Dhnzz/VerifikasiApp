@@ -12,7 +12,8 @@ class MahasiswaBerkasController extends Controller
      */
     public function index()
     {
-        //
+        $berkas_mahasiswa = MahasiswaBerkas::get();
+        return view('admin.superadmin.berkas_mahasiswa.index',compact('berkas_mahasiswa'));
     }
 
     /**
@@ -20,7 +21,7 @@ class MahasiswaBerkasController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.superadmin.berkas_mahasiswa.index');
     }
 
     /**
@@ -28,7 +29,10 @@ class MahasiswaBerkasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = MahasiswaBerkas::create([
+            'mahasiswa_id' => $request->mahasiswa_id,
+
+        ]);
     }
 
     /**
