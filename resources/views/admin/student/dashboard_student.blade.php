@@ -31,11 +31,6 @@
             <div class="flex flex-col mt-1">
                 <p class="text-sm"></p>
             </div>
-            <hr class="">
-            <x-button_md color="primary" class="mt-4 inline-flex items-center gap-x-2">
-                <span><i class="fas fa-file"></i></span>
-                <p>Lengkapi Berkas</p>
-            </x-button_md>
             {{-- <div class="my-4">
                 <hr>
                 <a class="inline-flex underline text-color-primary-500 font-semibold items-center gap-x-2 py-4">
@@ -146,7 +141,7 @@
                         class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
                         type="file">
                     <input type="text" name="mahasiswa_id" value="mahasiswa_id" hidden>
-                    <x-button_md color="success" class="mt-2 inline-flex items-center gap-x-2">
+                    <x-button_md color="primary" class="mt-2 inline-flex items-center gap-x-2">
                         <span><i class="fas fa-check"></i></span>
                         <p>Kirim</p>
                     </x-button_md>
