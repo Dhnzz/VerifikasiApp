@@ -100,9 +100,11 @@ class PeriodeController extends Controller
         return redirect()->route('admin.periode.index')->with('success', 'Data periode berhasil dihapus!');
     }
 
-    public function periodeAktif(){
-        $data = Mahasiswa::findOrFail(auth()->user()->mahasiswa->id);
-        $aktif = Periode::where('status', 0)->get();
-        return view('admin.student.periode.index', compact('data','aktif'));
+    public function changeStatus($id){
+        $periode = Periode::findOrFail($id);
+        $periode->update([
+            'status' => ($periode->status == '1') ? '0' : '1',
+        ]);
+        return redirect()->route('admin.periode.index')->with('success', 'Status periode berhasil diubah!');
     }
 }

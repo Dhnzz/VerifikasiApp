@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemBerkas;
 use App\Models\Mahasiswa;
+use App\Models\MahasiswaBerkas;
 use App\Models\User;
+use App\Models\Dosen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -127,5 +130,24 @@ class MahasiswaController extends Controller
         $user->delete();
 
         return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
+    }
+
+    public function daftar(Request $request, $id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $dosen = Dosen::get()->first();
+        $itemBerkas = $request->item_berkas_id;
+        $mahasiswa->update([
+            'periode_id' => $request->periode_id,
+            'dosen_id' => $dosen->id
+        ]);
+        foreach ($itemBerkas as $item => $value) {
+            MahasiswaBerkas::create([
+                'item_berkas_id' => $value,
+                'mahasiswa_id' => $mahasiswa->id,
+                'status' => '0'
+            ]);
+            // $mahasiswaBerkas->save();
+        }
+        return redirect()->route('dashboard')->with('success', 'Berhasil daftar periode');
     }
 }
