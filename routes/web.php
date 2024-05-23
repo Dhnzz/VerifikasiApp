@@ -41,7 +41,20 @@ Route::middleware('auth')->group(function () {
             Route::put('/approve/{idBerkas}', [MahasiswaBerkasController::class, 'approve'])->name('approve');
         });
     });
+<<<<<<< HEAD
     
+=======
+
+    // Kajur Routes
+    Route::middleware('roleCheck:kajur')->prefix('kajur')->name('kajur.')->group(function () {
+        
+    });
+
+    // Kaprodi Routes
+    Route::middleware('roleCheck:kaprodi')->prefix('kaprodi')->name('kaprodi.')->group(function () {
+
+    });
+>>>>>>> b47ebb4aa1bbee05d84b4b8b71ae12c05df8aa42
 });
 
 Route::get('/sample', function () {

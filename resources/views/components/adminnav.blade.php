@@ -11,7 +11,7 @@
         <div class="inline-flex items-center gap-x-2">
             <img src="/avatar/ung.png" alt="" class="w-10">
         </div>
-        <div class="relative cursor-pointer" onclick="openDropDown(this)">
+        <div class="relative cursor-pointer fle" onclick="openDropDown(this)">
             <img src="/avatar/placeholder.jpg" alt="" class="w-12 rounded-full border-2 border-white">
             <div
                 class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
@@ -42,7 +42,7 @@
     <div class="w-full bg-white p-2">
         <div class="max-w-screen-xl hidden mx-auto text-black list-none lg:flex items-center p-2 gap-x-8 text-sm">
             <li class="p-2">
-                <div class="inline-flex items-center gap-x-2  text-slate-500">
+                <div class="inline-flex items-center gap-x-2 {{ request()->routeIs('dashboard') ? 'text-blue-500' : 'text-slate-500' }}">
                     <a href="{{ route('dashboard') }}">
                         <i class="fas fa-home"></i>
                         Beranda
@@ -52,39 +52,38 @@
             @switch(Auth::user()->role)
                 @case('admin')
                     <li class="p-2 relative cursor-pointer" onclick="openDropDown(this)">
-                        <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <div class="inline-flex items-center gap-x-2 {{ request()->routeIs('admin.mahasiswa.*', 'admin.dosen.*') ? 'text-blue-500' : 'text-slate-500' }}">
                             <i class="fas fa-box"></i>
                             Master
                             <i class="fas fa-chevron-down"></i>
                         </div>
                         <div
                             class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
-                            <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
+                            <div class="inline-flex items-center gap-x-2 {{ request()->routeIs('admin.mahasiswa.*') ? 'text-blue-500' : 'text-slate-500' }} w-full">
                                 <a href="{{ route('admin.mahasiswa.index') }}">
-                                    <i class="fas fa-file"></i>
+                                    <i class="fas fa-user"></i>
                                     Mahasiswa
                                 </a>
                             </div>
-                            <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
+                            <div class="inline-flex items-center gap-x-2 {{ request()->routeIs('admin.dosen.*') ? 'text-blue-500' : 'text-slate-500' }} w-full">
                                 <a href="{{ route('admin.dosen.index') }}">
-                                    <i class="fas fa-file"></i>
+                                    <i class="fas fa-user"></i>
                                     Dosen
                                 </a>
                             </div>
-
                         </div>
                     <li class="p-2">
-                        <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <div class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.periode.index') ? 'text-blue-500' : 'text-slate-500' }}">
                             <a href="{{ route('admin.periode.index') }}">
-                                <i class="fas fa-home"></i>
+                                <i class="fas fa-calendar"></i>
                                 Periode
                             </a>
                         </div>
                     </li>
                     <li class="p-2">
-                        <div class="inline-flex items-center gap-x-2  text-slate-500">
+                        <div class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.template.index') ? 'text-blue-500' : 'text-slate-500' }}">
                             <a href="{{ route('admin.template.index') }}">
-                                <i class="fas fa-home"></i>
+                                <i class="fas fa-file"></i>
                                 Template Berkas
                             </a>
                         </div>
@@ -112,30 +111,50 @@
                 <i class="fas fa-times text-lg"></i>
             </button>
         </div>
-        <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg">
-            <a href="" class="flex items-center gap-x-2 ">
+        <li class="p-4 flex items-center {{ request()->routeIs('dashboard') ? 'bg-color-primary-500 text-white' : 'bg-white text-color-primary-500' }} rounded-lg">
+            <a href="{{ route('dashboard') }}" class="flex items-center gap-x-2 ">
                 <i class="fas fa-home"></i>
-                single menu
+                Beranda
             </a>
         </li>
-        <li class="p-4 flex items-center bg-color-primary-500 text-white rounded-lg ">
-            <div href=" " class="flex flex-col items-center w-full" onclick="openDropDown(this)">
+        <li class="p-4 flex relative items-center {{ request()->routeIs('admin.mahasiswa.index', 'admin.dosen.index') ? 'bg-color-primary-500 text-white' : 'bg-white text-color-primary-500' }} rounded-lg">
+            <div class="flex flex-col items-center w-full" onclick="openDropDown(this)">
                 <div class="flex items-center justify-between w-full">
                     <div class="flex items-center gap-x-2">
                         <i class="fas fa-box"></i>
-                        nested menu
+                        Master
                     </div>
                     <span><i class="fas fa-chevron-down"></i></span>
                 </div>
-                <div
-                    class=" flex-col gap-y-2 p-4 bg-white text-color-primary-500 rounded-lg hidden w-full mt-4 dropdown_menu">
-                    <a href="" class="flex items-center gap-x-2">
-                        <i class="fas fa-file"></i>
-                        menu
-                    </a>
+                <div class="flex flex-col rounded-lg mt-4 w-full bg-white dropdown_menu hidden">
+                    <div class="flex-col p-2 bg-white text-color-primary-500 rounded-lg w-full">
+                        <a href="{{ route('admin.mahasiswa.index') }}" class="flex items-center gap-x-2">
+                            <i class="fas fa-user"></i>
+                            Mahasiswa
+                        </a>
+                    </div>
+                    <div class="flex-col p-2 bg-white text-color-primary-500 rounded-lg w-full">
+                        <a href="{{ route('admin.dosen.index') }}" class="flex items-center gap-x-2">
+                            <i class="fas fa-user"></i>
+                            Dosen
+                        </a>
+                    </div>
                 </div>
             </div>
         </li>
+        <li class="p-4 flex items-center {{ request()->routeIs('admin.periode.index') ? 'bg-color-primary-500 text-white' : 'bg-white text-color-primary-500' }} rounded-lg">
+            <a href="{{ route('admin.periode.index') }}" class="flex items-center gap-x-2 ">
+                <i class="fas fa-calendar"></i>
+                Periode
+            </a>
+        </li>
+        <li class="p-4 flex items-center {{ request()->routeIs('admin.template.index') ? 'bg-color-primary-500 text-white' : 'bg-white text-color-primary-500' }} rounded-lg">
+            <a href="{{ route('admin.template.index') }}" class="flex items-center gap-x-2 ">
+                <i class="fas fa-file"></i>
+                Template Berkas
+            </a>
+        </li>
+
     </div>
 </nav>
 

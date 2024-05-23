@@ -31,4 +31,11 @@ class DosenFactory extends Factory
             'name'=> fake()->name(),
         ]);
     }
+    public function kajur()
+    {
+        DosenFactory::new()->create([
+            'user_id' => UserFactory::new()->create(['role' => 'kajur'])->id,
+            'name'=> fake()->name(),
+        ]);
+    }
 }
