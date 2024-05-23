@@ -132,18 +132,24 @@
                 </div>
             </div>
             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                @foreach ($value->templateBerkas->itemBerkas as $berkas)
+                @foreach ($value->templateBerkas->itemBerkas as $berkas => $value)
+                @php
+                    $mahasiswaBerkasId = \App\Models\MahasiswaBerkas::where(['mahasiswa_id' => $data->id, 'item_berkas_id' => $value->id])->first()
+                @endphp
                 <div>
-                    <p class="font-semibold">{{$berkas->name}} </p>
-                    <p class="text-sm">Unggah {{$berkas->name}} kamu dalam format PDF dengan ukuran maksimal 2MB</p>
+                    <p class="font-semibold">{{$value->name}} </p>
+                    <p class="text-sm">Unggah {{$value->name}} kamu dalam format PDF dengan ukuran maksimal 2MB</p>
+                    <a href="{{asset('storage/')}}"></a>
                 </div>
-                <form action="{{ route('mahasiswa.berkas_mahasiswa.store') }}" method="POST">
+                <form action="{{ route('mahasiswa.berkas_mahasiswa.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <input
                         class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-                        type="file" name="file">
-                    <input type="text" name="mahasiswa_id" value="{{$data->id}}" hidden>
-                    <input type="text" name="item_berkas_id" value="{{$berkas->id}}" hidden>
+                        type="file" name="file" value="{{$mahasiswaBerkasId->berkas}}">
+                    <input type="text" name="mahasiswa_id" value="{{$data->id}}" >
+                    <input type="text" name="mahasiswa_name" value="{{$data->name}}" >
+                    <input type="text" name="item_berkas_id" value="{{$value->id}}" >
                     <x-button_md color="success" type="submit" class="mt-2 inline-flex items-center gap-x-2">
                         <span><i class="fas fa-check"></i></span>
                         <p>Kirim</p>
