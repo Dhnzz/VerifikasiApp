@@ -7,12 +7,22 @@ use Illuminate\Http\Request;
 
 class MahasiswaBerkasController extends Controller
 {
+    public function approve(Request $request, $id)
+    {
+        $berkas = MahasiswaBerkas::findOrFail($id);
+        $berkas->update([
+            'status' => '1',
+        ]);
+        // return dd($berkas);
+        return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Berkas Berhasil di setujui!');;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $berkas_mahasiswa = MahasiswaBerkas::get();
+        return view('admin.superadmin.berkas_mahasiswa.index',compact('berkas_mahasiswa'));
     }
 
     /**
@@ -20,7 +30,7 @@ class MahasiswaBerkasController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.superadmin.berkas_mahasiswa.index');
     }
 
     /**
@@ -28,7 +38,10 @@ class MahasiswaBerkasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = MahasiswaBerkas::create([
+            'mahasiswa_id' => $request->mahasiswa_id,
+            
+        ]);
     }
 
     /**
