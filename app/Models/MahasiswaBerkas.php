@@ -12,6 +12,7 @@ class MahasiswaBerkas extends Model
     protected $fillable = [
         'mahasiswa_id',
         'item_berkas_id',
-        'file_berkas'
+        'file_berkas',
+        'status'
     ];
 }

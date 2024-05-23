@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 
 class MahasiswaBerkasController extends Controller
 {
+    public function approve(Request $request, $id)
+    {
+        $berkas = MahasiswaBerkas::findOrFail($id);
+        $berkas->update([
+            'status' => '1',
+        ]);
+        // return dd($berkas);
+        return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Berkas Berhasil di setujui!');;
+    }
     /**
      * Display a listing of the resource.
      */

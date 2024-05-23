@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Periode, User, Mahasiswa};
+use App\Models\{Dosen, ItemBerkas, Periode, User, Mahasiswa};
 use App\Models\PeriodeTemplate;
 use App\Models\TemplateBerkas;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class PeriodeController extends Controller
@@ -53,7 +55,16 @@ class PeriodeController extends Controller
     public function show($id)
     {
         $periode = Periode::findOrFail($id);
-        return view('admin.superadmin.periode.show', compact('periode'));
+        $template_berkas = TemplateBerkas::findOrFail($periode->template_berkas_id);
+        $itemBerkas = ItemBerkas::where('template_berkas_id', $template_berkas->id)->get();
+        $tglAwal = Carbon::createFromFormat('Y-m-d', $periode->tgl_mulai);
+        $tglAkhir = Carbon::createFromFormat('Y-m-d', $periode->tgl_berakhir);
+        $timeRangeDuration = intval($tglAwal->diffInMonths($tglAkhir));
+        if ($tglAwal->isSameMonth($tglAkhir) && $tglAwal->isSameYear($tglAkhir)) {
+            $timeRangeDuration = 1;
+        }
+        $rangeFormat = $timeRangeDuration . ' Bulan';
+        return view('admin.superadmin.periode.show', compact('periode', 'tglAwal', 'tglAkhir', 'template_berkas', 'itemBerkas', 'rangeFormat'));
     }
 
     /**
@@ -100,11 +111,31 @@ class PeriodeController extends Controller
         return redirect()->route('admin.periode.index')->with('success', 'Data periode berhasil dihapus!');
     }
 
-    public function changeStatus($id){
+    public function changeStatus($id)
+    {
         $periode = Periode::findOrFail($id);
         $periode->update([
             'status' => ($periode->status == '1') ? '0' : '1',
         ]);
         return redirect()->route('admin.periode.index')->with('success', 'Status periode berhasil diubah!');
+    }
+    // public function periodeAktif()
+    // {
+    //     $data = Mahasiswa::findOrFail(auth()->user()->mahasiswa->id);
+    //     $aktif = Periode::where('status', 0)->get();
+    //     return view('admin.student.periode.index', compact('data', 'aktif'));
+    // }
+
+    public function showDosen($id)
+    {
+        $dosen = Dosen::findOrFail(Auth::user()->dosen->id);
+        $periode = Periode::findOrFail($id);
+        return view('admin.dosen.template_detail_periode', compact('periode', 'dosen'));
+    }
+
+    public function getPeserta($id)
+    {
+        $peserta = Mahasiswa::findOrFail($id);
+        return view('admin.dosen.template_detail_mahasiswa', compact('peserta'));
     }
 }
