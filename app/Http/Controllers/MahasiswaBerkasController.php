@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\{MahasiswaBerkas, TemplateBerkas};
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class MahasiswaBerkasController extends Controller
 {
@@ -48,13 +50,26 @@ class MahasiswaBerkasController extends Controller
             'item_berkas_id' => $request->item_berkas_id
         ])->first();
         $itemBerkas = MahasiswaBerkas::findOrFail($idItemBerkas->id);
-        $file = $request->file('file');
-        $fileName = time() . '_' . $request->mahasiswa_name . '_' . $file->getClientOriginalName();
-        $filePath = Storage::disk('public')->put('uploads', $fileName);
-        $itemBerkas->update([
-            'berkas' => $fileName,
-        ]);
-        return redirect()->route('dashboard')->with('success', 'Data berkas mahasiswa berhasil diperbarui!');
+        if (Storage::disk('public')->exists('upload') == true) {
+            Storage::disk('public')->delete('upload/'.$itemBerkas->berkas);
+
+            $file = $request->file('file');
+            $fileName = time() . '_' . $request->mahasiswa_name . '_' . $file->getClientOriginalName();
+            Storage::disk('public')->putFileAs('upload', $file, $fileName);
+            $itemBerkas->update([
+                'berkas' => $fileName,
+            ]);
+            return redirect()->route('dashboard')->with('success', 'Data berkas mahasiswa berhasil diperbarui!');
+        } else {
+            $file = $request->file('file');
+            $fileName = time() . '_' . $request->mahasiswa_name . '_' . $file->getClientOriginalName();
+            Storage::disk('public')->putFileAs('upload', $file, $fileName);
+            $itemBerkas->update([
+                'berkas' => $fileName,
+            ]);
+            return redirect()->route('dashboard')->with('success', 'Data berkas mahasiswa berhasil diperbarui!');
+        }
+
     }
 
     /**

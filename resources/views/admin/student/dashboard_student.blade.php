@@ -106,23 +106,6 @@
                                         </div>
                                     @endforeach
                                 @endforeach
-                                <hr>
-                                {{-- kalo depe template s ta upload samua, depe status jadi menunggu periode berikutnya --}}
-                                <div
-                                    class="p-4 bg-color-success-100 border border-color-success-500 text-sm rounded-xl inline-flex gap-x-2 w-full">
-                                    <div class="">
-                                        <span
-                                            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                    </div>
-                                    <div class="">
-                                        <p>Seluruh dokumen berkas dalam periode ini telah berhasil diverifikasi, silahkan
-                                            tunggu
-                                            periode selanjutnya</p>
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                     </div>
