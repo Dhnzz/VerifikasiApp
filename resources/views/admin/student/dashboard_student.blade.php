@@ -94,7 +94,7 @@
                                     @foreach ($mahasiswaBerkasId as $berkas => $mahasiswaBerkasData)
                                         <div class="flex items-center">
                                             <span
-                                                class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white {{($mahasiswaBerkasData->status == '0')?'bg-color-danger-500':'bg-color-success-500'}} rounded-full ">
+                                                class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white {{ $mahasiswaBerkasData->status == '0' ? 'bg-color-danger-500' : 'bg-color-success-500' }} rounded-full ">
                                                 @if ($mahasiswaBerkasData->status == '0')
                                                     <i class="fas fa-exclamation"></i>
                                                 @else
@@ -196,11 +196,12 @@
                 @elseif ($periode->count() > 0)
                     @foreach ($periode as $item => $value)
                         <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
-
                             <div class="col-span-12 inline-flex justify-between items-center">
                                 <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500">
                                     <span class=""><i class="fas fa-book text-xl"></i></span>
-                                    <p class="text-xl font-semibold">{{ $value->name }}</p>
+                                    <p class="text-xl font-semibold">Periode
+                                        {{ \Carbon\Carbon::parse($value->tgl_mulai)->locale('id')->isoFormat('MMMM YYYY') }}
+                                    </p>
                                 </div>
                             </div>
                             <div class="col-span-12 detailContainer flex flex-col ">
@@ -221,21 +222,21 @@
                             </div>
                             <hr class="col-span-12 mt-4">
                             <div class="col-span-12 mt-4">
-                                <p class="font-semibold">Pilih Template Berkas</p>
+                                <p class="font-semibold">Pilih Template Berkas :</p>
                             </div>
                             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                                <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4 w-full">
-                                    <button class="flex justify-between" onclick="openDetails(this, event)">
-                                        <p class="font-semibold">Nama Template Berkas</p>
-                                        <span><i class="fas fa-chevron-down text-sm"></i></span>
-                                    </button>
+                                @foreach ($periode as $item => $valuePeriode)
+                                    <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4 w-full">
+                                        <button class="flex justify-between" onclick="openDetails(this, event)">
+                                            <p class="font-semibold">{{ $valuePeriode->templateBerkas->name }}</p>
+                                            <span><i class="fas fa-chevron-down text-sm"></i></span>
+                                        </button>
 
-                                    <div class="detailContainer flex flex-col gap-y-2 hidden">
-                                        <div>
-                                            <p>Daftar Berkas Dalam Template :</p>
-                                        </div>
-                                        @foreach ($periode as $item => $value)
-                                            @foreach ($value->templateBerkas->itemBerkas as $itemBerkas)
+                                        <div class="detailContainer flex flex-col gap-y-2 hidden">
+                                            <div>
+                                                <p>Daftar Berkas Dalam Template :</p>
+                                            </div>
+                                            @foreach ($valuePeriode->templateBerkas->itemBerkas as $itemBerkas => $value)
                                                 <div class="inline-flex items-center mt-2">
                                                     <div class="">
                                                         <span
@@ -243,7 +244,7 @@
                                                             <i class="fas fa-check"></i>
                                                         </span>
                                                     </div>
-                                                    <p class="font-semibold">{{ $itemBerkas->name }}</p>
+                                                    <p class="font-semibold">{{ $value->name }}</p>
                                                 </div>
                                             @endforeach
                                             <hr class="mt-2">
@@ -255,10 +256,9 @@
                                                 <x-button_md type="submit" color="primary"
                                                     class="w-fit mt-2">Daftar</x-button_md>
                                             </form>
-                                        @endforeach
+                                        </div>
                                     </div>
-
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     @endforeach
