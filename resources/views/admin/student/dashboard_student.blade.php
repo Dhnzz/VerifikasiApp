@@ -84,32 +84,28 @@
                             </div>
                             <hr class="col-span-12 mt-4">
                             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                                @php
-                                    $mahasiswaBerkasId = \App\Models\MahasiswaBerkas::where([
-                                        'mahasiswa_id' => $data->id,
-                                        'item_berkas_id' => $value->id,
-                                    ])->first();
-                                @endphp
-                                @foreach ($value->templateBerkas->itemBerkas as $berkas)
-                                    <div class="flex items-center">
-                                        <span
-                                            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-success-500 rounded-full ">
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                        <p class="text-sm font-semibold text-color-primary-500 underline">
-                                            {{ $berkas->name }}</p>
-                                    </div>
+                                @foreach ($data->itemBerkas as $item)
+                                    @php
+                                        $mahasiswaBerkasId = \App\Models\MahasiswaBerkas::where([
+                                            'mahasiswa_id' => $data->id,
+                                            'item_berkas_id' => $item->id,
+                                        ])->get();
+                                    @endphp
+                                    @foreach ($mahasiswaBerkasId as $berkas => $mahasiswaBerkasData)
+                                        <div class="flex items-center">
+                                            <span
+                                                class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white {{($mahasiswaBerkasData->status == '0')?'bg-color-danger-500':'bg-color-success-500'}} rounded-full ">
+                                                @if ($mahasiswaBerkasData->status == '0')
+                                                    <i class="fas fa-exclamation"></i>
+                                                @else
+                                                    <i class="fas fa-check"></i>
+                                                @endif
+                                            </span>
+                                            <p class="text-sm font-semibold text-color-primary-500 underline">
+                                                {{ $item->name }}</p>
+                                        </div>
+                                    @endforeach
                                 @endforeach
-
-                                {{-- beken bgini kalo depe berkas dia tolak --}}
-                                <div class="flex items-center">
-                                    <span
-                                        class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-danger-500 rounded-full ">
-                                        <i class="fas fa-exclamation"></i>
-                                    </span>
-                                    <p class="text-sm font-semibold text-color-primary-500 underline">{{ $berkas->name }}
-                                    </p>
-                                </div>
                                 <hr>
                                 {{-- kalo depe template s ta upload samua, depe status jadi menunggu periode berikutnya --}}
                                 <div
@@ -161,34 +157,38 @@
                         </div>
                     </div>
                     <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                        @foreach ($value->templateBerkas->itemBerkas as $berkas => $value)
+                        @foreach ($data->itemBerkas as $value)
                             @php
                                 $mahasiswaBerkasId = \App\Models\MahasiswaBerkas::where([
                                     'mahasiswa_id' => $data->id,
                                     'item_berkas_id' => $value->id,
-                                ])->first();
+                                ])->get();
                             @endphp
-                            <div>
-                                <p class="font-semibold">{{ $value->name }} </p>
-                                <p class="text-sm">Unggah {{ $value->name }} kamu dalam format PDF dengan ukuran maksimal
-                                    2MB</p>
-                                <a href="{{ asset('storage/') }}"></a>
-                            </div>
-                            <form action="{{ route('mahasiswa.berkas_mahasiswa.store') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <input
-                                    class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
-                                    type="file" name="file" value="{{ $mahasiswaBerkasId->berkas }}">
-                                <input type="text" name="mahasiswa_id" value="{{ $data->id }}">
-                                <input type="text" name="mahasiswa_name" value="{{ $data->name }}">
-                                <input type="text" name="item_berkas_id" value="{{ $value->id }}">
-                                <x-button_md color="success" type="submit" class="mt-2 inline-flex items-center gap-x-2">
-                                    <span><i class="fas fa-check"></i></span>
-                                    <p>Kirim</p>
-                                </x-button_md>
-                            </form>
+                            @foreach ($mahasiswaBerkasId as $berkas => $item)
+                                <div>
+                                    <p class="font-semibold">{{ $value->name }} </p>
+                                    <p class="text-sm">Unggah {{ $value->name }} kamu dalam format PDF dengan ukuran
+                                        maksimal
+                                        2MB</p>
+                                    <a href="{{ asset('storage/') }}"></a>
+                                </div>
+                                <form action="{{ route('mahasiswa.berkas_mahasiswa.store') }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <input
+                                        class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50"
+                                        type="file" name="file" value="{{ $item->berkas }}">
+                                    <input type="text" name="mahasiswa_id" value="{{ $data->id }}">
+                                    <input type="text" name="mahasiswa_name" value="{{ $data->name }}">
+                                    <input type="text" name="item_berkas_id" value="{{ $value->id }}">
+                                    <x-button_md color="success" type="submit"
+                                        class="mt-2 inline-flex items-center gap-x-2">
+                                        <span><i class="fas fa-check"></i></span>
+                                        <p>Kirim</p>
+                                    </x-button_md>
+                                </form>
+                            @endforeach
                         @endforeach
                     </div>
                     <hr class="mt-4 col-span-12">
