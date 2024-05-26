@@ -45,7 +45,7 @@
               class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
               <div class="max-w-2xl w-full p-6 rounded-xl h-[80vh] overflow-hidden">
                 <div class="w-full inline-flex items-center justify-between text-white">
-                  <p class="text-lg font-semibold">Nama Berkas</p>
+                  <p class="text-lg font-semibold">{{ $berkas->name }}</p>
                   <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-500 text-white"
                     onclick="closeModal()">
                     <i class="fas fa-times text-lg"></i>
@@ -75,19 +75,22 @@
                 class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
                 <div class="max-w-lg w-full p-6 rounded-xl overflow-hidden bg-white">
                   <div class="w-full inline-flex items-center justify-between">
-                    <p class="text-lg font-semibold">Nama Berkas</p>
+                    <p class="text-lg font-semibold">{{ $berkas->name }}</p>
                     <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800"
                       onclick="closeRejectModal()">
                       <i class="fas fa-times text-lg"></i>
                     </button>
                   </div>
                   <div class="mt-4">
-                    <form action="">
+                    <form action="{{ route('dosen.berkas.reject', $berkas->id) }}" method="post">
+                      @csrf
+                      @method('PUT')
+                      <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
                       <div class="">
                         <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                           Kirim Feedback Penolakan
                         </label>
-                        <textarea type="text" placeholder="Masukan Catatan Penolakan" name="catatan_tolak"
+                        <textarea type="text" placeholder="Masukan Catatan Penolakan" name="revisi"
                           class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " ></textarea>
                       </div>
                       <x-button_sm color="primary" class="mt-2" type="submit">
