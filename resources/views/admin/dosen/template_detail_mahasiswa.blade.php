@@ -54,8 +54,9 @@
                 <embed src="/sample.pdf" type="" class="mt-4 w-full h-full">
               </div>
             </div>
-            <div class="inline-flex gap-x-2 items-center">
 
+
+            <div class="inline-flex gap-x-2 items-center">
               <form action="{{ route('dosen.berkas.approve', $berkas->id) }}" method="post">
                 @csrf
                 @method('PUT')
@@ -75,8 +76,8 @@
                 <div class="max-w-lg w-full p-6 rounded-xl overflow-hidden bg-white">
                   <div class="w-full inline-flex items-center justify-between">
                     <p class="text-lg font-semibold">Nama Berkas</p>
-                    <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-500 text-slate-800"
-                      onclick="closeModal()">
+                    <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800"
+                      onclick="closeRejectModal()">
                       <i class="fas fa-times text-lg"></i>
                     </button>
                   </div>
@@ -89,9 +90,9 @@
                         <textarea type="text" placeholder="Masukan Catatan Penolakan" name="catatan_tolak"
                           class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " ></textarea>
                       </div>
-                      <x-button_sm color="primary" type="submit" class="mt-4">
+                      <x-button_sm color="primary" class="mt-2" type="submit">
                         Kirim
-                      </x-button_sm>
+                    </x-button_sm>
                     </form>
                   </div>
                 </div>
@@ -132,7 +133,7 @@
     modal.classList.add('flex');
   }
 
-  function closeModal() {
+  function closeRejectModal() {
     const modal = document.getElementById('feedbackmodal')
     modal.classList.remove('flex');
     modal.classList.add('hidden');
