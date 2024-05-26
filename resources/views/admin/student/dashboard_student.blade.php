@@ -205,7 +205,7 @@
                                                             <i class="fas fa-check"></i>
                                                         </span>
                                                     </div>
-                                                    <p class="font-semibold">{{ $value->name }}</p>
+                                                    <p class="font-semibold">{{ $itemBerkas->name }}</p>
                                                 </div>
                                             @endforeach
                                             <hr class="mt-2">
