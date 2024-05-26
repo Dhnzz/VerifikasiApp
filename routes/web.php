@@ -52,9 +52,9 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-// Route::get('/sample', function () {
-//     return view('admin.kajur.kajur_dashboard');
-// });
+Route::get('/sample', function () {
+    return view('admin.kaprodi.kaprodi_dashboard');
+});
 
 
 require __DIR__ . '/auth.php';
