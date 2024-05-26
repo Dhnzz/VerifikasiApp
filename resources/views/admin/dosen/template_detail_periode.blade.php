@@ -23,7 +23,7 @@
   </div>
 
   <div class="lg:col-span-4 col-span-12">
-    @foreach ($dosen->Mahasiswa as $mahasiswa)
+    @foreach ($mahasiswas as $mahasiswa)
         
     <div class="max-h-[42rem] overflow-y-auto flex flex-col hover:cursor-pointer">
       <div
