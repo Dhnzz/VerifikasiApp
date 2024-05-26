@@ -4,6 +4,10 @@
             $role = Auth::user()->role;
             if ($role == 'admin') {
                 $role = 'dosen';
+            } elseif ($role == 'kajur') {
+                $role = 'dosen';
+            } elseif ($role == 'kaprodi') {
+                $role = 'dosen';
             }
         @endphp
         <h1>{{ Auth::user()->$role->name }}</h1>

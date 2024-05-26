@@ -36,7 +36,7 @@
           <input type="text" placeholder="Angkatan Akademik" name="angkatan" value="{{$data->angkatan}}"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " />
         </div>
-        <x-button_md color="primary" class="w-full col-span-12">
+        <x-button_md color="primary" class="w-full col-span-12" type="submit">
           Kirim
         </x-button_md>
       </form>

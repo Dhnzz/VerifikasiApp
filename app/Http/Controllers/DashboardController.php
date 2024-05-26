@@ -44,7 +44,13 @@ class DashboardController extends Controller
             // $rangeFormat = $timeRangeDuration . ' Bulan';
             return view('admin.dosen.dashboard', compact('data', 'user', 'mahasiswas', 'periode'));
         } elseif (Auth::user()->role == 'kajur') {
-            return view('admin.kajur.dashboard');
+            $Mahasiswa = Mahasiswa::all();
+            $jumlahMahasiswa = $Mahasiswa->count();
+            $jumlahDosen = Dosen::count();
+            $mahasiswaSI = Mahasiswa::where('prodi', 'Sistem Informasi')->count();
+            $mahasiswaPTI = Mahasiswa::where('prodi', 'Pendidikan Teknologi Informasi')->count();
+            // dd($mahasiswaPTI);
+            return view('admin.kajur.kajur_dashboard', compact('jumlahMahasiswa','jumlahDosen', 'mahasiswaSI', 'mahasiswaPTI'));
         }
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Mahasiswa extends Model
 {
     use HasFactory;
-    protected $fillable =[
+    protected $fillable = [
         "user_id",
         "dosen_id",
         "name",
@@ -21,19 +21,29 @@ class Mahasiswa extends Model
         "periode_id"
     ];
 
-    function User() : BelongsTo {
+    function User(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    function Dosen(): BelongsTo {
+    function Dosen(): BelongsTo
+    {
         return $this->belongsTo(Dosen::class);
     }
 
-    public function periode(): BelongsTo{
+    public function periode(): BelongsTo
+    {
         return $this->belongsTo(Periode::class);
     }
 
-    public function itemBerkas(): BelongsToMany{
+    public function itemBerkas(): BelongsToMany
+    {
         return $this->belongsToMany(ItemBerkas::class, 'mahasiswa_berkas');
+    }
+
+
+    public function berkas_mahasiswa(): HasMany
+    {
+        return $this->hasMany(MahasiswaBerkas::class);
     }
 }
