@@ -13,6 +13,7 @@ class MahasiswaBerkas extends Model
         'mahasiswa_id',
         'item_berkas_id',
         'berkas',
+        'revisi',
         'status'
     ];
 }

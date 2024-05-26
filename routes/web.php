@@ -25,9 +25,9 @@ Route::middleware('auth')->group(function () {
         Route::name('periode.')->group(function () {
             Route::put('/daftarPeriode/{idMahasiswa}/{idPeriode}', [MahasiswaController::class, 'daftar'])->name('daftar');
         });
-        Route::name('berkas_mahasiswa.')->group(function() {
-            Route::get('/byTemplateBerkas/{periode_id}', [MahasiswaBerkasController::class,'byTemplateBerkas'])->name('berkas_mahasiswa.byTemplateBerkas');
-            Route::put('/berkas_mahasiswa/store', [MahasiswaBerkasController::class,'store'])->name('store');
+        Route::name('berkas_mahasiswa.')->group(function () {
+            Route::get('/byTemplateBerkas/{periode_id}', [MahasiswaBerkasController::class, 'byTemplateBerkas'])->name('berkas_mahasiswa.byTemplateBerkas');
+            Route::put('/berkas_mahasiswa/store', [MahasiswaBerkasController::class, 'store'])->name('store');
         });
     });
 
@@ -39,17 +39,16 @@ Route::middleware('auth')->group(function () {
         });
         Route::name('berkas.')->group(function () {
             Route::put('/approve/{idBerkas}', [MahasiswaBerkasController::class, 'approve'])->name('approve');
+            Route::put('/reject/{idBerkas}', [MahasiswaBerkasController::class, 'reject'])->name('reject');
         });
     });
 
     // Kajur Routes
     Route::middleware('roleCheck:kajur')->prefix('kajur')->name('kajur.')->group(function () {
-        
     });
 
     // Kaprodi Routes
     Route::middleware('roleCheck:kaprodi')->prefix('kaprodi')->name('kaprodi.')->group(function () {
-
     });
 });
 

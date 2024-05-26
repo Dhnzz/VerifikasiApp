@@ -49,10 +49,16 @@
                       Approve
                     </x-button_md>
             </form>
-              <x-button_md color="danger" type="submit" class="inline-flex items-center gap-x-2">
-                <span><i class="fas fa-times"></i></span>
-                Tolak
-              </x-button_md>
+            <form action="{{ route('dosen.berkas.reject', $berkas->id) }}" method="post">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+                <input type="hidden" name="revisi" value="hapus data">
+                <x-button_md color="danger" type="submit" class="inline-flex items-center gap-x-2">
+                  <span><i class="fas fa-times"></i></span>
+                  Tolak 
+                </x-button_md>
+            </form>
             </div>
           </div>
         </div>
