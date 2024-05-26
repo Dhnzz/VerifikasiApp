@@ -40,7 +40,7 @@ class MahasiswaController extends Controller
         $prodi = '';
         if ($nimProdi == '14') {
             $prodi = 'Sistem Informasi';
-        }elseif ($nimProdi == '24'){
+        } elseif ($nimProdi == '24') {
             $prodi = 'Pendidikan Teknologi Informasi';
         }
         $validatedData = $request->validate([
@@ -140,10 +140,18 @@ class MahasiswaController extends Controller
         return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
     }
 
-    public function daftar(Request $request, $idMahasiswa, $idPeriode){
+    public function daftar(Request $request, $idMahasiswa, $idPeriode)
+    {
         $mahasiswa = Mahasiswa::findOrFail($idMahasiswa);
-        $dosen = Dosen::get()->first();
-        $periode = Periode::where('id',$idPeriode)->first();
+        $role = 'dosen'; // Ganti dengan peran yang ingin Anda filter, misalnya 'dosen', 'kaprodi', atau 'kajur'
+
+        $dosen = Dosen::withCount('mahasiswa')
+            ->whereHas('user', function ($query) use ($role) {
+                $query->where('role', $role);
+            })
+            ->orderBy('mahasiswa_count', 'asc')
+            ->first();
+        $periode = Periode::where('id', $idPeriode)->first();
         $itemBerkas = ItemBerkas::where('template_berkas_id', $periode->template_berkas_id)->get();
         $mahasiswa->update([
             'periode_id' => $idPeriode,
