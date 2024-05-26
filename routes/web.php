@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/sample', function () {
-    return view('admin.student.assign_file');
+    return view('admin.kajur.kajur_dashboard');
 });
 
 
