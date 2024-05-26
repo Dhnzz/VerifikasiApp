@@ -55,7 +55,16 @@
               </div>
             </div>
             @if($peserta->berkas_mahasiswa[$value]->revisi)
-                {{-- buatkan jadi tidak ada --}}
+            {{-- buatkan jadi tidak ada --}}
+            <div class="inline-flex items-center gap-x-1">
+              <div class="">
+                <span
+                  class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-danger-500 rounded-full ">
+                  <i class="fas fa-exclamation text-sm"></i>
+                </span>
+              </div>
+              <p class="text-color-danger-500 font-semibold">Berkas Telah Ditolak</p>
+            </div>
             @else
             <div class="inline-flex gap-x-2 items-center">
               <form action="{{ route('dosen.berkas.approve', $berkas->id) }}" method="post">
@@ -92,11 +101,11 @@
                           Kirim Feedback Penolakan
                         </label>
                         <textarea type="text" placeholder="Masukan Catatan Penolakan" name="revisi"
-                          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " ></textarea>
+                          class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs "></textarea>
                       </div>
                       <x-button_sm color="primary" class="mt-2" type="submit">
                         Kirim
-                    </x-button_sm>
+                      </x-button_sm>
                     </form>
                   </div>
                 </div>
