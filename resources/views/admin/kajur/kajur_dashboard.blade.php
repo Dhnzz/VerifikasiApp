@@ -8,7 +8,7 @@
       class="col-span-12 lg:col-span-6 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Mahasiswa</p>
-        <span class="text-4xl font-semibold ">-</span>
+        <span class="text-4xl font-semibold ">{{ $jumlahMahasiswa }}</span>
       </div>
       <i class="fas fa-graduation-cap text-4xl"></i>
     </div>
@@ -16,7 +16,7 @@
       class="col-span-12 lg:col-span-6 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Dosen</p>
-        <span class="text-4xl font-semibold ">-</span>
+        <span class="text-4xl font-semibold ">{{ $jumlahDosen }}</span>
       </div>
       <i class="fas fa-users text-4xl"></i>
     </div>
@@ -25,7 +25,7 @@
       class="col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Mahasiswa SI</p>
-        <span class="text-2xl font-semibold "></span>
+        <span class="text-2xl font-semibold ">{{ $mahasiswaSI }}</span>
       </div>
       <i class="fas fa-graduation-cap text-2xl"></i>
     </div>
@@ -33,22 +33,22 @@
       class="col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Mahasiswa PTI</p>
-        <span class="text-2xl font-semibold ">-</span>
+        <span class="text-2xl font-semibold ">{{$mahasiswaPTI}}</span>
       </div>
       <i class="fas fa-graduation-cap text-2xl"></i>
     </div>
     <div
       class="col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
-        <p class="text-sm font-semibold uppercase">Dosen SI</p>
-        <span class="text-2xl font-semibold "></span>
+        <p class="text-sm font-semibold uppercase">Kaprodi Dosen SI</p>
+        <span class="text-2xl font-semibold ">-</span>
       </div>
       <i class="fas fa-users text-2xl"></i>
     </div>
     <div
       class="col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
-        <p class="text-sm font-semibold uppercase">Dosen PTI</p>
+        <p class="text-sm font-semibold uppercase">Kaprodi Dosen PTI</p>
         <span class="text-2xl font-semibold ">-</span>
       </div>
       <i class="fas fa-users text-2xl"></i>
