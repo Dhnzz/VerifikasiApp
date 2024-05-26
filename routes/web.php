@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
     // Mahasiswa Routes 
     Route::middleware('roleCheck:mahasiswa')->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
         Route::name('periode.')->group(function () {
-            Route::put('/daftarPeriode/{id}', [MahasiswaController::class, 'daftar'])->name('daftar');
+            Route::put('/daftarPeriode/{idMahasiswa}/{idPeriode}', [MahasiswaController::class, 'daftar'])->name('daftar');
         });
         Route::name('berkas_mahasiswa.')->group(function() {
             Route::get('/byTemplateBerkas/{periode_id}', [MahasiswaBerkasController::class,'byTemplateBerkas'])->name('berkas_mahasiswa.byTemplateBerkas');

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ItemBerkas;
 use App\Models\Mahasiswa;
 use App\Models\MahasiswaBerkas;
+use App\Models\Periode;
+use App\Models\TemplateBerkas;
 use App\Models\User;
 use App\Models\Dosen;
 use Illuminate\Http\Request;
@@ -17,8 +19,6 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-
-
         $data = Mahasiswa::get();
         return view('admin.superadmin.mahasiswa.index', compact('data'));
     }
@@ -140,17 +140,18 @@ class MahasiswaController extends Controller
         return redirect()->route('admin.mahasiswa.index')->with('success', 'Data Mahasiswa berhasil dihapus.');
     }
 
-    public function daftar(Request $request, $id){
-        $mahasiswa = Mahasiswa::findOrFail($id);
+    public function daftar(Request $request, $idMahasiswa, $idPeriode){
+        $mahasiswa = Mahasiswa::findOrFail($idMahasiswa);
         $dosen = Dosen::get()->first();
-        $itemBerkas = $request->item_berkas_id;
+        $periode = Periode::where('id',$idPeriode)->first();
+        $itemBerkas = ItemBerkas::where('template_berkas_id', $periode->template_berkas_id)->get();
         $mahasiswa->update([
-            'periode_id' => $request->periode_id,
+            'periode_id' => $idPeriode,
             'dosen_id' => $dosen->id
         ]);
         foreach ($itemBerkas as $item => $value) {
             MahasiswaBerkas::create([
-                'item_berkas_id' => $value,
+                'item_berkas_id' => $value->id,
                 'mahasiswa_id' => $mahasiswa->id,
                 'status' => '0'
             ]);
