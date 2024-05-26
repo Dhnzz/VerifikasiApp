@@ -22,7 +22,6 @@ class MahasiswaBerkasController extends Controller
     {
         $berkas = MahasiswaBerkas::findOrFail($id);
         $berkas->update([
-            'status' => '0',
             'revisi' => $request->revisi,
         ]);
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Berkas berhasil di tolak!');

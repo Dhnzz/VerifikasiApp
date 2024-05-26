@@ -21,7 +21,7 @@
     <hr class="col-span-12 mt-4">
     <div class="col-span-12 mt-4 ">
       <div class="flex flex-col gap-y-4">
-        @foreach ($peserta->itemBerkas as $berkas)
+        @foreach ($peserta->itemBerkas as $value => $berkas)
 
         <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4">
           <button class="flex justify-between" onclick="openDetails(this, event)">
@@ -36,26 +36,27 @@
           </button>
           <div class="detailContainer flex items-center justify-between hidden mt-4">
             <x-button_md color="primary" type="submit" class="inline-flex items-center gap-x-2 w-fit"
-              onclick="modalOpen(this)">
+              onclick="modalOpen(this, {{ $value }})">
               <span><i class="fas fa-eye"></i></span>
               Lihat Berkas
             </x-button_md>
             {{-- modal --}}
-            <div id="modal"
+            <div id="{{ 'modal' . $value }}"
               class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
               <div class="max-w-2xl w-full p-6 rounded-xl h-[80vh] overflow-hidden">
                 <div class="w-full inline-flex items-center justify-between text-white">
                   <p class="text-lg font-semibold">{{ $berkas->name }}</p>
                   <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-500 text-white"
-                    onclick="closeModal()">
+                    onclick="closeModal({{ $value }})">
                     <i class="fas fa-times text-lg"></i>
                   </button>
                 </div>
                 <embed src="/sample.pdf" type="" class="mt-4 w-full h-full">
               </div>
             </div>
-
-
+            @if($peserta->berkas_mahasiswa[$value]->revisi)
+                {{-- buatkan jadi tidak ada --}}
+            @else
             <div class="inline-flex gap-x-2 items-center">
               <form action="{{ route('dosen.berkas.approve', $berkas->id) }}" method="post">
                 @csrf
@@ -67,17 +68,17 @@
                 </x-button_md>
               </form>
               <x-button_md color="danger" type="submit" class="inline-flex items-center gap-x-2"
-                onclick="feedBackOpen(this)">
+                onclick="feedBackOpen(this, {{ $value }})">
                 <span><i class="fas fa-times"></i></span>
                 Tolak
               </x-button_md>
-              <div id="feedbackmodal"
+              <div id="{{ 'feedbackmodal'.$value }}"
                 class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
                 <div class="max-w-lg w-full p-6 rounded-xl overflow-hidden bg-white">
                   <div class="w-full inline-flex items-center justify-between">
                     <p class="text-lg font-semibold">{{ $berkas->name }}</p>
                     <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800"
-                      onclick="closeRejectModal()">
+                      onclick="closeRejectModal({{ $value }})">
                       <i class="fas fa-times text-lg"></i>
                     </button>
                   </div>
@@ -101,6 +102,8 @@
                 </div>
               </div>
             </div>
+            @endif
+
           </div>
         </div>
 
@@ -117,27 +120,28 @@
 </div>
 
 <script>
-  function modalOpen(value) {
-    console.log(value)
-    const modal = document.getElementById('modal');
+  function modalOpen(value, data) {
+    // console.log(data)
+    const modal = document.getElementById(`modal`+data);
+    // console.log(modal);
     modal.classList.remove('hidden');
     modal.classList.add('flex')
   }
 
-  function closeModal() {
-    const modal = document.getElementById('modal')
+  function closeModal(data) {
+    const modal = document.getElementById('modal'+data)
     modal.classList.remove('flex');
     modal.classList.add('hidden');
   }
 
-  function feedBackOpen(value){
-    const modal = document.getElementById('feedbackmodal');
+  function feedBackOpen(value, data){
+    const modal = document.getElementById('feedbackmodal'+data);
     modal.classList.remove('hidden');
     modal.classList.add('flex');
   }
 
-  function closeRejectModal() {
-    const modal = document.getElementById('feedbackmodal')
+  function closeRejectModal(data) {
+    const modal = document.getElementById('feedbackmodal'+data)
     modal.classList.remove('flex');
     modal.classList.add('hidden');
   }
