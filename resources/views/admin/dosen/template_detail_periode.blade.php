@@ -23,9 +23,9 @@
   </div>
 
   <div class="lg:col-span-4 col-span-12">
-    @foreach ($dosen->Mahasiswa as $mahasiswa)
+    @foreach ($mahasiswas as $mahasiswa)
         
-    <div class="max-h-[42rem] overflow-y-auto flex flex-col">
+    <div class="max-h-[42rem] overflow-y-auto flex flex-col hover:cursor-pointer">
       <div
       class="relative overflow-visible bg-white p-6 rounded-xl w-full flex items-center gap-x-4 border border-slate-200 shadow-sm hover:border-color-primary-500 hover:bg-slate-50 transition-all duration-300"
         onclick="showPesertaDetail({{ $mahasiswa->id }})">
@@ -42,7 +42,7 @@
   </div>
 
   <!-- Kolom kanan dengan detail peserta -->
-  <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4" id="detail_mahasiswa" >
+  <div class="lg:col-span-8 col-span-12 w-full flex flex-col gap-y-4 " id="detail_mahasiswa" >
     
   </div>
 </section>

@@ -131,7 +131,10 @@ class PeriodeController extends Controller
     {
         $dosen = Dosen::findOrFail(Auth::user()->dosen->id);
         $periode = Periode::findOrFail($id);
-        return view('admin.dosen.template_detail_periode', compact('periode', 'dosen'));
+        $mahasiswas = $dosen->mahasiswa()->whereHas('periode', function ($query) use ($id) {
+            $query->where('periode_id', $id);
+        })->get();
+        return view('admin.dosen.template_detail_periode', compact('periode', 'dosen', 'mahasiswas'));
     }
 
     public function getPeserta($id)
