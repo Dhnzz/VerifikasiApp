@@ -70,11 +70,14 @@
                             </div>
                             <hr class="col-span-12 mt-4">
                             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                                @foreach ($value->templateBerkas->itemBerkas as $value =>$berkas)
+                                @foreach ($value->templateBerkas->itemBerkas as $value => $berkas)
+                                @php
+                                    $mahasiswaBerkas = $berkas->berkas_mahasiswa->where('mahasiswa_id', $data->id)->first();
+                                @endphp
                                     @if (
-                                        $berkas->berkas_mahasiswa->first()->revisi == null &&
-                                            $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas != null)
+                                         $mahasiswaBerkas->revisi == null &&
+                                            $mahasiswaBerkas->status == 0 &&
+                                            $mahasiswaBerkas->berkas != null)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-primary-500 rounded-full">
@@ -84,9 +87,9 @@
                                             <p class="text-sm font-semibold text-color-primary-500">{{ $berkas->name }}</p>
                                         </div>
                                     @elseif (
-                                        $berkas->berkas_mahasiswa->first()->revisi == null &&
-                                            $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas == null)
+                                        $mahasiswaBerkas->revisi == null &&
+                                            $mahasiswaBerkas->status == 0 &&
+                                            $mahasiswaBerkas->berkas == null)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-danger-500 rounded-full">
@@ -116,12 +119,12 @@
                                                 class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                                                 disabled>{{ $berkas->berkas_mahasiswa->first()->revisi }}</textarea> --}}
                                         </div>
-                                        @if ($berkas->berkas_mahasiswa->first()->revisi != null)
+                                        @if ($mahasiswaBerkas->revisi != null)
                                             <div
                                                 class="overflow-visible bg-white p-4 rounded-xl w-full border border-color-danger-500 shadow-sm transition-all duration-300">
                                                 <div class="flex items-center gap-x-2">
                                                     <p class="text-xs font-semibold text-color-danger-500">
-                                                        {{ $berkas->berkas_mahasiswa->first()->revisi }}</p>
+                                                        {{ $mahasiswaBerkas->revisi }}</p>
                                                 </div>
                                             </div>
                                         @endif
