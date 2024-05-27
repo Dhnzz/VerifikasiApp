@@ -15,7 +15,7 @@
                 <p class="text-sm">{{ date('j M Y', strtotime($peserta->periode->tgl_mulai)) }} -
                     {{ date(
                         'j M
-                                                                      Y',
+                                                                                                                                                                                              Y',
                         strtotime($peserta->periode->tgl_berakhir),
                     ) }}
                     <span
@@ -60,22 +60,27 @@
                                             <i class="fas fa-times text-lg"></i>
                                         </button>
                                     </div>
-                                    <embed src="{{asset('storage/upload/'.$mahasiswaBerkasId[$value]->berkas)}}" type="" class="mt-4 w-full h-full">
+                                    <embed src="{{ asset('storage/upload/' . $mahasiswaBerkasId[$value]->berkas) }}"
+                                        type="" class="mt-4 w-full h-full">
                                 </div>
                             </div>
                             @if ($peserta->berkas_mahasiswa[$value]->revisi)
                                 {{-- buatkan jadi tidak ada --}}
-                                <div class="inline-flex items-center gap-x-1">
-                                    <div class="">
-                                        <span
-                                            class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-danger-500 rounded-full ">
-                                            <i class="fas fa-exclamation text-sm"></i>
-                                        </span>
+                                <div
+                                    class="bg-white p-4 rounded-xl w-50 border border-color-danger-500 shadow-sm transition-all duration-300">
+                                    <div class="inline-flex items-center gap-x-2">
+                                        <div>
+                                            <span
+                                                class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-danger-500 rounded-full">
+                                                <i class="fas fa-exclamation"></i>
+                                            </span>
+                                        </div>
+                                        <p class="text-sm font-semibold text-color-danger-500">
+                                            Berkas ini telah ditolak</p>
                                     </div>
-                                    <p class="text-color-danger-500 font-semibold">Berkas Telah Ditolak</p>
                                 </div>
                             @else
-                                @if ($berkas->berkas_mahasiswa->first()->berkas)
+                                @if ($berkas->berkas_mahasiswa->first()->berkas && $mahasiswaBerkasId[$value]->status != 1)
                                     <div class="inline-flex gap-x-2 items-center">
                                         <form action="{{ route('dosen.berkas.approve') }}" method="post">
                                             @csrf
@@ -92,10 +97,24 @@
                                         </form>
                                         <x-button_md color="danger" type="submit"
                                             class="inline-flex items-center gap-x-2"
-                                            onclick="feedBackOpen(this, {{ $value }})">
+                                            onclick="feedBackOpen({{ $value }})">
                                             <span><i class="fas fa-times"></i></span>
                                             Tolak
                                         </x-button_md>
+                                    @elseif ($mahasiswaBerkasId[$value]->status == 1)
+                                        <div
+                                            class="bg-white p-4 rounded-xl w-50 border border-color-success-500 shadow-sm transition-all duration-300">
+                                            <div class="inline-flex items-center gap-x-2">
+                                                <div>
+                                                    <span
+                                                        class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-success-500 rounded-full">
+                                                        <i class="fas fa-check"></i>
+                                                    </span>
+                                                </div>
+                                                <p class="text-sm font-semibold text-color-success-500">
+                                                    Berkas ini telah diverifikasi</p>
+                                            </div>
+                                        </div>
                                     @else
                                         <div
                                             class="bg-white p-4 rounded-xl w-full border border-color-danger-500 shadow-sm transition-all duration-300">
@@ -148,28 +167,27 @@
                                 </div>
                         </div>
                 @endif
-
             </div>
+            @endforeach
         </div>
-        @endforeach
+        <hr class="col-span-12 mt-4">
+        <div class="col-span-12 ">
+            @if ($peserta->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
+                <div class="col-span-12 mt-4">
+                    <form action="{{ route('dosen.mahasiswa.pengajuan') }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
+                        <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+                        <x-button_md color="success" type="submit" class="w-full">
+                            Pengajuan
+                        </x-button_md>
+                    </form>
+                </div>
+            @endif
+        </div>
     </div>
 </div>
-</div>
-<hr class="col-span-12 mt-4">
-<div class="col-span-12 mt-4">
-    @if ($peserta->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
-        <div class="col-span-12 mt-4">
-            <form action="{{ route('dosen.mahasiswa.pengajuan') }}" method="post">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
-                <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
-                <x-button_md color="success" type="submit">
-                    PENGAJUAN
-                </x-button_md>
-            </form>
-        </div>
-    @endif
 </div>
 </div>
 
@@ -188,6 +206,7 @@
     }
 
     function feedBackOpen(data) {
+        console.log(data);
         const modal = document.getElementById(`feedbackmodal` + data);
         modal.classList.remove('hidden');
         modal.classList.add('flex');
