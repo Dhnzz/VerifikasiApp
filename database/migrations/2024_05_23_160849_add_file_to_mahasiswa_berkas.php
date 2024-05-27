@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('mahasiswa_berkas', function (Blueprint $table) {
-            $table->string('berkas')->after('item_berkas_id')->default('default.pdf');
+            $table->string('berkas')->after('item_berkas_id')->nullable();
         });
     }
 
