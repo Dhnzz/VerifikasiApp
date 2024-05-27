@@ -41,7 +41,7 @@
       class="col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Kaprodi Dosen SI</p>
-        <span class="text-2xl font-semibold ">-</span>
+        <span class="text-2xl font-semibold ">{{ $dosenSi['name'] }}</span>
       </div>
       <i class="fas fa-users text-2xl"></i>
     </div>
@@ -49,7 +49,7 @@
       class="col-span-3 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
       <div class="flex flex-col gap-y-1">
         <p class="text-sm font-semibold uppercase">Kaprodi Dosen PTI</p>
-        <span class="text-2xl font-semibold ">-</span>
+        <span class="text-2xl font-semibold ">{{ $dosenPti['name'] }}</span>
       </div>
       <i class="fas fa-users text-2xl"></i>
     </div>

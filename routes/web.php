@@ -48,6 +48,10 @@ Route::middleware('auth')->group(function () {
 
     // Kajur Routes
     Route::middleware('roleCheck:kajur')->prefix('kajur')->name('kajur.')->group(function () {
+        Route::name('kaprodi.')->group(function () {
+            Route::get('/choose-kaprodi', [DosenController::class, 'chooseKaprodi'])->name('choose');
+            Route::put('/select-kaprodi/{id}', [DosenController::class, 'selectKaprodi'])->name('select');
+        });
     });
 
     // Kaprodi Routes

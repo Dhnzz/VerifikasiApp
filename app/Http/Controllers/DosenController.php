@@ -124,4 +124,25 @@ class DosenController extends Controller
 
         return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil dihapus.');
     }
+
+    public function chooseKaprodi()
+    {
+        $users = User::whereIn('role', ['kaprodi', 'dosen'])
+            ->whereHas('dosen')
+            ->get();
+        return view('admin.kajur.kaprodi_entries', compact('users'));
+    }
+
+    public function selectKaprodi(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->update([
+            'role' => $request->role
+        ]);
+        $user->Dosen->update([
+            'prodi' => $request->prodi
+        ]);
+    
+        return redirect()->route('kajur.kaprodi.choose')->with('success', 'Data dosen diubah.');
+    }
 }

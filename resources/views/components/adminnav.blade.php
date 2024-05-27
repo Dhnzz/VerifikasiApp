@@ -107,7 +107,7 @@
             <li class="p-2">
                 <div
                     class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.periode.index') ? 'text-blue-500' : 'text-slate-500' }}">
-                    <a href="{{ route('admin.periode.index') }}">
+                    <a href="{{ route('kajur.kaprodi.choose') }}">
                         <i class="fas fa-calendar"></i>
                         Data Kaprodi
                     </a>
