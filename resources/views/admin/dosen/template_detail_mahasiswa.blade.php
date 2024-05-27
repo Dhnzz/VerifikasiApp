@@ -71,6 +71,8 @@
               </div>
               <p class="text-color-danger-500 font-semibold">Berkas Telah Ditolak</p>
             </div>
+            @elseif($peserta->berkas_mahasiswa[$value]->status === '1')
+            
             @else
             <div class="inline-flex gap-x-2 items-center">
               <form action="{{ route('dosen.berkas.approve') }}" method="post">
