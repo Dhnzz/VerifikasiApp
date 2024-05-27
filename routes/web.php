@@ -52,6 +52,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/choose-kaprodi', [DosenController::class, 'chooseKaprodi'])->name('choose');
             Route::put('/select-kaprodi/{id}', [DosenController::class, 'selectKaprodi'])->name('select');
         });
+        Route::name('mahasiswa.')->group(function(){
+            Route::put('/mahasiswa/reset/{id}', [MahasiswaController::class, 'resetDataMahasiswa'])->name('resetMahasiswa');
+        });
     });
 
     // Kaprodi Routes

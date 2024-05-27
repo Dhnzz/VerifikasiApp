@@ -55,11 +55,6 @@
                         </td>
                         <td>{{ $item->angkatan }}</td>
                         <td>
-                          @if ($item->status == 2)
-                            Mahasiswa Sudah diberikan izin
-                          @else
-                            
-                          @endif
                           <form action="{{route('kaprodi.mahasiswa.izinPenjadwalan', $item->id)}}" method="post">
                             @csrf
                             @method('PUT')

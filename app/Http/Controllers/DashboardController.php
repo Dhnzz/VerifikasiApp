@@ -42,7 +42,7 @@ class DashboardController extends Controller
         } elseif (Auth::user()->role == 'kajur') {
             $mahasiswa = Mahasiswa::where([
                 'status' => "2"
-            ]);
+            ])->get();
             $jumlahMahasiswa = Mahasiswa::count();
             $dosenSi = Dosen::where('prodi', 'si')->first();
             $dosenPti = Dosen::where('prodi', 'pti')->first();
@@ -51,7 +51,7 @@ class DashboardController extends Controller
             $mahasiswaPTI = Mahasiswa::where('prodi', 'Pendidikan Teknologi Informasi')->count();
 
             // dd($mahasiswaPTI);
-            return view('admin.kajur.kajur_dashboard', compact('jumlahMahasiswa', 'jumlahDosen', 'mahasiswaSI', 'mahasiswaPTI', 'dosenSi', 'dosenPti'));
+            return view('admin.kajur.kajur_dashboard', compact('jumlahMahasiswa', 'jumlahDosen', 'mahasiswaSI', 'mahasiswaPTI', 'dosenSi', 'dosenPti', 'mahasiswa'));
         } else if (Auth::user()->role == 'kaprodi') {
             $prodi = Dosen::findOrFail(Auth::user()->dosen->id);
             $mahasiswa = Mahasiswa::where([

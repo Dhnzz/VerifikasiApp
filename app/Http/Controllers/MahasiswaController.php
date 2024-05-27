@@ -12,6 +12,7 @@ use App\Models\Dosen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -183,5 +184,24 @@ class MahasiswaController extends Controller
             'status' => "2"
         ]);
         return redirect()->route('dashboard')->with('success', 'Mahasiswa '. $mahasiswa->name.' diizinkan untuk  penjadwalan');
+    }
+
+    public function resetDataMahasiswa($id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswaBerkas = MahasiswaBerkas::where('mahasiswa_id', $id)->get();
+        foreach($mahasiswaBerkas as $berkas){
+            if (Storage::disk('public')->exists('upload/'.$berkas->berkas)) {
+                Storage::disk('public')->delete('upload/'.$berkas->berkas);
+            }
+            $berkasId = $berkas->id;
+            $mahasiswaBerkasId = MahasiswaBerkas::findOrFail($berkasId);
+            $mahasiswaBerkasId->delete();
+        }
+        $mahasiswa->update([
+            'dosen_id' => null,
+            'status' => "0",
+            'periode_id' => null
+        ]);
+        return redirect()->route('dashboard')->with('success', 'Data mahasiswa berhasil direset');
     }
 }
