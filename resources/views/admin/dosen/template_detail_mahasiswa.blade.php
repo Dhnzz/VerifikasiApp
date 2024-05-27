@@ -34,7 +34,7 @@
             <span><i class="fas fa-chevron-down text-sm"></i></span>
           </button>
           <div class="detailContainer flex items-center justify-between hidden mt-4">
-            @if (!$berkas->berkas_mahasiswa)
+            @if ($berkas->berkas_mahasiswa->first()->berkas)
             <x-button_md color="primary" type="submit" class="inline-flex items-center gap-x-2 w-fit"
             onclick="modalOpen(this, {{ $value }})">
             <span><i class="fas fa-eye"></i></span>
@@ -67,7 +67,7 @@
               <p class="text-color-danger-500 font-semibold">Berkas Telah Ditolak</p>
             </div>
             @else
-            @if (!$berkas->berkas_mahasiswa)
+            @if ($berkas->berkas_mahasiswa->first()->berkas)
             <div class="inline-flex gap-x-2 items-center">
               <form action="{{ route('dosen.berkas.approve') }}" method="post">
                 @csrf
