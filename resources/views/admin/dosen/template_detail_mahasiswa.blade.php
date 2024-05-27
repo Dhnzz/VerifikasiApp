@@ -59,7 +59,7 @@
                     <i class="fas fa-times text-lg"></i>
                   </button>
                 </div>
-                <embed src="/sample.pdf" type="" class="mt-4 w-full h-full">
+                <embed src="{{ asset('storage/upload/' . $mahasiswaBerkasId[$value]->berkas) }}" type="" class="mt-4 w-full h-full">
               </div>
             </div>
             @if($peserta->berkas_mahasiswa[$value]->revisi)
