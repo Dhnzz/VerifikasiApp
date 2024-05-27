@@ -10,6 +10,7 @@ use App\Models\TemplateBerkas;
 use App\Models\User;
 use App\Models\Dosen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class MahasiswaController extends Controller
@@ -174,5 +175,13 @@ class MahasiswaController extends Controller
             'status' => "1"
         ]);
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Mahasiswa Berhasil di ajukan!');
+    }
+
+    public function izinPenjadwalan($id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->update([
+            'status' => "2"
+        ]);
+        return redirect()->route('dashboard')->with('success', 'Mahasiswa '. $mahasiswa->name.' diizinkan untuk  penjadwalan');
     }
 }

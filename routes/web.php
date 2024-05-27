@@ -56,6 +56,9 @@ Route::middleware('auth')->group(function () {
 
     // Kaprodi Routes
     Route::middleware('roleCheck:kaprodi')->prefix('kaprodi')->name('kaprodi.')->group(function () {
+        Route::name('mahasiswa.')->group(function(){
+            Route::put('/mahasiswa/izin/{id}', [MahasiswaController::class, 'izinPenjadwalan'])->name('izinPenjadwalan');
+        });
     });
 });
 
