@@ -22,7 +22,6 @@
     <div class="col-span-12 mt-4 ">
       <div class="flex flex-col gap-y-4">
         @foreach ($peserta->itemBerkas as $value => $berkas)
-
         <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4">
           <button class="flex justify-between" onclick="openDetails(this, event)">
             <div class="flex items-center">
@@ -67,10 +66,12 @@
             </div>
             @else
             <div class="inline-flex gap-x-2 items-center">
-              <form action="{{ route('dosen.berkas.approve', $berkas->id) }}" method="post">
+              <form action="{{ route('dosen.berkas.approve') }}" method="post">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+                <input type="hidden" name="berkas_id" value="{{ $berkas->id }}">
+                <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
                 <x-button_md color="success" type="submit" class="inline-flex items-center gap-x-2">
                   <span><i class="fas fa-check"></i></span>
                   Verifikasi
@@ -92,10 +93,12 @@
                     </button>
                   </div>
                   <div class="mt-4">
-                    <form action="{{ route('dosen.berkas.reject', $berkas->id) }}" method="post">
+                    <form action="{{ route('dosen.berkas.reject') }}" method="post">
                       @csrf
                       @method('PUT')
                       <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+                      <input type="hidden" name="berkas_id" value="{{ $berkas->id }}">
+                      <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
                       <div class="">
                         <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                           Kirim Feedback Penolakan
@@ -122,9 +125,19 @@
   </div>
   <hr class="col-span-12 mt-4">
   <div class="col-span-12 mt-4">
-    <x-button_md color="primary" type="submit">
-      Detail
-    </x-button_md>
+    @if ($peserta->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
+    <div class="col-span-12 mt-4">
+      <form action="{{ route('dosen.mahasiswa.pengajuan') }}" method="post">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
+        <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+        <x-button_md color="success" type="submit">
+          PENGAJUAN
+        </x-button_md>
+      </form>
+    </div>
+    @endif
   </div>
 </div>
 
