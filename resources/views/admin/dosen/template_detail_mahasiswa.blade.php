@@ -140,19 +140,30 @@
     </div>
     <hr class="col-span-12 mt-4">
     <div class="col-span-12 mt-4">
-        @if ($peserta->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
+        @if ($peserta->status == '1')
+          <div class="flex items-center gap-x-2">
+            <span
+                class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-success-500 rounded-full">
+                <i class="fas fa-check"></i>
+            </span>
+            {{-- @dd($berkas->berkas_mahasiswa->first()) --}}
+            <p class="text-sm font-semibold text-color-success-500 italic">Mahasiswa berhasil diverifikasi</p>
+          </div>
+            @elseif ($peserta->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
             <div class="col-span-12 mt-4">
-                <form action="{{ route('dosen.mahasiswa.pengajuan') }}" method="post">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
-                    <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
-                    <x-button_md color="success" type="submit">
-                        PENGAJUAN
-                    </x-button_md>
-                </form>
-            </div>
+              <form action="{{ route('dosen.mahasiswa.pengajuan') }}" method="post">
+                  @csrf
+                  @method('PUT')
+                  <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
+                  <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+                  <x-button_md color="success" type="submit">
+                      Pengajuan
+                  </x-button_md>
+              </form>
+          </div>
         @endif
+
+        
     </div>
 </div>
 
@@ -170,7 +181,7 @@
         modal.classList.add('hidden');
     }
 
-    function feedBackOpen(data) {
+    function feedBackOpen(value, data) {
         const modal = document.getElementById(`feedbackmodal` + data);
         modal.classList.remove('hidden');
         modal.classList.add('flex');

@@ -70,38 +70,38 @@
                             </div>
                             <hr class="col-span-12 mt-4">
                             <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                                @foreach ($value->templateBerkas->itemBerkas as $berkas)
+                                @foreach ($value->templateBerkas->itemBerkas as $value =>$berkas)
                                     @if (
-                                        $berkas->berkas_mahasiswa->first()->revisi == null &&
-                                            $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas != 'default.pdf')
+                                        $berkas->berkas_mahasiswa[$value]->revisi == null &&
+                                            $berkas->berkas_mahasiswa[$value]->status == 0 &&
+                                            $berkas->berkas_mahasiswa[$value]->berkas != null  )
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-primary-500 rounded-full">
                                                 <i class="fas fa-clock"></i>
                                             </span>
-                                            {{-- @dd($berkas->berkas_mahasiswa->first()) --}}
+                                            {{-- @dd($berkas->berkas_mahasiswa[$value] first()) --}}
                                             <p class="text-sm font-semibold text-color-primary-500">{{ $berkas->name }}</p>
                                         </div>
                                     @elseif (
-                                        $berkas->berkas_mahasiswa->first()->revisi == null &&
-                                            $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas == 'default.pdf')
+                                        $berkas->berkas_mahasiswa[$value]->revisi == null &&
+                                            $berkas->berkas_mahasiswa[$value]->status == 0 &&
+                                            $berkas->berkas_mahasiswa[$value]->berkas == null  )
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-danger-500 rounded-full">
                                                 <i class="fas fa-times"></i>
                                             </span>
-                                            {{-- @dd($berkas->berkas_mahasiswa->first()) --}}
+                                            {{-- @dd($berkas->berkas_mahasiswa[$value] first()) --}}
                                             <p class="text-sm font-semibold text-color-danger-500">{{ $berkas->name }}</p>
                                         </div>
-                                    @elseif($berkas->berkas_mahasiswa->first()->status == 1)
+                                    @elseif($berkas->berkas_mahasiswa[$value]->status == 1)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-success-500 rounded-full">
                                                 <i class="fas fa-check"></i>
                                             </span>
-                                            {{-- @dd($berkas->berkas_mahasiswa->first()) --}}
+                                            {{-- @dd($berkas->berkas_mahasiswa[$value]) --}}
                                             <p class="text-sm font-semibold text-color-success-500">{{ $berkas->name }}</p>
                                         </div>
                                     @else
@@ -165,7 +165,7 @@
                         </div>
                     </div>
                     <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                        @foreach ($registered->first()->templateBerkas->itemBerkas as $berkas)
+                        @foreach ($registered->templateBerkas->itemBerkas as $berkas)
                             @php
                                 $mahasiswaBerkasId = \App\Models\MahasiswaBerkas::where([
                                     'mahasiswa_id' => $data->id,

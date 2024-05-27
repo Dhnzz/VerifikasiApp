@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('mahasiswas', function (Blueprint $table) {
-            $table->enum('status', [0, 1])->after('angkatan')->default(0);
+            $table->enum('status', ['0', '1'])->after('angkatan')->default('0');
         });
     }
 

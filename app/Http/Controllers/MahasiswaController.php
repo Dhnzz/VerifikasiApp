@@ -168,10 +168,11 @@ class MahasiswaController extends Controller
         return redirect()->route('dashboard')->with('success', 'Berhasil daftar periode');
     }
 
-    public function pengajuan(Request $request){
+    public function pengajuan(Request $request)
+    {
         $mahasiswa = Mahasiswa::findOrFail($request->mahasiswa_id);
         $mahasiswa->update([
-            'status' => 1
+            'status' => '1',
         ]);
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Mahasiswa Berhasil di ajukan!');
     }
