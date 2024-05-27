@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class MahasiswaBerkasController extends Controller
 {
-    public function approve(Request $request, $id)
+    public function approve(Request $request)
     {
-        $berkas = MahasiswaBerkas::findOrFail($id);
+        $berkas = MahasiswaBerkas::where('item_berkas_id', $request->berkas_id)->where('mahasiswa_id', $request->mahasiswa_id)->firstOrFail();
         $berkas->update([
             'status' => '1',
         ]);
@@ -18,10 +18,11 @@ class MahasiswaBerkasController extends Controller
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Berkas Berhasil di setujui!');
     }
 
-    public function reject(Request $request, $id)
+    public function reject(Request $request)
     {
-        $berkas = MahasiswaBerkas::findOrFail($id);
+        $berkas = MahasiswaBerkas::where('item_berkas_id', $request->berkas_id)->where('mahasiswa_id', $request->mahasiswa_id)->firstOrFail();
         $berkas->update([
+            'status' => '0',
             'revisi' => $request->revisi,
         ]);
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Berkas berhasil di tolak!');

@@ -18,6 +18,7 @@ class Mahasiswa extends Model
         "name",
         "prodi",
         "angkatan",
+        "status",
         "periode_id"
     ];
 

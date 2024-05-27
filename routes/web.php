@@ -38,8 +38,11 @@ Route::middleware('auth')->group(function () {
             Route::get('/get-peserta/{id}', [periodeController::class, 'getPeserta'])->name('getPesarta');
         });
         Route::name('berkas.')->group(function () {
-            Route::put('/approve/{idBerkas}', [MahasiswaBerkasController::class, 'approve'])->name('approve');
-            Route::put('/reject/{idBerkas}', [MahasiswaBerkasController::class, 'reject'])->name('reject');
+            Route::put('/approve', [MahasiswaBerkasController::class, 'approve'])->name('approve');
+            Route::put('/reject', [MahasiswaBerkasController::class, 'reject'])->name('reject');
+        });
+        Route::name('mahasiswa.')->group(function () {
+            Route::put('/pengajuan', [MahasiswaController::class, 'pengajuan'])->name('pengajuan');
         });
     });
 
