@@ -55,13 +55,13 @@
           </td>
           <td>
             <x-button_sm class="inline-flex items-center gap-x-2" onclick="modalOpen({{ $value }})">
-              <span><i class="fas fa-pencil-alt"></i></span>Ubah Jabatan
+              <span><i class="fas fa-pencil-alt"></i></span>Pilih Kaprodi
             </x-button_sm>
             <div id="{{ 'modal'. $value }}"
               class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
               <div class="max-w-lg w-full p-6 rounded-xl overflow-hidden bg-white">
                 <div class="w-full inline-flex items-center justify-between">
-                  <p class="text-lg font-semibold">Nama Dosen</p>
+                  <p class="text-lg font-semibold">{{$user->dosen->name}}</p>
                   <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-800"
                     onclick="closeModal({{ $value }})">
                     <i class="fas fa-times text-lg"></i>
@@ -73,19 +73,12 @@
                     @method('PUT')
                     {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
                     <div class="">
-                      <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-                        Ubah Jabatan Dosen
-                      </label>
-                      <select type="text" placeholder="Masukan Catatan Penolakan" name="role"
-                      class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
-                      <option value="kaprodi">Kaprodi</option>
-                      <option value="dosen">Dosen</option>
-                    </select>
                     <label for="deskripsi" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                       Pilih Progam Studi
                     </label>
                       <select type="text" placeholder="Prodi" name="prodi"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
+                        <option value="">Program Studi</option>
                         <option value="si">Sistem Informasi</option>
                         <option value="pti">Pendidikan Teknologi Informasi</option>
                       </select>

@@ -136,13 +136,35 @@ class DosenController extends Controller
     public function selectKaprodi(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $user->update([
-            'role' => $request->role
-        ]);
-        $user->Dosen->update([
+        $kaprodiBefore = User::leftJoin('dosens','users.id','=','dosens.user_id')
+            ->where([
+            'role' => 'kaprodi',
             'prodi' => $request->prodi
-        ]);
-    
+        ])->first();
+
+        if($kaprodiBefore != null){
+            $kaprodiBeforeId = User::findOrFail($kaprodiBefore->user_id);
+            $kaprodiBeforeId->update([
+                'role' => 'dosen'
+            ]);
+            $kaprodiBeforeId->Dosen->update([
+                'prodi' => null
+            ]);
+
+            $user->update([
+                'role' => 'kaprodi'
+            ]);
+            $user->Dosen->update([
+                'prodi' => $request->prodi
+            ]);
+        }else{
+            $user->update([
+                'role' => 'kaprodi'
+            ]);
+            $user->Dosen->update([
+                'prodi' => $request->prodi
+            ]);
+        }
         return redirect()->route('kajur.kaprodi.choose')->with('success', 'Data dosen diubah.');
     }
 }
