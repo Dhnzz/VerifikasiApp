@@ -26,10 +26,17 @@
         <div class="p-6 bg-slate-100 rounded-xl flex flex-col gap-y-4">
           <button class="flex justify-between" onclick="openDetails(this, event)">
             <div class="flex items-center">
+              @if ($peserta->berkas_mahasiswa[$value]->revisi)
+              <span
+                class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-danger-500 rounded-full ">
+                <i class="fas fa-times"></i>
+              </span>
+              @else
               <span
                 class="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-white bg-color-primary-500 rounded-full ">
                 <i class="fas fa-exclamation"></i>
               </span>
+              @endif
               <p class="text-sm font-semibold">{{$berkas->name}}</p>
             </div>
             <span><i class="fas fa-chevron-down text-sm"></i></span>
@@ -43,7 +50,7 @@
             {{-- modal --}}
             <div id="{{ 'modal' . $value }}"
               class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
-              <div class="max-w-2xl w-full p-6 rounded-xl h-[80vh] overflow-hidden">
+              <div class="max-w-4xl w-full p-6 rounded-xl h-[80vh] overflow-hidden">
                 <div class="w-full inline-flex items-center justify-between text-white">
                   <p class="text-lg font-semibold">{{ $berkas->name }}</p>
                   <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-500 text-white"
