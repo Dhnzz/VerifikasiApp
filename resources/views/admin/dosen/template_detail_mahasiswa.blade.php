@@ -34,11 +34,13 @@
             <span><i class="fas fa-chevron-down text-sm"></i></span>
           </button>
           <div class="detailContainer flex items-center justify-between hidden mt-4">
+            @if (!$berkas->berkas_mahasiswa)
             <x-button_md color="primary" type="submit" class="inline-flex items-center gap-x-2 w-fit"
-              onclick="modalOpen(this, {{ $value }})">
-              <span><i class="fas fa-eye"></i></span>
-              Lihat Berkas
-            </x-button_md>
+            onclick="modalOpen(this, {{ $value }})">
+            <span><i class="fas fa-eye"></i></span>
+            Lihat Berkas
+          </x-button_md>
+          @endif
             {{-- modal --}}
             <div id="{{ 'modal' . $value }}"
               class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
@@ -65,6 +67,7 @@
               <p class="text-color-danger-500 font-semibold">Berkas Telah Ditolak</p>
             </div>
             @else
+            @if (!$berkas->berkas_mahasiswa)
             <div class="inline-flex gap-x-2 items-center">
               <form action="{{ route('dosen.berkas.approve') }}" method="post">
                 @csrf
@@ -82,6 +85,10 @@
                 <span><i class="fas fa-times"></i></span>
                 Tolak
               </x-button_md>
+              @else
+              <h1>pasd</h1>
+              @endif
+
               <div id="{{ 'feedbackmodal'.$value }}"
                 class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/30 hidden">
                 <div class="max-w-lg w-full p-6 rounded-xl overflow-hidden bg-white">
