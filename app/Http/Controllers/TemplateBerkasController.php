@@ -37,7 +37,7 @@ class TemplateBerkasController extends Controller
         $tmpBerkas = TemplateBerkas::create($validatedData);
         $tmpBerkas->save();
 
-        return redirect()->route('admin.template.index')->with('success', 'Template Berkas berhasil ditambahkan.');
+        return redirect()->route('kajur.template.index')->with('success', 'Template Berkas berhasil ditambahkan.');
     }
 
     /**
@@ -69,7 +69,7 @@ class TemplateBerkasController extends Controller
         // ]);
         $tmpBerkas->update(["name" => $request->name]);
 
-        return redirect()->route('admin.template.index')->with('success', 'Template Berkas berhasil diubah.');
+        return redirect()->route('kajur.template.index')->with('success', 'Template Berkas berhasil diubah.');
     }
 
     /**
@@ -80,6 +80,6 @@ class TemplateBerkasController extends Controller
         $tmpBerkas = TemplateBerkas::findOrFail($id);
         $tmpBerkas->delete();
 
-        return redirect()->route('admin.template.index')->with('success', 'Template Berkas berhasil dihapus.');
+        return redirect()->route('kajur.template.index')->with('success', 'Template Berkas berhasil dihapus.');
     }
 }
