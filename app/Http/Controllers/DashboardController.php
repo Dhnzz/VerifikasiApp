@@ -21,10 +21,6 @@ class DashboardController extends Controller
             $registered = Periode::where('id', $data->periode_id)->get();
             $dosen = Dosen::find($data->dosen_id);
             $periode = Periode::where('status', '1')->get();
-            $pivot = MahasiswaBerkas::where([
-                'mahasiswa_id' => $data->id,
-                'item_berkas_id' => 1
-            ])->get();
             return view('admin.student.dashboard_student', compact('data', 'periode', 'registered', 'dosen'));
         } elseif (Auth::user()->role == 'dosen') {
             $data = Dosen::findOrFail(Auth::user()->dosen->id);

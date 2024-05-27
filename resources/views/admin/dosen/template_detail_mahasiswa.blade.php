@@ -132,56 +132,53 @@
             </div>
             @endif
 
-          </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-
-        @endforeach
-      </div>
     </div>
-  </div>
-  <hr class="col-span-12 mt-4">
-  <div class="col-span-12 mt-4">
-    @if ($peserta->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
+    <hr class="col-span-12 mt-4">
     <div class="col-span-12 mt-4">
-      <form action="{{ route('dosen.mahasiswa.pengajuan') }}" method="post">
-        @csrf
-        @method('PUT')
-        <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
-        <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
-        <x-button_md color="success" type="submit">
-          PENGAJUAN
-        </x-button_md>
-      </form>
+        @if ($peserta->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
+            <div class="col-span-12 mt-4">
+                <form action="{{ route('dosen.mahasiswa.pengajuan') }}" method="post">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="mahasiswa_id" value="{{ $peserta->id }}">
+                    <input type="hidden" name="periode_id" value="{{ $peserta->periode->id }}">
+                    <x-button_md color="success" type="submit">
+                        PENGAJUAN
+                    </x-button_md>
+                </form>
+            </div>
+        @endif
     </div>
-    @endif
-  </div>
 </div>
 
 <script>
-  function modalOpen(value, data) {
-    // console.log(data)
-    const modal = document.getElementById(`modal`+data);
-    // console.log(modal);
-    modal.classList.remove('hidden');
-    modal.classList.add('flex')
-  }
+    function modalOpen(value, data) {
+        console.log(value)
+        const modal = document.getElementById(`modal` + data);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex')
+    }
 
-  function closeModal(data) {
-    const modal = document.getElementById('modal'+data)
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
-  }
+    function closeModal(data) {
+        const modal = document.getElementById(`modal` + data)
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
 
-  function feedBackOpen(value, data){
-    const modal = document.getElementById('feedbackmodal'+data);
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-  }
+    function feedBackOpen(data) {
+        const modal = document.getElementById(`feedbackmodal` + data);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
 
-  function closeRejectModal(data) {
-    const modal = document.getElementById('feedbackmodal'+data)
-    modal.classList.remove('flex');
-    modal.classList.add('hidden');
-  }
-
+    function closeRejectModal(data) {
+        const modal = document.getElementById(`feedbackmodal` + data)
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+    }
 </script>

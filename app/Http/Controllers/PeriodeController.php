@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Dosen, ItemBerkas, Periode, User, Mahasiswa};
+use App\Models\MahasiswaBerkas;
 use App\Models\PeriodeTemplate;
 use App\Models\TemplateBerkas;
 use Carbon\Carbon;
@@ -139,6 +140,10 @@ class PeriodeController extends Controller
     public function getPeserta($id)
     {
         $peserta = Mahasiswa::findOrFail($id);
-        return view('admin.dosen.template_detail_mahasiswa', compact('peserta'));
+        
+        $mahasiswaBerkasId = MahasiswaBerkas::where('mahasiswa_id', $peserta->id)
+            ->whereIn('item_berkas_id', $peserta->itemBerkas->pluck('id'))
+            ->get();
+        return view('admin.dosen.template_detail_mahasiswa', compact('peserta','mahasiswaBerkasId'));
     }
 }

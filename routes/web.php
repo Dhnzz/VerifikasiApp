@@ -16,7 +16,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('template', TemplateBerkasController::class);
         Route::resource('itemberkas', ItemBerkasController::class)->except('create', 'update', 'destroy');
         Route::get('/item-management/{id}', [ItemBerkasController::class, 'create'])->name('item-management.create');
-        Route::put('/item-management', [ItemBerkasController::class, 'update'])->name('item-management.update');
+        Route::put('/item-management/update', [ItemBerkasController::class, 'update'])->name('item-management.update');
         Route::delete('/item-management', [ItemBerkasController::class, 'destroy'])->name('item-management.destroy');
     });
 
