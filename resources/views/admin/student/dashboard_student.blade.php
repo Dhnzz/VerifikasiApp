@@ -48,7 +48,7 @@
                     <div class="grid grid-cols-12 p-10 bg-white rounded-xl border border-slate-200 shadow-sm">
                         <div class="col-span-12 flex gap-x-2 items-center text-color-primary-500">
                             <span class=""><i class="fas fa-book text-xl"></i></span>
-                            <p class="text-xl font-semibold">{{ $value->name }} - nama template berkas</p>
+                            <p class="text-xl font-semibold">{{ $value->name }}</p>
                         </div>
                         <div class="col-span-12 detailContainer flex flex-col">
                             <div class="col-span-12 mt-4 flex flex-col gap-y-2">
@@ -65,6 +65,11 @@
                                 @foreach ($value->templateBerkas->itemBerkas as $berkas)
                                     <div class="flex items-center">
                                         <span class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-success-500 rounded-full">
+                                            @if ($berkas->status)
+                                                
+                                            @else
+
+                                            @endif
                                             <i class="fas fa-check"></i>
                                         </span>
                                         <p class="text-sm font-semibold text-color-primary-500 underline">{{ $berkas->name }}</p>
