@@ -74,7 +74,7 @@ class ItemBerkasController extends Controller
      */
     public function update(Request $request)
     {
-        $itemBerkas = ItemBerkas::findOrFail($request->template_berkas_id);
+        $itemBerkas = ItemBerkas::findOrFail($request->id);
         // $validatedData = $request->validate([
         //     "name" => "required|string|max:255",
         //     'template_berkas_id' => 'required|exists:template_berkas,id',
@@ -84,7 +84,8 @@ class ItemBerkasController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect()->route('admin.item-management.create', $request->template_id)->with('success', 'Data item berkas berhasil diubah!');
+        // dd($itemBerkas);
+        return redirect()->route('admin.item-management.create', $request->template_berkas_id)->with('success', 'Data item berkas berhasil diubah!');
     }
 
     /**
