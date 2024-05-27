@@ -31,7 +31,7 @@
           <td>{{ $i++ }}</td>
           <td>{{ $item->user->credential }}</td>
           <td>{{ $item->name }}</td>
-          <td>{{ $item->prodi }}</td>
+          <td>{{ ($item->prodi == 'si')?'Sistem Informasi':($item->prodi == 'pti')?'Pendidikan Teknologi Informasi':'' }}</td>
           <td>{{ $item->angkatan }}</td>
           <td>
             <div class="relative inline-block text-left">

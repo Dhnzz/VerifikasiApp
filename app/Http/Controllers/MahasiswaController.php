@@ -39,9 +39,9 @@ class MahasiswaController extends Controller
         $nimProdi = substr($request->credential, 2, 2);
         $prodi = '';
         if ($nimProdi == '14') {
-            $prodi = 'Sistem Informasi';
+            $prodi = 'si';
         } elseif ($nimProdi == '24') {
-            $prodi = 'Pendidikan Teknologi Informasi';
+            $prodi = 'pti';
         }
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
