@@ -175,7 +175,8 @@
                         </div>
                     </div>
                     <div class="col-span-12 mt-4 flex flex-col gap-y-4">
-                        @foreach ($registered->templateBerkas->itemBerkas as $berkas)
+                        @foreach ($registered as $item)
+                            @foreach ($item->templateBerkas->itemBerkas as $berkas)
                             @php
                                 $mahasiswaBerkasId = \App\Models\MahasiswaBerkas::where([
                                     'mahasiswa_id' => $data->id,
@@ -203,6 +204,7 @@
                                     <p>Kirim</p>
                                 </x-button_md>
                             </form>
+                            @endforeach
                         @endforeach
                     </div>
                     <hr class="mt-4 col-span-12">
