@@ -74,7 +74,7 @@
                                     @if (
                                         $berkas->berkas_mahasiswa->first()->revisi == null &&
                                             $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas != 'default.pdf')
+                                            $berkas->berkas_mahasiswa->first()->berkas != null)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-primary-500 rounded-full">
@@ -86,7 +86,7 @@
                                     @elseif (
                                         $berkas->berkas_mahasiswa->first()->revisi == null &&
                                             $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas == 'default.pdf')
+                                            $berkas->berkas_mahasiswa->first()->berkas == null)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-danger-500 rounded-full">
