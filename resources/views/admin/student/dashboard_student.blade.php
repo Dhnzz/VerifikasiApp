@@ -116,13 +116,15 @@
                                                 class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
                                                 disabled>{{ $berkas->berkas_mahasiswa->first()->revisi }}</textarea> --}}
                                         </div>
-                                        <div
-                                            class="overflow-visible bg-white p-4 rounded-xl w-full border border-color-danger-500 shadow-sm transition-all duration-300">
-                                            <div class="flex items-center gap-x-2">
-                                                <p class="text-xs font-semibold text-color-danger-500">
-                                                    {{ $berkas->berkas_mahasiswa->first()->revisi }}</p>
+                                        @if ($berkas->berkas_mahasiswa->first()->revisi != null)
+                                            <div
+                                                class="overflow-visible bg-white p-4 rounded-xl w-full border border-color-danger-500 shadow-sm transition-all duration-300">
+                                                <div class="flex items-center gap-x-2">
+                                                    <p class="text-xs font-semibold text-color-danger-500">
+                                                        {{ $berkas->berkas_mahasiswa->first()->revisi }}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     @endif
                                 @endforeach
                                 @if ($data->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))
