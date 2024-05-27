@@ -172,7 +172,7 @@ class MahasiswaController extends Controller
     {
         $mahasiswa = Mahasiswa::findOrFail($request->mahasiswa_id);
         $mahasiswa->update([
-            'status' => '1',
+            'status' => "1"
         ]);
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Mahasiswa Berhasil di ajukan!');
     }
