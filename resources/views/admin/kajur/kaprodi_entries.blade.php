@@ -79,8 +79,8 @@
                       <select type="text" placeholder="Prodi" name="prodi"
                         class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs ">
                         <option value="">Program Studi</option>
-                        <option value="si">Sistem Informasi</option>
-                        <option value="pti">Pendidikan Teknologi Informasi</option>
+                        <option value="si" {{($user->Dosen->prodi == 'si'?'selected':'')}}>Sistem Informasi</option>
+                        <option value="pti" {{($user->Dosen->prodi == 'pti'?'selected':'')}}>Pendidikan Teknologi Informasi</option>
                       </select>
                     </div>
                     <x-button_sm color="primary" class="mt-2" type="submit">
