@@ -90,7 +90,7 @@
             </div>
             <hr class="col-span-12 mt-4">
             <div class="col-span-12 mt-4">
-                <x-button_md color="primary" onclick="window.location='{{ route('admin.periode.index')}}'">
+                <x-button_md color="primary" onclick="window.location='{{ route('kajur.periode.index')}}'">
                     Kembali
                 </x-button_md>
             </div>

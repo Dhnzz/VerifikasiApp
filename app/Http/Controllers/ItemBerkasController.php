@@ -47,7 +47,7 @@ class ItemBerkasController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.template.index')->with('success', 'Data item berkas berhasil ditambahkan!');
+        return redirect()->route('kajur.template.index')->with('success', 'Data item berkas berhasil ditambahkan!');
     }
 
     /**
@@ -85,7 +85,7 @@ class ItemBerkasController extends Controller
         ]);
 
         // dd($itemBerkas);
-        return redirect()->route('admin.item-management.create', $request->template_berkas_id)->with('success', 'Data item berkas berhasil diubah!');
+        return redirect()->route('kajur.item-management.create', $request->template_berkas_id)->with('success', 'Data item berkas berhasil diubah!');
     }
 
     /**
@@ -95,6 +95,6 @@ class ItemBerkasController extends Controller
     {
         $itemBerkas = ItemBerkas::findOrFail($request->template_berkas_id);
         $itemBerkas->delete();
-        return redirect()->route('admin.item-management.create', $request->template_id)->with('success', 'Data item berkas berhasil dihapus!');
+        return redirect()->route('kajur.item-management.create', $request->template_id)->with('success', 'Data item berkas berhasil dihapus!');
     }
 }

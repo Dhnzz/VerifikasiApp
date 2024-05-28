@@ -10,14 +10,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware('roleCheck:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('dosen', DosenController::class);
-        Route::resource('periode', PeriodeController::class);
-        Route::get('/periode/{id}', [PeriodeController::class, 'show'])->name('periode.show');
-        Route::put('/changeStatus/{id}', [PeriodeController::class, 'changeStatus'])->name('periode.changeStatus');
-        Route::resource('template', TemplateBerkasController::class);
-        Route::resource('itemberkas', ItemBerkasController::class)->except('create', 'update', 'destroy');
-        Route::get('/item-management/{id}', [ItemBerkasController::class, 'create'])->name('item-management.create');
-        Route::put('/item-management/update', [ItemBerkasController::class, 'update'])->name('item-management.update');
-        Route::delete('/item-management', [ItemBerkasController::class, 'destroy'])->name('item-management.destroy');
     });
 
     // Mahasiswa Routes 
@@ -52,10 +44,27 @@ Route::middleware('auth')->group(function () {
             Route::get('/choose-kaprodi', [DosenController::class, 'chooseKaprodi'])->name('choose');
             Route::put('/select-kaprodi/{id}', [DosenController::class, 'selectKaprodi'])->name('select');
         });
+        Route::name('mahasiswa.')->group(function () {
+            Route::put('/mahasiswa/reset/{id}', [MahasiswaController::class, 'resetDataMahasiswa'])->name('resetMahasiswa');
+        });
+
+        Route::resource('periode', PeriodeController::class);
+        Route::get('/periode/{id}', [PeriodeController::class, 'show'])->name('periode.show');
+        Route::put('/changeStatus/{id}', [PeriodeController::class, 'changeStatus'])->name('periode.changeStatus');
+        
+        Route::resource('template', TemplateBerkasController::class);
+        
+        Route::resource('itemberkas', ItemBerkasController::class)->except('create', 'update', 'destroy');
+        Route::get('/item-management/{id}', [ItemBerkasController::class, 'create'])->name('item-management.create');
+        Route::put('/item-management/update', [ItemBerkasController::class, 'update'])->name('item-management.update');
+        Route::delete('/item-management', [ItemBerkasController::class, 'destroy'])->name('item-management.destroy');
     });
 
     // Kaprodi Routes
     Route::middleware('roleCheck:kaprodi')->prefix('kaprodi')->name('kaprodi.')->group(function () {
+        Route::name('mahasiswa.')->group(function () {
+            Route::put('/mahasiswa/izin/{id}', [MahasiswaController::class, 'izinPenjadwalan'])->name('izinPenjadwalan');
+        });
     });
 });
 

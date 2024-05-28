@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("prodi");
             $table->string("angkatan");
+            $table->enum("status", ['0','1','2']);
             $table->unsignedBigInteger("periode_id")->nullable();
             $table->timestamps();
 

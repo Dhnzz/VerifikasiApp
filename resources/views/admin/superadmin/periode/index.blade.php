@@ -4,7 +4,7 @@
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
     <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
         <h1 class="text-xl font-semibold">Periode</h1>
-        <x-button_md color="primary" onclick="location.href='{{ route('admin.periode.create') }}';"
+        <x-button_md color="primary" onclick="location.href='{{ route('kajur.periode.create') }}';"
             class="inline-flex gap-x-2">
             <span><i class="fas fa-plus"></i></span>
             Tambah
@@ -47,21 +47,21 @@
                                 role="menu" aria-orientation="vertical"
                                 aria-labelledby="dropdownMenuButton{{ $item->id }}">
                                 <div class="py-1" role="none">
-                                    <a href="{{ route('admin.periode.show', $item->id) }}">
+                                    <a href="{{ route('kajur.periode.show', $item->id) }}">
                                         <div class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                             role="menuitem">
                                             <i class="w-4 h-4 fas fa-info-circle"></i>
                                             Detail
                                         </div>
                                     </a>
-                                    <a href="{{ route('admin.periode.edit', $item->id) }}">
+                                    <a href="{{ route('kajur.periode.edit', $item->id) }}">
                                         <div class="flex items-center gap-x-2 px-4 py-2 text-sm text-green-500 hover:bg-gray-100 hover:text-green-700"
                                             role="menuitem">
                                             <i class="fas fa-pen w-4 h-4"></i>
                                             Update
                                         </div>
                                     </a>
-                                    <form action="{{ route('admin.periode.destroy', $item->id) }}" method="POST"
+                                    <form action="{{ route('kajur.periode.destroy', $item->id) }}" method="POST"
                                         role="none" style="display: inline-block;" class="w-full">
                                         @csrf
                                         @method('DELETE')
@@ -73,7 +73,7 @@
                                             Delete
                                         </button>
                                     </form>
-                                    <form action="{{ route('admin.periode.changeStatus', $item->id) }}" method="POST"
+                                    <form action="{{ route('kajur.periode.changeStatus', $item->id) }}" method="POST"
                                         role="none" style="display: inline-block;" class="w-full">
                                         @csrf
                                         @method('PUT')

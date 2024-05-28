@@ -10,7 +10,9 @@ use App\Models\TemplateBerkas;
 use App\Models\User;
 use App\Models\Dosen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -39,9 +41,9 @@ class MahasiswaController extends Controller
         $nimProdi = substr($request->credential, 2, 2);
         $prodi = '';
         if ($nimProdi == '14') {
-            $prodi = 'Sistem Informasi';
+            $prodi = 'si';
         } elseif ($nimProdi == '24') {
-            $prodi = 'Pendidikan Teknologi Informasi';
+            $prodi = 'pti';
         }
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -175,5 +177,32 @@ class MahasiswaController extends Controller
             'status' => "1"
         ]);
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Mahasiswa Berhasil di ajukan!');
+    }
+
+    public function izinPenjadwalan($id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswa->update([
+            'status' => "2"
+        ]);
+        return redirect()->route('dashboard')->with('success', 'Mahasiswa '. $mahasiswa->name.' diizinkan untuk  penjadwalan');
+    }
+
+    public function resetDataMahasiswa($id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $mahasiswaBerkas = MahasiswaBerkas::where('mahasiswa_id', $id)->get();
+        foreach($mahasiswaBerkas as $berkas){
+            if (Storage::disk('public')->exists('upload/'.$berkas->berkas)) {
+                Storage::disk('public')->delete('upload/'.$berkas->berkas);
+            }
+            $berkasId = $berkas->id;
+            $mahasiswaBerkasId = MahasiswaBerkas::findOrFail($berkasId);
+            $mahasiswaBerkasId->delete();
+        }
+        $mahasiswa->update([
+            'dosen_id' => null,
+            'status' => "0",
+            'periode_id' => null
+        ]);
+        return redirect()->route('dashboard')->with('success', 'Data mahasiswa berhasil direset');
     }
 }
