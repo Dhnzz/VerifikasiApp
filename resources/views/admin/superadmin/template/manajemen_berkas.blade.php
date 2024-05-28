@@ -139,6 +139,13 @@
           <input type="text" required name="name[]" id="nama_berkas${berkasCount}" placeholder="Masukan Nama Berkas"
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
           <input type="hidden" name="template_berkas_id[]" id="nama_berkas${berkasCount}" value="{{ $data->id }}" />
+        </div>
+        <div>
+                <x-button_sm color="danger" class="" onclick="removeBerkas(${berkasCount}, event)">
+                    <i class="fas fa-trash text-sm"></i> Hapus Berkas
+                </x-button_sm>
+            </div>
+        </div>
     `;
             berkasContainer.appendChild(berkasDiv);
         }

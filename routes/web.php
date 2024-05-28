@@ -69,7 +69,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/sample', function () {
-    return view('admin.kaprodi.kaprodi_dashboard');
+    return view('admin.kajur.report.scheduling_report_details');
 });
 
 
