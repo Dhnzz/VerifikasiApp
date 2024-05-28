@@ -136,54 +136,61 @@ class DosenController extends Controller
 
     public function selectKaprodi(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $kaprodiBefore = User::leftJoin('dosens', 'users.id', '=', 'dosens.user_id')
-            ->where([
-                'role' => 'kaprodi',
-                'prodi' => $request->prodi
-            ])->first();
+        if ($request->prodi != '') {
+            $user = User::findOrFail($id);
+            $kaprodiBefore = User::leftJoin('dosens', 'users.id', '=', 'dosens.user_id')
+                ->where([
+                    'role' => 'kaprodi',
+                    'prodi' => $request->prodi
+                ])->first();
 
 
-        if ($kaprodiBefore != null) {
-            $kaprodiBeforeId = User::findOrFail($kaprodiBefore->user_id);
-            $cekMahasiswa = $kaprodiBeforeId->Dosen->Mahasiswa;
-            if ($cekMahasiswa->count() > 0) {
-                foreach ($cekMahasiswa as $mahasiswa) {
-                    $role = 'dosen'; // Ganti dengan peran yang ingin Anda filter, misalnya 'dosen', 'kaprodi', atau 'kajur'
 
-                    $dosen = Dosen::withCount('mahasiswa')
-                        ->whereHas('user', function ($query) use ($role) {
-                            $query->where('role', $role);
-                        })
-                        ->orderBy('mahasiswa_count', 'asc')
-                        ->first();
-                    $ubahDosen = Mahasiswa::findOrFail($mahasiswa->id);
-                    $ubahDosen->update([
-                        'dosen_id' => $dosen->id,
-                    ]);
+            if ($kaprodiBefore != null) {
+                $kaprodiBeforeId = User::findOrFail($kaprodiBefore->user_id);
+                $cekMahasiswa = $kaprodiBeforeId->Dosen->Mahasiswa;
+                if ($cekMahasiswa->count() > 0) {
+                    foreach ($cekMahasiswa as $mahasiswa) {
+                        $role = 'dosen'; // Ganti dengan peran yang ingin Anda filter, misalnya 'dosen', 'kaprodi', atau 'kajur'
+
+                        $dosen = Dosen::withCount('mahasiswa')
+                            ->whereHas('user', function ($query) use ($role) {
+                                $query->where('role', $role);
+                            })
+                            ->orderBy('mahasiswa_count', 'asc')
+                            ->first();
+                        $ubahDosen = Mahasiswa::findOrFail($mahasiswa->id);
+                        $ubahDosen->update([
+                            'dosen_id' => $dosen->id,
+                        ]);
+                    }
                 }
-            }
-            $kaprodiBeforeId->update([
-                'role' => 'dosen'
-            ]);
-            $kaprodiBeforeId->Dosen->update([
-                'prodi' => null
-            ]);
+                $kaprodiBeforeId->update([
+                    'role' => 'dosen'
+                ]);
+                $kaprodiBeforeId->Dosen->update([
+                    'prodi' => null
+                ]);
 
-            $user->update([
-                'role' => 'kaprodi'
-            ]);
-            $user->Dosen->update([
-                'prodi' => $request->prodi
-            ]);
-        } else {
-            $user->update([
-                'role' => 'kaprodi'
-            ]);
-            $user->Dosen->update([
-                'prodi' => $request->prodi
-            ]);
+                $user->update([
+                    'role' => 'kaprodi'
+                ]);
+                $user->Dosen->update([
+                    'prodi' => $request->prodi
+                ]);
+            } else {
+                $user->update([
+                    'role' => 'kaprodi'
+                ]);
+                $user->Dosen->update([
+                    'prodi' => $request->prodi
+                ]);
+
+                $msg = ['success' => 'Kaprodi berhasil diinputkan'];
+            }
+        }else{
+            $msg = ['error' => 'Silahkan pilih prodi'];
         }
-        return redirect()->route('kajur.kaprodi.choose')->with('success', 'Data dosen diubah.');
+        return redirect()->route('kajur.kaprodi.choose')->with($msg);
     }
 }
