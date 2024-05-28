@@ -67,6 +67,7 @@ class MahasiswaBerkasController extends Controller
             Storage::disk('public')->putFileAs('upload', $file, $fileName);
             $itemBerkas->update([
                 'berkas' => $fileName,
+                'revisi' => null
             ]);
             return redirect()->route('dashboard')->with('success', 'Data berkas mahasiswa berhasil diperbarui!');
         } else {

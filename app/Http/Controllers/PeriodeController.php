@@ -47,7 +47,7 @@ class PeriodeController extends Controller
             'status' => 1,
         ]);
 
-        return redirect()->route('admin.periode.index')->with('success', 'Periode baru berhasil dibuat!');
+        return redirect()->route('kajur.periode.index')->with('success', 'Periode baru berhasil dibuat!');
     }
 
     /**
@@ -99,7 +99,7 @@ class PeriodeController extends Controller
             // 'status' => 1,
         ]);
 
-        return redirect()->route('admin.periode.index')->with('success', 'Periode berhasil diperbarui!');
+        return redirect()->route('kajur.periode.index')->with('success', 'Periode berhasil diperbarui!');
     }
 
     /**
@@ -109,7 +109,7 @@ class PeriodeController extends Controller
     {
         $periode = Periode::findOrFail($id);
         $periode->delete();
-        return redirect()->route('admin.periode.index')->with('success', 'Data periode berhasil dihapus!');
+        return redirect()->route('kajur.periode.index')->with('success', 'Data periode berhasil dihapus!');
     }
 
     public function changeStatus($id)
@@ -118,7 +118,7 @@ class PeriodeController extends Controller
         $periode->update([
             'status' => ($periode->status == '1') ? '0' : '1',
         ]);
-        return redirect()->route('admin.periode.index')->with('success', 'Status periode berhasil diubah!');
+        return redirect()->route('kajur.periode.index')->with('success', 'Status periode berhasil diubah!');
     }
     // public function periodeAktif()
     // {
@@ -132,14 +132,17 @@ class PeriodeController extends Controller
         $dosen = Dosen::findOrFail(Auth::user()->dosen->id);
         $periode = Periode::findOrFail($id);
         $mahasiswas = $dosen->mahasiswa()->whereHas('periode', function ($query) use ($id) {
-            $query->where('periode_id', $id);
+            $query->where(['periode_id' => $id, 'status' => "0"]);
         })->get();
         return view('admin.dosen.template_detail_periode', compact('periode', 'dosen', 'mahasiswas'));
     }
 
     public function getPeserta($id)
     {
-        $peserta = Mahasiswa::findOrFail($id);
+        $peserta = Mahasiswa::where([
+            'id' => $id,
+            'status' => "0"
+        ])->first();
         
         $mahasiswaBerkasId = MahasiswaBerkas::where('mahasiswa_id', $peserta->id)
             ->whereIn('item_berkas_id', $peserta->itemBerkas->pluck('id'))

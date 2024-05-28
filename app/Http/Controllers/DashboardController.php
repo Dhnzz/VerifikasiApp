@@ -40,8 +40,10 @@ class DashboardController extends Controller
             // $rangeFormat = $timeRangeDuration . ' Bulan';
             return view('admin.dosen.dashboard', compact('data', 'user', 'mahasiswas', 'periode'));
         } elseif (Auth::user()->role == 'kajur') {
-            $Mahasiswa = Mahasiswa::all();
-            $jumlahMahasiswa = $Mahasiswa->count();
+            $mahasiswa = Mahasiswa::where([
+                'status' => "2"
+            ])->get();
+            $jumlahMahasiswa = Mahasiswa::count();
             $dosenSi = Dosen::where('prodi', 'si')->first();
             $dosenPti = Dosen::where('prodi', 'pti')->first();
             $jumlahDosen = Dosen::count();
@@ -49,9 +51,14 @@ class DashboardController extends Controller
             $mahasiswaPTI = Mahasiswa::where('prodi', 'Pendidikan Teknologi Informasi')->count();
 
             // dd($mahasiswaPTI);
-            return view('admin.kajur.kajur_dashboard', compact('jumlahMahasiswa', 'jumlahDosen', 'mahasiswaSI', 'mahasiswaPTI', 'dosenSi', 'dosenPti'));
+            return view('admin.kajur.kajur_dashboard', compact('jumlahMahasiswa', 'jumlahDosen', 'mahasiswaSI', 'mahasiswaPTI', 'dosenSi', 'dosenPti', 'mahasiswa'));
         } else if (Auth::user()->role == 'kaprodi') {
-            return view('admin.kaprodi.kaprodi_dashboard');
+            $prodi = Dosen::findOrFail(Auth::user()->dosen->id);
+            $mahasiswa = Mahasiswa::where([
+                'prodi' => $prodi->prodi,
+                'status' => '1'
+            ])->get();
+            return view('admin.kaprodi.kaprodi_dashboard', compact('mahasiswa'));
         }
     }
 }

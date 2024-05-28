@@ -24,9 +24,10 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $credential = fake()->unique()->numerify('##########'); 
         return [
-            'credential' => fake()->unique()->numerify('##########'),
-            'password' => static::$password ??= Hash::make('1sampai9'),
+            'credential' => $credential,
+            'password' => Hash::make($credential),
             'role' => static::$role ??= 'admin',
             'remember_token' => Str::random(10),
         ];

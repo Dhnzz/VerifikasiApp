@@ -80,24 +80,6 @@
                     </div>
                 </div>
             </li>
-            <li class="p-2">
-                <div
-                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.periode.index') ? 'text-blue-500' : 'text-slate-500' }}">
-                    <a href="{{ route('admin.periode.index') }}">
-                        <i class="fas fa-calendar"></i>
-                        Periode
-                    </a>
-                </div>
-            </li>
-            <li class="p-2">
-                <div
-                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.template.index') ? 'text-blue-500' : 'text-slate-500' }}">
-                    <a href="{{ route('admin.template.index') }}">
-                        <i class="fas fa-file"></i>
-                        Template Berkas
-                    </a>
-                </div>
-            </li>
             @break
 
             @case('mahasiswa')
@@ -112,7 +94,25 @@
                         Data Kaprodi
                     </a>
                 </div>
-            </li> 
+            </li>
+            <li class="p-2">
+                <div
+                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.periode.index') ? 'text-blue-500' : 'text-slate-500' }}">
+                    <a href="{{ route('kajur.periode.index') }}">
+                        <i class="fas fa-calendar"></i>
+                        Periode
+                    </a>
+                </div>
+            </li>
+            <li class="p-2">
+                <div
+                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.template.index') ? 'text-blue-500' : 'text-slate-500' }}">
+                    <a href="{{ route('kajur.template.index') }}">
+                        <i class="fas fa-file"></i>
+                        Template Berkas
+                    </a>
+                </div>
+            </li>
             @break
 
             @default
@@ -167,14 +167,14 @@
         </li>
         <li
             class="p-4 flex items-center {{ request()->routeIs('admin.periode.index') ? 'bg-color-primary-500 text-white' : 'bg-white text-color-primary-500' }} rounded-lg">
-            <a href="{{ route('admin.periode.index') }}" class="flex items-center gap-x-2 ">
+            <a href="{{ route('kajur.periode.index') }}" class="flex items-center gap-x-2 ">
                 <i class="fas fa-calendar"></i>
                 Periode
             </a>
         </li>
         <li
             class="p-4 flex items-center {{ request()->routeIs('admin.template.index') ? 'bg-color-primary-500 text-white' : 'bg-white text-color-primary-500' }} rounded-lg">
-            <a href="{{ route('admin.template.index') }}" class="flex items-center gap-x-2 ">
+            <a href="{{ route('kajur.template.index') }}" class="flex items-center gap-x-2 ">
                 <i class="fas fa-file"></i>
                 Template Berkas
             </a>

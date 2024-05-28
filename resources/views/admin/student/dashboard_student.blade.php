@@ -74,7 +74,7 @@
                                     @if (
                                         $berkas->berkas_mahasiswa->first()->revisi == null &&
                                             $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas != 'default.pdf')
+                                            $berkas->berkas_mahasiswa->first()->berkas != null)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-primary-500 rounded-full">
@@ -86,7 +86,7 @@
                                     @elseif (
                                         $berkas->berkas_mahasiswa->first()->revisi == null &&
                                             $berkas->berkas_mahasiswa->first()->status == 0 &&
-                                            $berkas->berkas_mahasiswa->first()->berkas == 'default.pdf')
+                                            $berkas->berkas_mahasiswa->first()->berkas == null)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-danger-500 rounded-full">
@@ -111,8 +111,20 @@
                                                 <i class="fas fa-times"></i>
                                             </span>
                                             {{-- @dd($berkas->berkas_mahasiswa[$value]) --}}
-                                            <p class="text-sm font-semibold text-color-primary-500">{{ $berkas->name }}</p>
+                                            <p class="text-sm font-semibold text-color-danger-500">{{ $berkas->name }}</p>
+                                            {{-- <textarea id="deksripsi_periode" name="deskripsi" placeholder="deksripsi periode"
+                                                class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs"
+                                                disabled>{{ $berkas->berkas_mahasiswa->first()->revisi }}</textarea> --}}
                                         </div>
+                                        @if ($berkas->berkas_mahasiswa->first()->revisi != null)
+                                            <div
+                                                class="overflow-visible bg-white p-4 rounded-xl w-full border border-color-danger-500 shadow-sm transition-all duration-300">
+                                                <div class="flex items-center gap-x-2">
+                                                    <p class="text-xs font-semibold text-color-danger-500">
+                                                        {{ $berkas->berkas_mahasiswa->first()->revisi }}</p>
+                                                </div>
+                                            </div>
+                                        @endif
                                     @endif
                                 @endforeach
                                 @if ($data->berkas_mahasiswa->every(fn($berkas) => $berkas->status == 1))

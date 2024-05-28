@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Dosen, User};
+use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -136,14 +137,32 @@ class DosenController extends Controller
     public function selectKaprodi(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $kaprodiBefore = User::leftJoin('dosens','users.id','=','dosens.user_id')
+        $kaprodiBefore = User::leftJoin('dosens', 'users.id', '=', 'dosens.user_id')
             ->where([
-            'role' => 'kaprodi',
-            'prodi' => $request->prodi
-        ])->first();
+                'role' => 'kaprodi',
+                'prodi' => $request->prodi
+            ])->first();
 
-        if($kaprodiBefore != null){
+
+        if ($kaprodiBefore != null) {
             $kaprodiBeforeId = User::findOrFail($kaprodiBefore->user_id);
+            $cekMahasiswa = $kaprodiBeforeId->Dosen->Mahasiswa;
+            if ($cekMahasiswa->count() > 0) {
+                foreach ($cekMahasiswa as $mahasiswa) {
+                    $role = 'dosen'; // Ganti dengan peran yang ingin Anda filter, misalnya 'dosen', 'kaprodi', atau 'kajur'
+
+                    $dosen = Dosen::withCount('mahasiswa')
+                        ->whereHas('user', function ($query) use ($role) {
+                            $query->where('role', $role);
+                        })
+                        ->orderBy('mahasiswa_count', 'asc')
+                        ->first();
+                    $ubahDosen = Mahasiswa::findOrFail($mahasiswa->id);
+                    $ubahDosen->update([
+                        'dosen_id' => $dosen->id,
+                    ]);
+                }
+            }
             $kaprodiBeforeId->update([
                 'role' => 'dosen'
             ]);
@@ -157,7 +176,7 @@ class DosenController extends Controller
             $user->Dosen->update([
                 'prodi' => $request->prodi
             ]);
-        }else{
+        } else {
             $user->update([
                 'role' => 'kaprodi'
             ]);
