@@ -52,7 +52,7 @@
                 <div class="flex flex-col gap-y-1">
                     <p class="text-sm font-semibold uppercase">Kaprodi Dosen SI</p>
                     <span
-                        class="text-lg font-semibold ">{{ $dosenSi == null ? 'Kaprodi SI Belum Ditambahkan' : $dosenSi['name'] }}</span>
+                        class="text-xs font-semibold ">{{ $dosenSi == null ? 'Kaprodi SI Belum Ditambahkan' : $dosenSi['name'] }}</span>
                 </div>
                 <i class="fas fa-users text-2xl"></i>
             </div>
@@ -61,47 +61,10 @@
                 <div class="flex flex-col gap-y-1">
                     <p class="text-sm font-semibold uppercase">Kaprodi Dosen PTI</p>
                     <span
-                        class="text-lg font-semibold ">{{ $dosenPti == null ? 'Kaprodi PTI Belum Ditambahkan' : $dosenPti['name'] }}</span>
+                        class="text-xs font-semibold ">{{ $dosenPti == null ? 'Kaprodi PTI Belum Ditambahkan' : $dosenPti['name'] }}</span>
                 </div>
                 <i class="fas fa-users text-2xl"></i>
             </div>
         </div>
-
-        <table id="table_config" class="">
-            <thead>
-                <tr>
-                    <th>NO</th>
-                    <th>NIM</th>
-                    <th>Nama</th>
-                    <th>Program Studi</th>
-                    <th>Angkatan</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $i = 1;
-                @endphp
-                @foreach ($mahasiswa as $item)
-                    <tr>
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $item->user->credential }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->prodi == 'si' ? 'Sistem Informasi' : ($item->prodi == 'pti' ? 'Pendidikan Teknologi Informasi' : '') }}
-                        </td>
-                        <td>{{ $item->angkatan }}</td>
-                        <td>
-                          <form action="{{route('kajur.mahasiswa.resetMahasiswa', $item->id)}}" method="post">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="bg-red-500 text-white font-semibold py-2 px-4 rounded">
-                              Reset Data Mahasiswa
-                            </button>
-                          </form>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
     </section>
 @endsection
