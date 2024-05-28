@@ -37,17 +37,21 @@ class ItemBerkasController extends Controller
         //     "nama" => "required|string|max:255",
         //     'template_berkas_id' => 'required|exists:template_berkas,id',
         // ]);
-
-        $data = $request->all();
-        foreach ($data['name'] as $item => $name) {
-            $template_berkas_id = $data['template_berkas_id'][$item];
-            ItemBerkas::create([
-                'name' => $name,
-                'template_berkas_id' => $template_berkas_id
-            ]);
+        if($request->name != null){
+            $data = $request->all();
+            foreach ($data['name'] as $item => $name) {
+                $template_berkas_id = $data['template_berkas_id'][$item];
+                ItemBerkas::create([
+                    'name' => $name,
+                    'template_berkas_id' => $template_berkas_id
+                ]);
+            }
+            $msg = ['success' => 'Berkas berhasil diinputkan'];
+        }else{
+            $msg = ['error' => 'Silahkan tambahkan berkas'];
         }
 
-        return redirect()->route('kajur.template.index')->with('success', 'Data item berkas berhasil ditambahkan!');
+        return redirect()->route('kajur.template.index')->with($msg);
     }
 
     /**
