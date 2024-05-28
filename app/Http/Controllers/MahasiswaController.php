@@ -179,20 +179,22 @@ class MahasiswaController extends Controller
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Mahasiswa Berhasil di ajukan!');
     }
 
-    public function izinPenjadwalan($id){
+    public function izinPenjadwalan($id)
+    {
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswa->update([
             'status' => "2"
         ]);
-        return redirect()->route('dashboard')->with('success', 'Mahasiswa '. $mahasiswa->name.' diizinkan untuk  penjadwalan');
+        return redirect()->route('dashboard')->with('success', 'Mahasiswa ' . $mahasiswa->name . ' diizinkan untuk  penjadwalan');
     }
 
-    public function resetDataMahasiswa($id){
+    public function resetDataMahasiswa($id)
+    {
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswaBerkas = MahasiswaBerkas::where('mahasiswa_id', $id)->get();
-        foreach($mahasiswaBerkas as $berkas){
-            if (Storage::disk('public')->exists('upload/'.$berkas->berkas)) {
-                Storage::disk('public')->delete('upload/'.$berkas->berkas);
+        foreach ($mahasiswaBerkas as $berkas) {
+            if (Storage::disk('public')->exists('upload/' . $berkas->berkas)) {
+                Storage::disk('public')->delete('upload/' . $berkas->berkas);
             }
             $berkasId = $berkas->id;
             $mahasiswaBerkasId = MahasiswaBerkas::findOrFail($berkasId);
@@ -204,5 +206,23 @@ class MahasiswaController extends Controller
             'periode_id' => null
         ]);
         return redirect()->route('dashboard')->with('success', 'Data mahasiswa berhasil direset');
+    }
+
+    public function report()
+    {
+        $dosen = Auth::user()->dosen; // Mendapatkan data dosen dari user yang sedang login
+        $dosenId = $dosen->id; // Mendapatkan dosen_id
+        $dosenProdi = $dosen->prodi; // Mendapatkan prodi dosen
+
+
+        $mahasiswa = Mahasiswa::where('prodi', $dosenProdi)->get();
+
+        return view('admin.kaprodi.report.scheduling_report', compact('mahasiswa'));
+    }
+
+    public function detailReport($id)
+    {
+        $data = Mahasiswa::findOrFail($id);
+        return view('admin.kaprodi.report.scheduling_report_details', compact('data'));
     }
 }

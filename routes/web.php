@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\{MahasiswaController, DosenController, DashboardController, PeriodeController, TemplateBerkasController, ItemBerkasController, MahasiswaBerkasController};
+use App\Models\Mahasiswa;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
@@ -51,9 +53,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('periode', PeriodeController::class);
         Route::get('/periode/{id}', [PeriodeController::class, 'show'])->name('periode.show');
         Route::put('/changeStatus/{id}', [PeriodeController::class, 'changeStatus'])->name('periode.changeStatus');
-        
+
         Route::resource('template', TemplateBerkasController::class);
-        
+
         Route::resource('itemberkas', ItemBerkasController::class)->except('create', 'update', 'destroy');
         Route::get('/item-management/{id}', [ItemBerkasController::class, 'create'])->name('item-management.create');
         Route::put('/item-management/update', [ItemBerkasController::class, 'update'])->name('item-management.update');
@@ -65,11 +67,14 @@ Route::middleware('auth')->group(function () {
         Route::name('mahasiswa.')->group(function () {
             Route::put('/mahasiswa/izin/{id}', [MahasiswaController::class, 'izinPenjadwalan'])->name('izinPenjadwalan');
         });
+        Route::name('report.')->group(function () {
+            Route::get('/report-kaprodi', [MahasiswaController::class, 'report'])->name('report');
+            Route::get('/report-kaprodi/{id}', [MahasiswaController::class, 'detailReport'])->name('detail');
+        });
     });
 });
 
 Route::get('/sample', function () {
-    return view('admin.kajur.report.scheduling_report_details');
 });
 
 
