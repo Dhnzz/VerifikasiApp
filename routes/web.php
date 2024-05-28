@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
             Route::put('/select-kaprodi/{id}', [DosenController::class, 'selectKaprodi'])->name('select');
         });
         Route::name('mahasiswa.')->group(function () {
+            Route::get('/mahasiswa/report', [MahasiswaController::class, 'report'])->name('reportMahasiswa');
+            Route::get('/mahasiswa/report/{id}', [MahasiswaController::class, 'reportDetail'])->name('reportMahasiswaDetail');
             Route::put('/mahasiswa/reset/{id}', [MahasiswaController::class, 'resetDataMahasiswa'])->name('resetMahasiswa');
         });
 
@@ -69,7 +71,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/sample', function () {
-    return view('admin.kajur.report.scheduling_report_details');
+    return view('admin.kajur.report.scheduling_report');
 });
 
 
