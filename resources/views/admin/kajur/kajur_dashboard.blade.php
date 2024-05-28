@@ -52,7 +52,7 @@
                 <div class="flex flex-col gap-y-1">
                     <p class="text-sm font-semibold uppercase">Kaprodi Dosen SI</p>
                     <span
-                        class="text-2xl font-semibold ">{{ $dosenSi == null ? 'Kaprodi SI Belum Ditambahkan' : $dosenSi['name'] }}</span>
+                        class="text-lg font-semibold ">{{ $dosenSi == null ? 'Kaprodi SI Belum Ditambahkan' : $dosenSi['name'] }}</span>
                 </div>
                 <i class="fas fa-users text-2xl"></i>
             </div>
@@ -61,7 +61,7 @@
                 <div class="flex flex-col gap-y-1">
                     <p class="text-sm font-semibold uppercase">Kaprodi Dosen PTI</p>
                     <span
-                        class="text-2xl font-semibold ">{{ $dosenPti == null ? 'Kaprodi PTI Belum Ditambahkan' : $dosenPti['name'] }}</span>
+                        class="text-lg font-semibold ">{{ $dosenPti == null ? 'Kaprodi PTI Belum Ditambahkan' : $dosenPti['name'] }}</span>
                 </div>
                 <i class="fas fa-users text-2xl"></i>
             </div>
