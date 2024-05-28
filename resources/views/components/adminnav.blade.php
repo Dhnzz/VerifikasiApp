@@ -113,6 +113,15 @@
                     </a>
                 </div>
             </li>
+            <li class="p-2">
+                <div
+                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.template.index') ? 'text-blue-500' : 'text-slate-500' }}">
+                    <a href="{{ route('kajur.mahasiswa.reportMahasiswa') }}">
+                        <i class="fas fa-file"></i>
+                        Laporan
+                    </a>
+                </div>
+            </li>
             @break
 
             @default

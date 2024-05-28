@@ -131,9 +131,10 @@ class PeriodeController extends Controller
     {
         $dosen = Dosen::findOrFail(Auth::user()->dosen->id);
         $periode = Periode::findOrFail($id);
-        $mahasiswas = $dosen->mahasiswa()->whereHas('periode', function ($query) use ($id) {
-            $query->where(['periode_id' => $id, 'status' => "0"]);
-        })->get();
+        // $mahasiswas = $dosen->mahasiswa()->whereHas('periode', function ($query) use ($id) {
+        //     $query->where('periode_id', $id)->where('status', '0');
+        // })->get();
+        $mahasiswas = $dosen->mahasiswa()->where('periode_id', $id)->where('status', '0')->get();
         return view('admin.dosen.template_detail_periode', compact('periode', 'dosen', 'mahasiswas'));
     }
 
@@ -143,10 +144,10 @@ class PeriodeController extends Controller
             'id' => $id,
             'status' => "0"
         ])->first();
-        
+
         $mahasiswaBerkasId = MahasiswaBerkas::where('mahasiswa_id', $peserta->id)
             ->whereIn('item_berkas_id', $peserta->itemBerkas->pluck('id'))
             ->get();
-        return view('admin.dosen.template_detail_mahasiswa', compact('peserta','mahasiswaBerkasId'));
+        return view('admin.dosen.template_detail_mahasiswa', compact('peserta', 'mahasiswaBerkasId'));
     }
 }

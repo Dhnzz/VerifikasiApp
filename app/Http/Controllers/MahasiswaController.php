@@ -179,8 +179,22 @@ class MahasiswaController extends Controller
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Mahasiswa Berhasil di ajukan!');
     }
 
-    public function izinPenjadwalan($id)
-    {
+
+    public function report(){
+        $mahasiswa = Mahasiswa::where([
+            'status' => '2'
+        ])->get();
+        return view('admin.kajur.report.scheduling_report', compact('mahasiswa'));
+    }
+
+    public function reportDetail($id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+
+        return view('admin.kajur.report.scheduling_report_details', compact('mahasiswa'));
+    }
+
+
+    public function izinPenjadwalan($id){
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswa->update([
             'status' => "2"
