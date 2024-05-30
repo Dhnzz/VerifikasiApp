@@ -47,8 +47,8 @@ class DashboardController extends Controller
             $dosenSi = Dosen::where('prodi', 'si')->first();
             $dosenPti = Dosen::where('prodi', 'pti')->first();
             $jumlahDosen = Dosen::count();
-            $mahasiswaSI = Mahasiswa::where('prodi', 'Sistem Informasi')->count();
-            $mahasiswaPTI = Mahasiswa::where('prodi', 'Pendidikan Teknologi Informasi')->count();
+            $mahasiswaSI = Mahasiswa::where('prodi', 'si')->count();
+            $mahasiswaPTI = Mahasiswa::where('prodi', 'pti')->count();
 
             // dd($mahasiswaPTI);
             return view('admin.kajur.kajur_dashboard', compact('jumlahMahasiswa', 'jumlahDosen', 'mahasiswaSI', 'mahasiswaPTI', 'dosenSi', 'dosenPti', 'mahasiswa'));

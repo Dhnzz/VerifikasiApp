@@ -134,7 +134,7 @@ class PeriodeController extends Controller
         // $mahasiswas = $dosen->mahasiswa()->whereHas('periode', function ($query) use ($id) {
         //     $query->where('periode_id', $id)->where('status', '0');
         // })->get();
-        $mahasiswas = $dosen->mahasiswa()->where('periode_id', $id)->where('status', '0')->get();
+    $mahasiswas = $dosen->mahasiswa()->where('periode_id', $id)->where('status', '0')->get();
         return view('admin.dosen.template_detail_periode', compact('periode', 'dosen', 'mahasiswas'));
     }
 

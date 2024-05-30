@@ -25,10 +25,19 @@
           <td>1</td>
           <td>{{ $mahasiswa->User->credential }}</td>
           <td>{{ $mahasiswa->name }}</td>
-          <td>{{ $mahasiswa->prodi }}</td>
+          <td>{{ $mahasiswa->prodi == 'si' ? 'Sistem Informasi' : ($mahasiswa->prodi == 'pti' ? 'Pendidikan Teknologi Informasi' : '') }}</td>
           <td>{{ $mahasiswa->angkatan }}</td>
           <td>
-            <a href="{{ route('kaprodi.report.detail', $mahasiswa->id) }}"><button>detail</button></a>
+            <a href="{{ route('kaprodi.report.detail', $mahasiswa->id) }}"><button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
+              Detail
+            </button></a>
+            <form action="{{route('kaprodi.mahasiswa.izinPenjadwalan', $mahasiswa->id)}}" method="post">
+              @csrf
+              @method('PUT')
+              <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
+                Berikan Izin Penjadwalan
+              </button>
+            </form>
           </td>
           @endforeach
         </tr>

@@ -101,6 +101,7 @@
                                             <span><i class="fas fa-times"></i></span>
                                             Tolak
                                         </x-button_md>
+                                    </div>
                                     @elseif ($mahasiswaBerkasId[$value]->status == 1)
                                         <div
                                             class="bg-white p-4 rounded-xl w-50 border border-color-success-500 shadow-sm transition-all duration-300">
@@ -166,7 +167,7 @@
                                     </div>
                                 </div>
                         </div>
-                @endif
+                            @endif
             </div>
             @endforeach
         </div>

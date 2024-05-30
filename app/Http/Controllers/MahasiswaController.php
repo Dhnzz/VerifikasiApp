@@ -214,7 +214,7 @@ class MahasiswaController extends Controller
         $dosenProdi = $dosen->prodi; // Mendapatkan prodi dosen
 
 
-        $mahasiswa = Mahasiswa::where('prodi', $dosenProdi)->get();
+        $mahasiswa = Mahasiswa::where('prodi', $dosenProdi)->where('status', '1')->get();
 
         return view('admin.kaprodi.report.scheduling_report', compact('mahasiswa'));
     }
