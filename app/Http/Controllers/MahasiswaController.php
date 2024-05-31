@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportMahasiswa;
 use App\Models\ItemBerkas;
 use App\Models\Mahasiswa;
 use App\Models\MahasiswaBerkas;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MahasiswaController extends Controller
 {
@@ -179,12 +181,13 @@ class MahasiswaController extends Controller
         return redirect()->route('dosen.periode.show', $request->periode_id)->with('success', 'Mahasiswa Berhasil di ajukan!');
     }
 
-    public function izinPenjadwalan($id){
+    public function izinPenjadwalan($id)
+    {
         $mahasiswa = Mahasiswa::findOrFail($id);
         $mahasiswa->update([
-            'status' => "2"
+            'status' => '2'
         ]);
-        return redirect()->route('dashboard')->with('success', 'Mahasiswa ' . $mahasiswa->name . ' diizinkan untuk  penjadwalan');
+        return redirect()->route('kaprodi.report.report')->with('success', 'Mahasiswa ' . $mahasiswa->name . ' diizinkan untuk  penjadwalan');
     }
 
     public function resetDataMahasiswa($id)
@@ -219,9 +222,27 @@ class MahasiswaController extends Controller
         return view('admin.kaprodi.report.scheduling_report', compact('mahasiswa'));
     }
 
+    public function reportKajur()
+    {
+        $mahasiswa = Mahasiswa::where([
+            'status' => '2'
+        ])->get();
+        return view('admin.kajur.report.scheduling_report', compact('mahasiswa'));
+    }
+
     public function detailReport($id)
     {
         $data = Mahasiswa::findOrFail($id);
         return view('admin.kaprodi.report.scheduling_report_details', compact('data'));
+    }
+
+    public function reportDetail($id){
+        $mahasiswa = Mahasiswa::findOrFail($id);
+
+        return view('admin.kajur.report.scheduling_report_details', compact('mahasiswa'));
+    }
+
+    public function downloadXlsx(){
+        return Excel::download(new ExportMahasiswa, 'mahasiswa.xlsx');
     }
 }

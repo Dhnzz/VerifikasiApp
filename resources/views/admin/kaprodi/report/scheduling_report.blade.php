@@ -2,6 +2,18 @@
 
 @section('main')
 <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
+  @if (session('success'))
+          <div class="bg-green-500 text-white p-4 rounded-md relative" id="notif">
+              <p>{{ session('success') }}</p>
+              <button class="absolute top-0 right-0 p-2 text-white" onclick="tutupNotifikasi()"><i
+                class="fa fa-times"></i></button>
+          </div>
+          <script>
+              function tutupNotifikasi() {
+                  document.querySelector('#notif').style.display = 'none';
+              }
+          </script>
+      @endif
   <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
     <h1 class="text-xl font-semibold">Pengajuan Penjadwalan</h1>
   </div>

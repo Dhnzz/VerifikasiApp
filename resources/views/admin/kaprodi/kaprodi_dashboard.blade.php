@@ -2,17 +2,6 @@
 
 @section('main')
     <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col py-44 px-4 lg:px-12 gap-4">
-      @if (session('success'))
-          <div class="bg-green-500 text-white p-4 rounded-md relative" id="notif">
-              <p>{{ session('success') }}</p>
-              <button class="absolute top-0 right-0 p-2 text-white" onclick="tutupNotifikasi()">Tutup</button>
-          </div>
-          <script>
-              function tutupNotifikasi() {
-                  document.querySelector('#notif').style.display = 'none';
-              }
-          </script>
-      @endif
         <div class="grid grid-cols-12 gap-4">
             <div
                 class="col-span-12 lg:col-span-6 p-8 rounded-xl bg-white text-color-primary-500 flex justify-between items-center border border-slate-200 shadow-sm">
