@@ -82,12 +82,21 @@
             </li>
             @break
 
-            @case('mahasiswa')
+            @case('dosen')
+            <li class="p-2">
+                <div
+                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('dosen.mahasiswa.histori') ? 'text-blue-500' : 'text-slate-500' }}">
+                    <a href="{{ route('dosen.mahasiswa.histori') }}">
+                        <i class="fas fa-file"></i>
+                        Histori
+                    </a>
+                </div>
+            </li>
             @break
             @case('kaprodi')
             <li class="p-2">
                 <div
-                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.template.index') ? 'text-blue-500' : 'text-slate-500' }}">
+                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('kaprodi.report.report') ? 'text-blue-500' : 'text-slate-500' }}">
                     <a href="{{ route('kaprodi.report.report') }}">
                         <i class="fas fa-file"></i>
                         Laporan

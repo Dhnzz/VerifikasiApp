@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
         });
         Route::name('mahasiswa.')->group(function () {
             Route::put('/pengajuan', [MahasiswaController::class, 'pengajuan'])->name('pengajuan');
+            Route::put('/batal-pengajuan', [MahasiswaController::class, 'rejectPengajuan'])->name('rejectPengajuan');
+            Route::get('/history', [MahasiswaController::class, 'histori'])->name('histori');
+            Route::get('/get-histori/{id}', [MahasiswaController::class, 'getHistori'])->name('getHistori');
         });
     });
 
@@ -50,7 +53,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/mahasiswa/report', [MahasiswaController::class, 'reportKajur'])->name('reportMahasiswa');
             Route::get('/mahasiswa/report/{id}', [MahasiswaController::class, 'reportDetail'])->name('reportMahasiswaDetail');
             Route::put('/mahasiswa/reset/{id}', [MahasiswaController::class, 'resetDataMahasiswa'])->name('resetMahasiswa');
-            Route::get('/mahasiswa/donwload-xlsx',[MahasiswaController::class, 'downloadXlsx'])->name('downloadXlsx');
+            Route::get('/mahasiswa/donwload-xlsx', [MahasiswaController::class, 'downloadXlsx'])->name('downloadXlsx');
         });
 
         Route::resource('periode', PeriodeController::class);

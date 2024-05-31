@@ -236,13 +236,50 @@ class MahasiswaController extends Controller
         return view('admin.kaprodi.report.scheduling_report_details', compact('data'));
     }
 
-    public function reportDetail($id){
+    public function reportDetail($id)
+    {
         $mahasiswa = Mahasiswa::findOrFail($id);
 
         return view('admin.kajur.report.scheduling_report_details', compact('mahasiswa'));
     }
 
-    public function downloadXlsx(){
+    public function downloadXlsx()
+    {
         return Excel::download(new ExportMahasiswa, 'mahasiswa.xlsx');
+    }
+
+    public function histori()
+    {
+        $dosenId = Auth::user()->dosen->id;
+        $mahasiswa = Mahasiswa::where('dosen_id', $dosenId)->whereIn('status', ['1', '2'])->get();
+        // dd($mahasiswa);
+        return view('admin.dosen.histori', compact('mahasiswa'));
+    }
+
+    public function getHistori($id)
+    {
+        $mahasiswa = Mahasiswa::where([
+            'id' => $id,
+        ])->whereIn('status', ['1', '2'])->first();
+
+        // $mahasiswaBerkasId = MahasiswaBerkas::where('mahasiswa_id', $mahasiswa->id)
+        //     ->whereIn('item_berkas_id', $mahasiswa->itemBerkas->pluck('id'))
+        //     ->get();
+        return view('admin.dosen.get_detail_histori', compact('mahasiswa'));
+    }
+
+    public function rejectPengajuan(Request $request){
+
+        $mahasiswa = Mahasiswa::findOrFail($request->mahasiswa_id);
+        foreach ($request->berkas_id as $berkas) {
+            $berkas = MahasiswaBerkas::where('id', $berkas)->firstOrFail();
+            $berkas->update([
+                'status' => '0',
+            ]);
+        }
+        $mahasiswa->update([
+            'status' => "0"
+        ]);
+        return redirect()->route('dosen.mahasiswa.histori')->with('success', 'Mahasiswa Berhasil di Batalkan Pengajuan!');
     }
 }
