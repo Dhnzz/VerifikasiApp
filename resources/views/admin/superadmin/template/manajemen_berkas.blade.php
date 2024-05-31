@@ -84,7 +84,7 @@
                                     class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                                 <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
                                     id="template_berkas_id"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                                    class="hidden block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                                 <div class="inline-flex items-center gap-x-2">
                                     <x-button_md color="primary" type="submit">
                                         Edit
@@ -96,10 +96,10 @@
                                 @method('DELETE')
                                 <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
                                     id="template_berkas_id_delete"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                                    class="hidden block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                                 <input type="text" name="template_id" value="{{ $data->id }}"
                                     placeholder="Masukan Nama Berkas" id="template_id_delete"
-                                    class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                                    class="hidden block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
                                 <div class="inline-flex items-center gap-x-2">
                                     <x-button_md color="danger" type="submit">
                                         Hapus
