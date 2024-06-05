@@ -14,6 +14,7 @@ class UserFactory extends Factory
     /**
      * The current password being used by the factory.
      */
+    protected static ?string $credential;
     protected static ?string $password;
     protected static ?string $role;
 
@@ -24,10 +25,10 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $credential = fake()->unique()->numerify('##########'); 
+        // $credential = fake()->unique()->numerify('##########');
         return [
-            'credential' => $credential,
-            'password' => Hash::make($credential),
+            'credential' => static::$credential ??='admin',
+            'password' => static::$password ??=Hash::make('admin'),
             'role' => static::$role ??= 'admin',
             'remember_token' => Str::random(10),
         ];

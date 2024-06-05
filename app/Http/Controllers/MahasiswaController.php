@@ -282,4 +282,8 @@ class MahasiswaController extends Controller
         ]);
         return redirect()->route('dosen.mahasiswa.histori')->with('success', 'Mahasiswa Berhasil di Batalkan Pengajuan!');
     }
+
+    public function importExcel(Request $request){
+        
+    }
 }
