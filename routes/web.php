@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('dosen', DosenController::class);
         Route::post('/import-excel-mahasiswa', [MahasiswaController::class,'importMahasiswa'])->name('importMahasiswa');
+        Route::post('/import-excel-dosen', [DosenController::class,'importDosen'])->name('importDosen');
     });
 
     // Mahasiswa Routes 

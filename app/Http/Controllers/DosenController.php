@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\DosenImport;
 
 class DosenController extends Controller
 {
@@ -190,9 +192,26 @@ class DosenController extends Controller
 
                 $msg = ['success' => 'Kaprodi berhasil diinputkan'];
             }
-        }else{
+        } else {
             $msg = ['error' => 'Silahkan pilih prodi'];
         }
         return redirect()->route('kajur.kaprodi.choose')->with($msg);
+    }
+    public function importDosen(Request $request)
+    {
+
+        // Validasi file
+        $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        // Impor data mahasiswa
+        try {
+            Excel::import(new DosenImport, $request->file('excel_file'));
+
+            return redirect()->back()->with('success', 'Data Dosen berhasil diimpor.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
 }

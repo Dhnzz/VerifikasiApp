@@ -1,85 +1,85 @@
 @extends('layout.admin')
 
 @section('main')
-<section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
-  <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
-    <h1 class="text-xl font-semibold">Mahasiswa</h1>
-    <div class="inline-flex items-center gap-x-2">
-<x-button_md color="primary" onclick="location.href='{{ route('admin.mahasiswa.create') }}';"
-      class="inline-flex gap-x-2 items-center">
-      <span><i class="fas fa-plus"></i></span>
-      Tambah
-    </x-button_md>
-<x-button_md color="primary" onclick="modalOpen()"
-      class="inline-flex gap-x-2 items-center">
-      <span><i class="fas fa-file   "></i></span>
-      import
-    </x-button_md>
-    
-    </div>
-    <div id="modal"
-    class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
-    <div class="max-w-lg w-full p-6 bg-white rounded-xl">
-        <div class="w-full inline-flex items-center justify-between">
-            <p class="text-lg font-semibold">Import Berkas</p>
-            <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
-                onclick="closeModal()">
-                <i class="fas fa-times text-lg"></i>
-            </button>
-        </div>
-        <hr class="mt-4 mb-4">
-        <div class="mb-4">
-            <form action="{{ route('admin.importMahasiswa') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <label for="nama_berkas_modal"
-                    class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
-                    Import Berkas
-                </label>
-                <input type="file" name="excel_file" placeholder="Masukan Nama Berkas"
-                    id="template_berkas_id"
-                    class=" block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                <div class="inline-flex items-center gap-x-2 mt-2">
-                    <x-button_md color="primary" type="submit">
-                        Kirim
-                    </x-button_md>
+    <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
+        <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
+            <h1 class="text-xl font-semibold">Mahasiswa</h1>
+            <div class="inline-flex items-center gap-x-2">
+                <x-button_md color="primary" onclick="location.href='{{ route('admin.mahasiswa.create') }}';"
+                    class="inline-flex gap-x-2 items-center">
+                    <span><i class="fas fa-plus"></i></span>
+                    Tambah
+                </x-button_md>
+                <x-button_md color="primary" onclick="modalOpen()" class="inline-flex gap-x-2 items-center">
+                    <span><i class="fas fa-file"></i></span>
+                    import
+                </x-button_md>
+
+            </div>
+            <div id="modal"
+                class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+                <div class="max-w-lg w-full p-6 bg-white rounded-xl">
+                    <div class="w-full inline-flex items-center justify-between">
+                        <p class="text-lg font-semibold">Import Berkas</p>
+                        <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                            onclick="closeModal()">
+                            <i class="fas fa-times text-lg"></i>
+                        </button>
+                    </div>
+                    <hr class="mt-4 mb-4">
+                    <div class="mb-4">
+                        <form action="{{ route('admin.importMahasiswa') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <label for="nama_berkas_modal"
+                                class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
+                                Import Berkas
+                            </label>
+                            <input type="file" name="excel_file" placeholder="Masukan Nama Berkas"
+                                id="template_berkas_id"
+                                class=" block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                            <div class="inline-flex items-center gap-x-2 mt-2">
+                                <x-button_md color="primary" type="submit">
+                                    Kirim
+                                </x-button_md>
+                            </div>
+                        </form>
+                    </div>
+                    <hr class="mt-4 mb-4">
                 </div>
-            </form>
+            </div>
         </div>
-        <hr class="mt-4 mb-4">
-    </div>
-</div>
-  </div>
-  <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
-    <table id="table_config" class="">
-      <thead>
-        <tr>
-          <th>NO</th>
-          <th>NIM</th>
-          <th>Nama</th>
-          <th>Program Studi</th>
-          <th>Angkatan</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        @php
-        $i = 1;
-        @endphp
-        @foreach ($data as $item)
-        <tr>
-          <td>{{ $i++ }}</td>
-          <td>{{ $item->user->credential }}</td>
-          <td>{{ $item->name }}</td>
-          <td>{{ $item->prodi == 'si'?'Sistem Informasi':($item->prodi == 'pti'?'Pendidikan Teknologi Informasi':'') }}</td>
-          <td>{{ $item->angkatan }}</td>
-          <td>
-            <div class="relative inline-block text-left">
-              <button type="button" id="dropdownMenuButton{{ $item->id }}"
-                class="inline-flex justify-center items-center w-full rounded-md px-2 py-1.5 bg-color-primary-500 text-white hover:bg-color-primary-500"
-                aria-expanded="false" aria-haspopup="true">
-                <!-- Tanda tiga titik vertikal (ellipsis) -->
-                <i class="fas fa-ellipsis-h"></i>
-              </button>
+        <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
+            <table id="table_config" class="">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Program Studi</th>
+                        <th>Angkatan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach ($data as $item)
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $item->user->credential }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->prodi == 'si' ? 'Sistem Informasi' : ($item->prodi == 'pti' ? 'Pendidikan Teknologi Informasi' : '') }}
+                            </td>
+                            <td>{{ $item->angkatan }}</td>
+                            <td>
+                                <div class="relative inline-block text-left">
+                                    <button type="button" id="dropdownMenuButton{{ $item->id }}"
+                                        class="inline-flex justify-center items-center w-full rounded-md px-2 py-1.5 bg-color-primary-500 text-white hover:bg-color-primary-500"
+                                        aria-expanded="false" aria-haspopup="true">
+                                        <!-- Tanda tiga titik vertikal (ellipsis) -->
+                                        <i class="fas fa-ellipsis-h"></i>
+                                    </button>
 
                                     <div id="dropdownMenu{{ $item->id }}"
                                         class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 hidden z-10"
@@ -176,6 +176,5 @@
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
-
-</script>
+    </script>
 @endsection

@@ -4,11 +4,46 @@
     <section class="max-w-screen-xl mx-auto min-h-screen flex flex-col pt-44 pb-20 px-4 lg:px-12 gap-4">
         <div class="flex justify-between lg:flex-row flex-col lg:items-center gap-y-4">
             <h1 class="text-xl font-semibold">Dosen</h1>
-            <x-button_md color="primary" onclick="location.href='{{ route('admin.dosen.create') }}';"
-                class="inline-flex gap-x-2 items-center">
-                <span><i class="fas fa-plus"></i></span>
-                Tambah
-            </x-button_md>
+            <div class="inline-flex items-center gap-x-2">
+                <x-button_md color="primary" onclick="location.href='{{ route('admin.dosen.create') }}';"
+                    class="inline-flex gap-x-2 items-center">
+                    <span><i class="fas fa-plus"></i></span>
+                    Tambah
+                </x-button_md>
+                <x-button_md color="primary" onclick="modalOpen()" class="inline-flex gap-x-2 items-center">
+                    <span><i class="fas fa-file   "></i></span>
+                    import
+                </x-button_md>
+            </div>
+        </div>
+        <div id="modal"
+            class="fixed inset-0 z-20 h-screen w-screen flex justify-center items-center bg-black/25 hidden">
+            <div class="max-w-lg w-full p-6 bg-white rounded-xl">
+                <div class="w-full inline-flex items-center justify-between">
+                    <p class="text-lg font-semibold">Import Berkas</p>
+                    <button id="close-modal" class="px-3 py-1.5 rounded-lg hover:bg-slate-100 text-slate-500"
+                        onclick="closeModal()">
+                        <i class="fas fa-times text-lg"></i>
+                    </button>
+                </div>
+                <hr class="mt-4 mb-4">
+                <div class="mb-4">
+                    <form action="{{ route('admin.importMahasiswa') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <label for="nama_berkas_modal" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
+                            Import Berkas
+                        </label>
+                        <input type="file" name="excel_file" placeholder="Masukan Nama Berkas" id="template_berkas_id"
+                            class=" block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
+                        <div class="inline-flex items-center gap-x-2 mt-2">
+                            <x-button_md color="primary" type="submit">
+                                Kirim
+                            </x-button_md>
+                        </div>
+                    </form>
+                </div>
+                <hr class="mt-4 mb-4">
+            </div>
         </div>
         <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
             <table id="table_config" class="">
@@ -146,5 +181,19 @@
                 });
             });
         });
+
+
+        function modalOpen() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex')
+            const inputStatis = document.getElementById('nama_berkas_statis');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal')
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
     </script>
 @endsection

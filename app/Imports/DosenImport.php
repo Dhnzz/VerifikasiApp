@@ -2,19 +2,20 @@
 
 namespace App\Imports;
 
-use App\Models\Mahasiswa;
-use App\Models\User;
+use App\Models\{Dosen, User};
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
-class ImportMahasiswa implements ToCollection, WithHeadingRow
+class DosenImport implements ToCollection, WithHeadingRow
 {
     /**
-     * @param Collection $rows
-     */
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
     public function collection(Collection $rows)
     {
         // Skip the first row (header)
@@ -26,24 +27,13 @@ class ImportMahasiswa implements ToCollection, WithHeadingRow
                 continue; // Skip this iteration
             }
 
-            // Menyesuaikan dengan struktur kolom di file excel
-            $nimProdi = substr($row['nim'], 2, 2);
-            $prodi = '';
-            if ($nimProdi == '14') {
-                $prodi = 'si';
-            } elseif ($nimProdi == '24') {
-                $prodi = 'pti';
-            }
-
             // Lakukan validasi manual karena tidak ada request
             $validator = Validator::make([
-                'credential' => $row['nim'],
+                'credential' => $row['nidn'],
                 'name' => $row['nama'],
-                'angkatan' => $row['angkatan'],
             ], [
                 'name' => 'required|max:255',
                 'credential' => 'required|max:255|unique:users,credential',
-                'angkatan' => 'required|max:255',
             ]);
 
             if ($validator->fails()) {
@@ -57,17 +47,16 @@ class ImportMahasiswa implements ToCollection, WithHeadingRow
             $user = User::create([
                 'credential' => $validatedData['credential'],
                 'password' => Hash::make($validatedData['credential']),
-                'role' => 'mahasiswa'
+                'role' => 'dosen'
             ]);
 
             // Menyimpan data mahasiswa
-            Mahasiswa::create([
-                'name' => $validatedData['name'],
+            Dosen::create([
                 'user_id' => $user->id,
-                'dosen_id' => null,
-                'prodi' => $prodi,
-                'angkatan' => $validatedData['angkatan']
+                'name' => $validatedData['name'],
+                'prodi' => null
             ]);
         }
     }
 }
+
