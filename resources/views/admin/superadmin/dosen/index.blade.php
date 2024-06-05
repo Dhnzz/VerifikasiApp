@@ -28,7 +28,7 @@
                 </div>
                 <hr class="mt-4 mb-4">
                 <div class="mb-4">
-                    <form action="{{ route('admin.importMahasiswa') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.importDosen') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <label for="nama_berkas_modal" class="block mb-2 text-xs xl:text-sm text-gray-900 dark:text-white">
                             Import Berkas
