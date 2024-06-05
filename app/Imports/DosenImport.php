@@ -19,13 +19,13 @@ class DosenImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         // Skip the first row (header)
-        $isFirstRow = true;
+        // $isFirstRow = true;
 
         foreach ($rows as $row) {
-            if ($isFirstRow) {
-                $isFirstRow = false;
-                continue; // Skip this iteration
-            }
+            // if ($isFirstRow) {
+            //     $isFirstRow = false;
+            //     continue; // Skip this iteration
+            // }
 
             // Lakukan validasi manual karena tidak ada request
             $validator = Validator::make([

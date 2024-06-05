@@ -18,13 +18,13 @@ class ImportMahasiswa implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         // Skip the first row (header)
-        $isFirstRow = true;
+        // $isFirstRow = true;
 
         foreach ($rows as $row) {
-            if ($isFirstRow) {
-                $isFirstRow = false;
-                continue; // Skip this iteration
-            }
+            // if ($isFirstRow) {
+            //     $isFirstRow = false;
+            //     continue; // Skip this iteration
+            // }
 
             // Menyesuaikan dengan struktur kolom di file excel
             $nimProdi = substr($row['nim'], 2, 2);

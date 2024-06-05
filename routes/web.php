@@ -11,7 +11,6 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('roleCheck:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
-        Route::post('mahasiswa/import', [MahasiswaController::class, 'importExcel'])->name('mahasiswa.import');
         
 
         Route::resource('dosen', DosenController::class);
