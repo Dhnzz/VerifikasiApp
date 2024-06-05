@@ -70,7 +70,7 @@
                         </div>
                         <hr class="mt-4 mb-4">
                         <div class="mb-4">
-                            <form action="{{ route('kajur.item-management.update') }}" method="post">
+                            <form action="{{ route('kajur.item-management.update') }}" method="post" class="">
                                 @csrf
                                 @method('PUT')
                                 <label for="nama_berkas_modal"
@@ -85,13 +85,13 @@
                                 <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"
                                     id="template_berkas_id"
                                     class="hidden block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs" />
-                                <div class="inline-flex items-center gap-x-2">
+                                <div class="inline-flex items-center gap-x-2 mt-2">
                                     <x-button_md color="primary" type="submit">
                                         Edit
                                     </x-button_md>
                                 </div>
                             </form>
-                            <form action="{{ route('kajur.item-management.destroy') }}" method="post">
+                            <form action="{{ route('kajur.item-management.destroy') }}" method="post" class="mt-2">
                                 @csrf
                                 @method('DELETE')
                                 <input type="text" name="template_berkas_id" placeholder="Masukan Nama Berkas"

@@ -36,6 +36,8 @@ class LoginRequest extends FormRequest
     {
         return [
             'credential.required' => 'Kolom NIM/NIDN wajib diisi.',
+            // 'credential.numeric' => 'NIM/NIDN harus berupa angka.',
+            // 'credential.regex' => 'NIM/NIDN hanya boleh mengandung angka.',
             'password.required' => 'Kolom kata sandi wajib diisi.',
             'password.string' => 'Kata sandi harus berupa teks.',
         ];

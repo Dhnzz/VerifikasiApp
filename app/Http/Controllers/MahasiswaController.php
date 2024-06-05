@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportMahasiswa;
+use App\Imports\ImportMahasiswa;
 use App\Models\ItemBerkas;
 use App\Models\Mahasiswa;
 use App\Models\MahasiswaBerkas;
@@ -246,6 +247,23 @@ class MahasiswaController extends Controller
     public function downloadXlsx()
     {
         return Excel::download(new ExportMahasiswa, 'mahasiswa.xlsx');
+    }
+
+    public function importMahasiswa(Request $request){
+
+        // Validasi file
+        $request->validate([
+            'excel_file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        // Impor data mahasiswa
+        try {
+            Excel::import(new ImportMahasiswa, $request->file('excel_file'));
+
+            return redirect()->back()->with('success', 'Data Mahasiswa berhasil diimpor.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
 
     public function histori()

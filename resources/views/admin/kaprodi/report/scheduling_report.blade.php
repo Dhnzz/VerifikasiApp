@@ -40,7 +40,8 @@
           <td>{{ $mahasiswa->prodi == 'si' ? 'Sistem Informasi' : ($mahasiswa->prodi == 'pti' ? 'Pendidikan Teknologi Informasi' : '') }}</td>
           <td>{{ $mahasiswa->angkatan }}</td>
           <td>
-            <a href="{{ route('kaprodi.report.detail', $mahasiswa->id) }}"><button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
+            <div class="inline-flex items-center gap-x-2">
+<a href="{{ route('kaprodi.report.detail', $mahasiswa->id) }}"><button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
               Detail
             </button></a>
             <form action="{{route('kaprodi.mahasiswa.izinPenjadwalan', $mahasiswa->id)}}" method="post">
@@ -50,6 +51,8 @@
                 Berikan Izin Penjadwalan
               </button>
             </form>
+            </div>
+            
           </td>
           @endforeach
         </tr>

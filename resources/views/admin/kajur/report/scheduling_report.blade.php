@@ -6,8 +6,8 @@
             <h1 class="text-xl font-semibold">Pengajuan Penjadwalan</h1>
         </div>
         <x-button_md color="primary" onclick="location.href='{{ route('kajur.mahasiswa.downloadXlsx') }}';"
-                class="inline-flex gap-x-2 items-center">
-                <span><i class="fas fa-plus"></i></span>
+                class="inline-flex gap-x-2 items-center w-fit">
+                <span><i class="fas fa-download"></i></span>
                 Download Xlsx
             </x-button_md>
         <div class="gap-4 w-full text-sm bg-white p-6 rounded-xl" id="wrapper">
@@ -38,7 +38,8 @@
                             </td>
                             <td>{{ $item->angkatan }}</td>
                             <td>
-                                <a href="{{route('kajur.mahasiswa.reportMahasiswaDetail', $item->id)}}" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
+                                <div class="inline-flex items-center gap-x-2">
+ <a href="{{route('kajur.mahasiswa.reportMahasiswaDetail', $item->id)}}" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded">
                                     Detail
                                 </a>
                                 <form action="{{ route('kajur.mahasiswa.resetMahasiswa', $item->id) }}" method="post">
@@ -48,6 +49,8 @@
                                         Reset Data Mahasiswa
                                     </button>
                                 </form>
+                                </div>
+                               
                             </td>
                         </tr>
                     @endforeach
