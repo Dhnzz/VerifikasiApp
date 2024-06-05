@@ -20,35 +20,5 @@
                 <i class="fas fa-users text-4xl"></i>
             </div>
         </div>
-        <table id="table_config" class="">
-            <thead>
-                <tr>
-                    <th>NO</th>
-                    <th>NIM</th>
-                    <th>Nama</th>
-                    <th>Program Studi</th>
-                    <th>Angkatan</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $i = 1;
-                @endphp
-                @foreach ($mahasiswa as $item)
-                    <tr>
-                        <td>{{ $i++ }}</td>
-                        <td>{{ $item->user->credential }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>{{ $item->prodi == 'si' ? 'Sistem Informasi' : ($item->prodi == 'pti' ? 'Pendidikan Teknologi Informasi' : '') }}
-                        </td>
-                        <td>{{ $item->angkatan }}</td>
-                        <td>
-                          
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
     </section>
 @endsection

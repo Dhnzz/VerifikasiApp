@@ -35,9 +35,7 @@
                     <x-button_lg type="submit" color="primary" class="w-full ">
                         Masuk
                     </x-button_lg>
-                    <x-button_lg color="danger-outlined" class="w-full ">
-                        Daftar
-                    </x-button_lg>
+                  
                 </div>
             </form>
         </div>

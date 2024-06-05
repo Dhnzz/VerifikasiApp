@@ -10,8 +10,6 @@
         $role = 'dosen';
         }
         @endphp
-        <h1>{{ Auth::user()->$role->name }}</h1>
-        <h1>{{ Auth::user()->role }}</h1>
         <div class="inline-flex items-center gap-x-2">
             <img src="/avatar/ung.png" alt="" class="w-10">
         </div>
@@ -19,12 +17,13 @@
             <img src="/avatar/placeholder.jpg" alt="" class="w-12 rounded-full border-2 border-white">
             <div
                 class="absolute hidden top-full p-4 bg-white text-xs rounded-xl shadow-md flex-col gap-y-2 w-max dropdown_menu">
-                <p class="w-full text-color-primary-600">
-                    User
+                <p class="w-full text-color-primary-600 uppercase">
+                    {{ Auth::user()->role }}
                 </p>
                 <div class="inline-flex items-center gap-x-2 text-slate-500 w-full">
                     <i class="fas fa-user-circle"></i> <!-- Mengubah ikon menjadi ikon profil -->
-                    <p class="w-full">Profile</p>
+                    <p class="w-full">{{ Auth::user()->$role->name }}
+                    </p>
                 </div>
                 <div class="inline-flex items-center gap-x-2 text-red-400">
                     <a href="{{ route('logout') }}">
@@ -116,19 +115,19 @@
             </li>
             <li class="p-2">
                 <div
-                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.periode.index') ? 'text-blue-500' : 'text-slate-500' }}">
-                    <a href="{{ route('kajur.periode.index') }}">
-                        <i class="fas fa-calendar"></i>
-                        Periode
+                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.template.index') ? 'text-blue-500' : 'text-slate-500' }}">
+                    <a href="{{ route('kajur.template.index') }}">
+                        <i class="fas fa-file"></i>
+                        Template Berkas
                     </a>
                 </div>
             </li>
             <li class="p-2">
                 <div
-                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.template.index') ? 'text-blue-500' : 'text-slate-500' }}">
-                    <a href="{{ route('kajur.template.index') }}">
-                        <i class="fas fa-file"></i>
-                        Template Berkas
+                    class="inline-flex items-center gap-x-2  text-slate-500  {{ request()->routeIs('admin.periode.index') ? 'text-blue-500' : 'text-slate-500' }}">
+                    <a href="{{ route('kajur.periode.index') }}">
+                        <i class="fas fa-calendar"></i>
+                        Periode
                     </a>
                 </div>
             </li>

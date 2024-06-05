@@ -12,6 +12,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('roleCheck:admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('dosen', DosenController::class);
+        Route::post('/import-excel-mahasiswa', [MahasiswaController::class,'importMahasiswa'])->name('importMahasiswa');
     });
 
     // Mahasiswa Routes 
