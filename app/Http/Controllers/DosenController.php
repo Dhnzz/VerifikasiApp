@@ -178,6 +178,8 @@ class DosenController extends Controller
                 $user->Dosen->update([
                     'prodi' => $request->prodi
                 ]);
+
+                $msg = ['success' => 'Berhasil ganti Kaprodi'];
             } else {
                 $user->update([
                     'role' => 'kaprodi'
