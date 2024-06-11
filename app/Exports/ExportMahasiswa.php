@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\mahasiswa;
+use App\Models\Mahasiswa;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -11,12 +11,14 @@ class ExportMahasiswa implements FromCollection, WithHeadings, WithMapping
 {
     private $rowNumber = 0;
     /**
-    * @return \Illuminate\Support\Collection
-    */
-    
+     * @return \Illuminate\Support\Collection
+     */
+
     public function collection()
     {
-        return mahasiswa::all();
+        return Mahasiswa::with('Dosen', 'Periode', 'User')
+            ->where('status', "2")
+            ->get();
     }
 
     public function map($invoice): array

@@ -34,7 +34,6 @@
             class="block w-full xl:p-4 p-3 text-gray-900 border border-gray-300 rounded-md bg-gray-50 xl:text-sm text-xs " >
             <option value="dosen" {{ ($data->User->role == 'dosen') ? 'selected' : "" }} >Dosen</option>
             <option value="kajur" {{ ($data->User->role == 'kajur') ? 'selected' : "" }}>Ketua Jurusan</option>
-            <option value="kaprodi" {{ ($data->User->role == 'kaprodi') ? 'selected' : "" }}>Ketua Program Studi</option>
           </select>
         </div>
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full transition duration-300 ease-in-out">

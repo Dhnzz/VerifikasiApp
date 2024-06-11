@@ -2,6 +2,18 @@
 
 @section('main')
     <section class="max-w-screen-xl mx-auto min-h-screen grid grid-cols-12 py-44 px-4 lg:px-12 gap-4">
+        @error('file')
+            <div class="bg-red-500 text-white p-4 rounded-md relative col-span-12" id="notif">
+                <p>{{ $message }}</p>
+                <button class="absolute top-3 right-0 p-2 text-white" onclick="tutupNotifikasi()"><i
+                class="fa fa-times"></i></button>
+            </div>
+            <script>
+                function tutupNotifikasi() {
+                    document.querySelector('#notif').style.display = 'none';
+                }
+            </script>
+        @enderror
         <div class="lg:col-span-4 col-span-12 w-full">
             <div class="p-6 bg-white flex gap-4 items-center rounded-xl shadow-sm border border-slate-200">
                 <div class="relative w-fit">
@@ -98,7 +110,7 @@
                                             {{-- @dd($berkas->berkas_mahasiswa[$value] first()) --}}
                                             <p class="text-sm font-semibold text-color-danger-500">{{ $berkas->name }}</p>
                                         </div>
-                                    @elseif($berkas->berkas_mahasiswa[$value]->status == 1)
+                                    @elseif($mahasiswaBerkas->status == 1)
                                         <div class="flex items-center gap-x-2">
                                             <span
                                                 class="inline-flex items-center justify-center w-6 h-6 text-sm font-semibold text-white bg-color-success-500 rounded-full">

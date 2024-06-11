@@ -46,11 +46,13 @@
                             <td>{{ $i++ }}</td>
                             <td>{{ $item->name . ' ' . $item->created_at->format('d/m/Y') }}</td>
                             <td>
-                                @forelse ($item->itemBerkas as $berkas)
-                                    <span>{{ $berkas->name }}</span><br>
-                                @empty
+                                <ul>
+                                    @forelse ($item->itemBerkas as $berkas)
+                                        <li>{{ $berkas->name }}</li>
+                                    @empty
                                     <span>Belum ada item file yang dimasukkan</span>
-                                @endforelse
+                                    @endforelse
+                                </ul>
                             </td>
                             <td>
                                 <div class="relative inline-block text-left">

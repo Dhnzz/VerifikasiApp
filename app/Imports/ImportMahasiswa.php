@@ -41,9 +41,9 @@ class ImportMahasiswa implements ToCollection, WithHeadingRow
                 'name' => $row['nama'],
                 'angkatan' => $row['angkatan'],
             ], [
-                'name' => 'required|max:255',
-                'credential' => 'required|max:255|unique:users,credential',
-                'angkatan' => 'required|max:255',
+                'name' => 'required',
+                'credential' => 'required',
+                'angkatan' => 'required',
             ]);
 
             if ($validator->fails()) {

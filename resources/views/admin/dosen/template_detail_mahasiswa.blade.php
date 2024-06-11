@@ -168,8 +168,8 @@
                                 </div>
                         </div>
                             @endif
-            </div>
-            @endforeach
+                        </div>
+                        @endforeach
         </div>
         <hr class="col-span-12 mt-4">
         <div class="col-span-12 ">

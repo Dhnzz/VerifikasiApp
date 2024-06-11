@@ -51,9 +51,9 @@ class MahasiswaBerkasController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'file' => 'mimes:pdf|max:2048'
-        // ]);
+        $request->validate([
+            'file' => 'mimes:pdf'
+        ]);
         $idItemBerkas = MahasiswaBerkas::where([
             'mahasiswa_id' => $request->mahasiswa_id,
             'item_berkas_id' => $request->item_berkas_id

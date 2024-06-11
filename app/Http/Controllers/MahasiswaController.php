@@ -11,6 +11,7 @@ use App\Models\Periode;
 use App\Models\TemplateBerkas;
 use App\Models\User;
 use App\Models\Dosen;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -246,7 +247,13 @@ class MahasiswaController extends Controller
 
     public function downloadXlsx()
     {
-        return Excel::download(new ExportMahasiswa, 'mahasiswa.xlsx');
+        // Ambil tanggal saat ini dengan format yang diinginkan
+    $currentDate = Carbon::now()->format('j-M-Y');
+
+    // Gabungkan tanggal dengan nama file
+    $fileName = 'mahasiswa_' . $currentDate . '.xlsx';
+
+        return Excel::download(new ExportMahasiswa, $fileName);
     }
 
     public function importMahasiswa(Request $request){
