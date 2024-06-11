@@ -46,6 +46,7 @@ class DosenImport implements ToCollection, WithHeadingRow
             // Menyimpan credential dan password ke tabel users
             $user = User::create([
                 'credential' => $validatedData['credential'],
+                'email' => strtolower(preg_replace('/\s+/', '', $validatedData['name']) . '@dosen.informatika.ft.ung.ac.id'),
                 'password' => Hash::make($validatedData['credential']),
                 'role' => 'dosen'
             ]);

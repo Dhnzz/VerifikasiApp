@@ -52,12 +52,14 @@ class MahasiswaController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'credential' => 'required|string|max:255|unique:users,credential',
+            'email' => 'required|email|max:255|unique:users,email',
             'angkatan' => 'required|string|max:255',
             // Tambahkan validasi lain sesuai kebutuhan
         ]);
         // Menyimpan credential dan password ke tabel users
         $user = User::create([
             'credential' => $validatedData['credential'],
+            'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['credential']),
             'role' => 'mahasiswa'
         ]);
@@ -99,6 +101,13 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $nimProdi = substr($request->credential, 2, 2);
+        $prodi = '';
+        if ($nimProdi == '14') {
+            $prodi = 'si';
+        } elseif ($nimProdi == '24') {
+            $prodi = 'pti';
+        }
         $mahasiswa = Mahasiswa::findOrFail($id);
         $user = User::findOrFail($mahasiswa->user_id);
         $validatedData = $request->validate([
@@ -114,6 +123,7 @@ class MahasiswaController extends Controller
         ]);
         $mahasiswa->update([
             'name' => $validatedData['name'],
+            'prodi' => $prodi,
             'angkatan' => $validatedData['angkatan']
         ]);
 

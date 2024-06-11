@@ -38,12 +38,18 @@ class DosenController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'credential' => 'required|string|max:255|unique:users,credential',
+            'email' => 'required|email|max:255|unique:users,email',
             'role' => 'required|string'
-            // Tambahkan validasi lain sesuai kebutuhan
         ]);
+
+        $role = 'dosen';
+        if ($validatedData['role'] == 'kajur') {
+            $role = 'kajur';
+        }
         // Menyimpan credential dan password ke tabel users
         $user = User::create([
             'credential' => $validatedData['credential'],
+            'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['credential']),
             'role' => $validatedData['role'],
         ]);
